@@ -7,10 +7,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
+import Modal from 'react-bootstrap/Modal';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 import history from '../../history';
 
-function LogIn () {
+function LogIn (props) {
 
   const initialState = useSelector(store => store.login.user);
   const serverErrors = useSelector(store => store.login.error);
@@ -56,20 +59,36 @@ function LogIn () {
   
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="email" as={Col} sm="4">
-        <Form.Label>Email adress</Form.Label>
-        <Form.Control value={user.email} type="text" placeholder="Enter email" onChange={handleChange} />
-      </Form.Group>
-      <Form.Group controlId="password" as={Col} sm="4">
-        <Form.Label>Password</Form.Label>
-        <Form.Control value={user.password} type="password" placeholder="Password" onChange={handleChange} />
-      </Form.Group>
-      {
-        (errors.length >0 || serverErrors) && <Alert variant="danger">{errors[0] || serverErrors}</Alert>
-      }
-      <Button variant="primary" type="submit">Submit</Button>
-    </Form>    
+    <Modal {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered>
+      <Modal.Title>
+        <h3>Log in</h3>
+      </Modal.Title>
+      <Modal.Body>
+        <Container>
+          <Row className= "justify-content-md-center">
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="email" as={Col} sm="10">
+                <Form.Label>Email adress</Form.Label>
+                <Form.Control value={user.email} type="text" placeholder="Enter email" onChange={handleChange} />
+              </Form.Group>
+              <Form.Group controlId="password" as={Col} sm="10">
+                <Form.Label>Password</Form.Label>
+                <Form.Control value={user.password} type="password" placeholder="Password" onChange={handleChange} />
+              </Form.Group>
+              {
+                (errors.length >0 || serverErrors) && <Alert variant="danger">{errors[0] || serverErrors}</Alert>
+              }
+              <Button variant="primary" type="submit">Submit</Button>
+            </Form> 
+
+          </Row>
+
+        </Container>
+      </Modal.Body>
+    </Modal>
   );
 }
 
