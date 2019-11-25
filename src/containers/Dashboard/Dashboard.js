@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route, Link } from 'react-router-dom';
+import { Router, Switch, Route} from 'react-router-dom';
 import Summary from '../Summary/Summary';
 import Employees from '../Employees/Employees';
 import Exercises from '../Exercises/Exercises';
@@ -10,6 +10,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 function Dashboard () {
+
+  function handleLogOut () {
+    localStorage.clear();
+    history.push('/');
+  }
+
   return (
     <Router history={history}>
       <Navbar bg="light" variant="light" sticky="top">
@@ -20,8 +26,8 @@ function Dashboard () {
           <Nav.Link href="/dashboard/exercises">Exercises</Nav.Link>
           <Nav.Link href="/dashboard/applications">Applications</Nav.Link>
         </Nav>
-        <Nav inline>
-          <Nav.Link>Log Out</Nav.Link>
+        <Nav inline="true">
+          <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link>
         </Nav>
       </Navbar>
       <Switch>
