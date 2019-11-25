@@ -2,11 +2,13 @@ import React from 'react';
 
 import ExercisesListItem from '../ExcercisesListItem/ExcercisesListItem';
 
-function ExercisesList () {
+function ExercisesList ( { exercises }) {
+
   return (
-    <div>
-      <h1>ExercisesList</h1>
-      <ExercisesListItem/>
+    <div style={{margin: '20px'}}>
+      {exercises && exercises.map(oneExer => (
+        <ExercisesListItem key={oneExer._id} exercise={oneExer}/>
+      ))}
     </div>
   );
 }

@@ -1,7 +1,5 @@
 const BASE_URL = 'http://localhost:5000';
 
-// /register
-
 export default {
   postCompany: (company) => {
     return fetchRequest('register', company);
