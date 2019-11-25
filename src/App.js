@@ -25,7 +25,6 @@ function App () {
 
   return (
     <Router history={history}>
-      <h1>NavBar</h1>
       <Switch>
         {/* redirection to dashboard or landing if user and token matching */}
         <Route exact path='/'>

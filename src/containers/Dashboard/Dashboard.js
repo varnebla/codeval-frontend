@@ -4,27 +4,26 @@ import Summary from '../Summary/Summary';
 import Employees from '../Employees/Employees';
 import Exercises from '../Exercises/Exercises';
 import Applications from '../Applications/Applications';
-
 import history from '../../history';
+
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 function Dashboard () {
   return (
     <Router history={history}>
-      <h1>Dashboard</h1>
-      <ul>
-        <li>
-          <Link to='/dashboard'>Summary</Link>
-        </li>
-        <li>
-          <Link to='/dashboard/employees'>Employees</Link>
-        </li>
-        <li>
-          <Link to='/dashboard/exercises'>Exercises</Link>
-        </li>
-        <li>
-          <Link to='/dashboard/applications'>Applications</Link>
-        </li>
-      </ul>
+      <Navbar bg="light" variant="light" sticky="top">
+        <Navbar.Brand href="/dashboard">Dasboard</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/dashboard">Summary</Nav.Link>
+          <Nav.Link href="/dashboard/employees">Employees</Nav.Link>
+          <Nav.Link href="/dashboard/exercises">Exercises</Nav.Link>
+          <Nav.Link href="/dashboard/applications">Applications</Nav.Link>
+        </Nav>
+        <Nav inline>
+          <Nav.Link>Log Out</Nav.Link>
+        </Nav>
+      </Navbar>
       <Switch>
         <Route exact path='/dashboard' component={Summary}/>
         <Route path='/dashboard/employees' component={Employees}/>
