@@ -3,6 +3,8 @@ import { Router, Switch, Route, Redirect} from 'react-router-dom';
 import React, { useEffect } from 'react';
 import Landing from './presentational/Landing/Landing';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Briefing from './containers/Briefing/Briefing';
+import Applicant from './containers/Applicant/Applicant';
 import history from './history';
 import {useSelector, useDispatch} from 'react-redux';
 import {verifyToken} from './redux/authentication';
