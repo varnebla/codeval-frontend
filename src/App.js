@@ -5,6 +5,8 @@ import Landing from './presentational/Landing/Landing';
 import Register from './containers/Register/Register';
 import LogIn from './containers/LogIn/LogIn';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Briefing from './containers/Briefing/Briefing';
+import Applicant from './containers/Applicant/Applicant';
 import history from './history';
 
 import './App.css';
@@ -36,6 +38,8 @@ function App () {
         </Route>
         {/* add dashboard to protected route */}
         <Route path='/dashboard' component={Dashboard}/>
+        <Route path='/:token' component={Briefing}/>
+        <Route path='/:token/exercise' component={Applicant}/>
       </Switch>
     </Router>
   );
