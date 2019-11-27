@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {sendLogin} from '../../redux/login';
+import {sendLogin} from '../../redux/authentication';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Form from 'react-bootstrap/Form';
@@ -11,13 +11,12 @@ import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import history from '../../history';
-
 function LogIn (props) {
 
-  const initialState = useSelector(store => store.login.user);
-  const serverErrors = useSelector(store => store.login.error);
+  const initialState = useSelector(store => store.user.user);
+  const serverErrors = useSelector(store => store.user.error);
 
+  //STATE FOR THE INPUT VALUES, SO WE CONTROL THE CHANGES AND SUBMIT
   const [user, setUser] = useState(initialState);
   const [errors, setErrors] = useState([]);
 
@@ -25,19 +24,16 @@ function LogIn (props) {
 
   function handleSubmit (event) {
     event.preventDefault();
-    const inputErrors = checkForm(user);
-    if (inputErrors.length === 0) {
-      dispatch(sendLogin(user))
-        .then(()=> history.push('/dashboard'));
-      
-      
-    } 
+    const inputErrors = checkForm(user);   
+    if (inputErrors.length === 0)
+      dispatch(sendLogin(user));    
     setErrors(inputErrors);
   }
 
+
   function handleChange (event) {
     event.preventDefault();
-    const newUser = {...user}; //Object.assign{{}, login}
+    const newUser = {...user}; //SAME AS Object.assign{{}, login}
     newUser[event.target.id] = event.target.value;
     setUser(newUser);
   }
@@ -92,4 +88,4 @@ function LogIn (props) {
   );
 }
 
-export default LogIn;
+export default (LogIn);

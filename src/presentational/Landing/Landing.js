@@ -19,7 +19,7 @@ function Landing () {
         <Navbar.Brand href="/landing">AppName</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link onClick={()=> setLoginModal(true)}>Log In</Nav.Link>
-          <Nav.Link onClick={()=> setRegisterModal(true)}>Register</Nav.Link>
+          <Nav.Link href="/register">Register</Nav.Link>
         </Nav>
       </Navbar>
   
