@@ -6,7 +6,7 @@ export default {
   }
 };
 
-// POST COMPANY THEN GET USER AND TOKEN
+// POST COMPANY THEN RECEIVE EMAIL
 const fetchRequest = (url, company) => {
   return fetch(`${BASE_URL}/${url}`, {
     method: 'POST',
@@ -14,9 +14,6 @@ const fetchRequest = (url, company) => {
     body: JSON.stringify(company)
   })
     .then(res => res.json())
-    .catch(error => {
-      // eslint-disable-next-line no-console
-      console.log(`${error} while fetching /${url}`);
-    });
+    .catch(error => console.error(`${error} while fetching /${url}`));// eslint-disable-line no-console
 };
 

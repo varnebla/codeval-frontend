@@ -13,10 +13,6 @@ export const sendVerificationId = (userId) => {
     }
   };
   return fetch(`${BASE_URL}/confirmEmail`, options)
-    .then(response => {      
-      return response.json();
-    })
-    .catch(error=> {
-      console.error(error);
-    }); //eslint-disable-line no-console
+    .then(response => response.json())
+    .catch(error => console.error(error)); //eslint-disable-line no-console
 };
