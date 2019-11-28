@@ -9,12 +9,12 @@ import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import history from '../../history';
-import { getApplication } from '../../redux/applicant';
+import { getApplication, startApplication } from '../../redux/applicant';
 
 function Briefing () {
 
   const dispatch = useDispatch();
-  const application = useSelector(store => store.application.application);
+  const application = useSelector(store => store.applicant);
 
   const { id } = useParams();
 
@@ -31,6 +31,7 @@ function Briefing () {
   const handleSubmit = event => {
     event.preventDefault();
     if (name.length) {
+      dispatch(startApplication(id, name));
       history.push(`/assessment/applicant/${id}`);
     }
   };
