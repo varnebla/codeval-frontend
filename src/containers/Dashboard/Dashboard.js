@@ -5,6 +5,7 @@ import {sendLogout} from '../../redux/authentication';
 import Summary from '../Summary/Summary';
 import Employees from '../Employees/Employees';
 import Exercises from '../Exercises/Exercises';
+import ExcercisesCreate from '../ExcercisesCreate/ExcercisesCreate';
 import Applications from '../Applications/Applications';
 import history from '../../history';
 
@@ -37,6 +38,7 @@ function Dashboard () {
         <Route exact path='/dashboard' component={Summary}/>
         <Route path='/dashboard/employees' component={Employees}/>
         <Route path='/dashboard/exercises' component={Exercises}/>
+        <Route path='/dashboard/createExercise' component={ExcercisesCreate}/>
         <Route path='/dashboard/applications' component={Applications}/>
       </Switch>
     </Router>

@@ -11,19 +11,23 @@ const INITIAL_STATE = {
   placeholderCode: '',
   tests: '',
   solution: '',
-  hints: '',
+  hints: [],
   instructions: '',
-  duration: ''
+  duration: '',
 };
 
 // ACTIONS
-export const createExercise = (exercise) => async (dispatch) => {
+export const createExercise = (exercise) => async (dispatch, getState, history) => {
   const token = localStorage.getItem('jwtToken');
-  const newExercise = await ApiService.postExercise(token, exercise);
+  // CONVERTING DURATION TO NR AND TO MILLISECONDS
+  const exerciseToPost = Object.assign({}, exercise);
+  exerciseToPost.duration = Number(exerciseToPost.duration) * 60000; 
+  const newExercise = await ApiService.postExercise(token, exerciseToPost);
   dispatch({
     type: CREATE_EXERCISE,
     payload: newExercise
   });
+  history.push('/dashboard/exercises');
 };
 
 export const fillInExercise = (exercise) => {
