@@ -5,7 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import registerCompany from './register';
 import getExercises from './getExercises';
 import createExercise from './createExercise';
-import application from './applicant';
+import applicant from './applicant';
 
 export default (history) => combineReducers({
   router: connectRouter(history),
@@ -13,5 +13,5 @@ export default (history) => combineReducers({
   registerCompany,
   getExercises,
   createExercise,
-  application
+  applicant
 });

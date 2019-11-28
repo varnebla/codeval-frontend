@@ -24,10 +24,15 @@
         const mainWindow = e.source;
         let result = {};
         try {
+          let consoles = [];
+          console.log = function () {
+            consoles.push(...arguments);
+          }
           const should = chai.should();
           mocha.suite.suites = [];
           eval(e.data);
           const response = await promissifyMocha();
+          result.consoles = consoles;
           result.stats = response.stats;
           result.suites = response.suite.suites.map(suite => suite.tests.map(test => {
             const err = test.err || '';

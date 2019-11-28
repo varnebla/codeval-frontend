@@ -33,6 +33,7 @@ const fetchRequestPost = (url, id, applicant) => {
     },
     body: JSON.stringify(applicant)
   })
+    .then(res => res.json())
     .catch(error => {
       // eslint-disable-next-line no-console
       console.log(`${error} while fetching /${url}/${id}`);
