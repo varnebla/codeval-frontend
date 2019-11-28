@@ -1,5 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {sendLogout} from '../../redux/authentication';
 import Summary from '../Summary/Summary';
 import Employees from '../Employees/Employees';
 import Exercises from '../Exercises/Exercises';
@@ -12,9 +14,10 @@ import Nav from 'react-bootstrap/Nav';
 
 function Dashboard () {
 
+  const dispatch = useDispatch();
+
   function handleLogOut () {
-    localStorage.clear();
-    history.push('/');
+    dispatch(sendLogout());
   }
 
   return (

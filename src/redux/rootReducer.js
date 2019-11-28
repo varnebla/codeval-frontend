@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 
-import stateButton from './tesing';
-import login from './login';
+import authentication from './authentication';
 import { connectRouter } from 'connected-react-router';
 import registerCompany from './register';
 import getExercises from './getExercises';
 import createExercise from './createExercise';
+import application from './applicant';
 
 export default (history) => combineReducers({
   router: connectRouter(history),
-  logged: stateButton,
+  user: authentication,
   registerCompany,
   getExercises,
   createExercise,
-  login
+  application
 });

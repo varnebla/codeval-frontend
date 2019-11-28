@@ -5,6 +5,7 @@
   "dependencies": {
     "connected-react-router": "^6.6.1",
     "dotenv": "^8.2.0",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "password-validator": "^5.0.3",
     "react": "^16.12.0",
