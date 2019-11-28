@@ -78,6 +78,7 @@ export const verifyToken = () =>
       });
     } else {
       //NO TOKEN OR EXPIRED, AUTHENTICATION FAILED
+      token && localStorage.removeItem('jwtToken');
       dispatch({
         type: REFRESH,
         token: null,

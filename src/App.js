@@ -3,6 +3,7 @@ import { Router, Switch, Route, Redirect} from 'react-router-dom';
 import React, { useEffect } from 'react';
 import Landing from './presentational/Landing/Landing';
 import Dashboard from './containers/Dashboard/Dashboard';
+import ConfirmAccount from './containers/ConfirmAccount/ConfirmAccount';
 import history from './history';
 import {useSelector, useDispatch} from 'react-redux';
 import {verifyToken} from './redux/authentication';
@@ -42,7 +43,8 @@ function App () {
       <Route path='/dashboard'>
         {(!logged && !localStorage.getItem('jwtToken')) && <Redirect to="/landing"/> }
       </Route>
-      <Route to="/landing" component={Landing}/>
+      <Route path="/landing" component={Landing}/>
+      <Route path="/confirm/:id" component={ConfirmAccount}/>
     </Switch>;
     
   return (
