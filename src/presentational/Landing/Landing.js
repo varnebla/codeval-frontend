@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Login from '../../containers/LogIn/LogIn';
 import Register from '../../containers/Register/Register';
 
@@ -9,6 +9,13 @@ function Landing () {
 
   const [loginModal, setLoginModal] = useState(false);
   const [registerModal, setRegisterModal] = useState(false);
+
+  useEffect(()=>{
+    if (sessionStorage.getItem('validation')) {
+      setLoginModal(true);
+      sessionStorage.removeItem('validation');
+    }
+  },[]);
 
   return (
     <div>

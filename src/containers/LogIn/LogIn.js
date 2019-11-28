@@ -9,7 +9,6 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 
 function LogIn (props) {
 
@@ -59,31 +58,33 @@ function LogIn (props) {
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered>
-      <Modal.Title>
-        <h3>Log in</h3>
-      </Modal.Title>
-      <Modal.Body>
-        <Container>
-          <Row className= "justify-content-md-center">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="email" as={Col} sm="10">
-                <Form.Label>Email adress</Form.Label>
-                <Form.Control value={user.email} type="text" placeholder="Enter email" onChange={handleChange} />
-              </Form.Group>
-              <Form.Group controlId="password" as={Col} sm="10">
-                <Form.Label>Password</Form.Label>
-                <Form.Control value={user.password} type="password" placeholder="Password" onChange={handleChange} />
-              </Form.Group>
-              {
-                (errors.length >0 || serverErrors) && <Alert variant="danger">{errors[0] || serverErrors}</Alert>
-              }
-              <Button variant="primary" type="submit">Submit</Button>
-            </Form> 
+      <Form onSubmit={handleSubmit}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h3>Log in</h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
+            <Form.Group controlId="email" as={Col} sm="10">
+              <Form.Label>Email adress</Form.Label>
+              <Form.Control value={user.email} type="text" placeholder="Enter email" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group controlId="password" as={Col} sm="10">
+              <Form.Label>Password</Form.Label>
+              <Form.Control value={user.password} type="password" placeholder="Password" onChange={handleChange} />
+            </Form.Group>
+            {
+              (errors.length >0 || serverErrors) && <Alert variant="danger">{errors[0] || serverErrors}</Alert>
+            }
 
-          </Row>
-
-        </Container>
-      </Modal.Body>
+          </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={props.onHide}>Close</Button>
+          <Button variant="primary" type="submit">Submit</Button>
+        </Modal.Footer>
+      </Form> 
     </Modal>
   );
 }
