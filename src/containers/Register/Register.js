@@ -53,8 +53,8 @@ function Register (props) {
     if (!errors.length) {
       await dispatch(registerCompany(companyDetails));
     } 
-    setInputFeedback(true);
     setInputError(errors);
+    setInputFeedback(true);
   }
 
 

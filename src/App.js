@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 import Landing from './presentational/Landing/Landing';
 import Dashboard from './containers/Dashboard/Dashboard';
 import ConfirmAccount from './containers/ConfirmAccount/ConfirmAccount';
+import Briefing from './containers/Briefing/Briefing';
+import Applicant from './containers/Applicant/Applicant';
 import history from './history';
 import {useSelector, useDispatch} from 'react-redux';
 import {verifyToken} from './redux/authentication';
@@ -45,6 +47,8 @@ function App () {
       </Route>
       <Route path="/landing" component={Landing}/>
       <Route path="/confirm/:id" component={ConfirmAccount}/>
+      <Route path="/assessment/briefing/:id" component={Briefing}/>
+      <Route path="/assessment/applicant/:id" component={Applicant}/>
     </Switch>;
     
   return (

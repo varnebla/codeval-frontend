@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Eval frame</title>
+    <link href='https://unpkg.com/mocha/mocha.css' rel='stylesheet' />
+  </head>
+  <body>
+    <div id='mocha'></div>
+    <script src='https://unpkg.com/mocha/mocha.js'></script>
+    <script src='https://unpkg.com/chai/chai.js'></script>
+    <script class='mocha-init'>
+      mocha.setup('bdd');
+      mocha.checkLeaks();
+    </script>
+    <script>
+      function promissifyMocha () {
+        return new Promise((resolve) => {
+          const response = mocha.run(() => {
+            resolve(response)
+          });
+        })
+      }
+      window.addEventListener('message', async e => {
+        const mainWindow = e.source;
+        let result = {};
+        try {
+          const should = chai.should();
+          mocha.suite.suites = [];
+          eval(e.data);
+          const response = await promissifyMocha();
+          result.stats = response.stats;
+          result.suites = response.suite.suites.map(suite => suite.tests.map(test => {
+            const err = test.err || '';
+            return {
+              title: test.title,
+              err,
+              state: test.state
+            }
+          }));
+        } catch (err) {
+          result = err;
+        }
+        mainWindow.postMessage(result, e.origin);
+      })
+    </script>
+  </body>
+</html>
