@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { fillInExercise } from '../../redux/createExercise';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +19,7 @@ function ExerciseCreateStepOne () {
 
   
   return (
-    <div>
-      <h1>ExerciseCreateStepOne</h1>
+    <div style={{width: '60vw', height: '55vh'}}> 
       <Form style ={{margin: '20px'}}>
         <Form.Group controlId="title">
           <Form.Label>Name of the exercise</Form.Label>

@@ -6,6 +6,9 @@ export default {
   },
   postExercise: (token, exercise) => {
     return fetchRequestPost('createExercise', token, exercise);
+  },
+  deleteExerciseFromDb: (token, exerciseId) => {
+    return fetchRequestDelete(`deleteExercise/${exerciseId}`, token);
   }
 };
 
@@ -36,6 +39,20 @@ const fetchRequestPost = (url, token, exercise) => {
   })
     .catch(error => {
       // eslint-disable-next-line no-console
+      console.log(`${error} while fetching /${url}`);
+    });
+};
+// DELETE EXERCISE FROM DB WITH TOKEN
+const fetchRequestDelete = (url, token) => {
+  return fetch(`${BASE_URL}/${url}`, {
+    method: 'DELETE',
+    headers:{
+      'Authorization': `BEARER ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .catch(error => {
+    // eslint-disable-next-line no-console
       console.log(`${error} while fetching /${url}`);
     });
 };

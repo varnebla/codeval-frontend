@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
-import { useSelector } from 'react-redux';
+import { createExercise } from '../../redux/createExercise';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ExercisesCreateStepOne from '../ExerciseCreateStepOne/ExerciseCreateStepOne';
 import ExercisesCreateStepTwo from '../ExerciseCreateStepTwo/ExerciseCreateStepTwo';
@@ -13,8 +14,12 @@ import ExercisesCreateStepThree from '../ExerciseCreateStepThree/ExerciseCreateS
 
 function ExercisesCreate () {
 
-  const initialForm = useSelector(store => store.createExercise);
+  const dispatch = useDispatch();
 
+  const initialForm = useSelector(store => store.createExercise);
+  const solution = useSelector(store => store.createExercise.solution);
+  const tests = useSelector(store => store.createExercise.tests);
+  
   const initSteps = {
     one: true,
     two: false,
@@ -24,25 +29,52 @@ function ExercisesCreate () {
   const [stepsState, setStepsState] = useState(initSteps);
   const [buttonState, setButtonState] = useState(1);
   const [inputErrors, setInputError] = useState([]);
+  const [secondStep, setSecondStep] = useState(false);
+  const [testBtn, setTestBtn] = useState('');
+  const [testSuccess, setTestSuccess] = useState('');
+
+  // THIS HANDLES CHANGE FROM 2ND STEP TO 3RD CHECKING TESTS
+  useEffect(() => {
+    if (secondStep) {
+      const steps = {...stepsState};
+      let buttons;
+      if (!inputErrors.length && testBtn !== 'Tests') {
+        steps.two = false;
+        steps.three = true;
+        buttons = 3;
+        setTestSuccess('');
+        setStepsState(steps);
+        setButtonState(buttons);
+      }
+      setSecondStep(false);
+    }
+  }, [secondStep]);
   
   // HANDLES STEPS OF FORM WITH BUTTONS AT BOTTOM
   function handleSteps (e) {
-    console.log(e.target.innerText);
+    const errors = [];
     const steps = {...stepsState};
     let buttons;
     if (e.target.innerText=== 'Next' && stepsState.one) {
-      steps.two = true;
-      steps.one = false;
-      buttons = 2;
-      setStepsState(steps);
-      setButtonState(buttons);
+      inputsCheckStepOne(initialForm, errors);
+      if (errors.length) {
+        setInputError(errors);
+      } else {
+        setInputError(errors);
+        steps.two = true;
+        steps.one = false;
+        buttons = 2;
+        setStepsState(steps);
+        setButtonState(buttons);
+      }
     } 
     if (e.target.innerText=== 'Next' && stepsState.two) {
-      steps.two = false;
-      steps.three = true;
-      buttons = 3;
-      setStepsState(steps);
-      setButtonState(buttons);
+      inputCheckStepTwo(initialForm, errors);
+      if (errors.length) {
+        setInputError(errors);
+      } else {
+        handleTest();
+      }
     }
     if (e.target.innerText=== 'Previous' && stepsState.two) {
       steps.two = false;
@@ -61,7 +93,7 @@ function ExercisesCreate () {
   }
   // HANDLES STEPS OF FORM WITH BUTTOMS TO THE TOP
   function handleStepsTop (e) {
-    console.log(e.target.value);
+    const errors = [];
     const steps = {...stepsState};
     let buttons;
     if (e.target.value === '1') {
@@ -72,201 +104,152 @@ function ExercisesCreate () {
       setButtonState(buttons);
     }
     if (e.target.value === '2') {
-      steps.two = true;
-      steps.one = steps.three = false;
-      buttons = 2;
-      setStepsState(steps);
-      setButtonState(buttons);
+      inputsCheckStepOne(initialForm, errors);
+      if (errors.length) {
+        setInputError(errors);
+      } else {
+        setInputError(errors);
+        steps.two = true;
+        steps.one = steps.three = false;
+        buttons = 2;
+        setStepsState(steps);
+        setButtonState(buttons);
+      }
     }
     if (e.target.value === '3') {
-      steps.three = true;
-      steps.one = steps.two = false;
-      buttons = 3;
-      setStepsState(steps);
-      setButtonState(buttons);
+      inputsCheckStepOne(initialForm, errors);
+      inputCheckStepTwo(initialForm, errors);
+      if (errors.length) {
+        setInputError(errors);
+      } else {
+        steps.three = true;
+        steps.one = steps.two = false;
+        buttons = 3;
+        setStepsState(steps);
+        setButtonState(buttons);
+      } 
     }
   }
+  // HANDLE TEST, CHECK IF FUNCTION AND TEST ARE WORKING
+  const handleTest = (e) => {
+    if (e) {
+      setTestBtn('Tests');
+    } else {
+      setTestBtn('Next');
+    }
+    const final = solution + '\n' + tests;
+    const frame = document.getElementById('sandboxed');
+    frame.contentWindow.postMessage(final, '*');
+  };
+
+  // HANDLING SUBMISSION OF THE TEST AND SENDING IT TO THE BACKEND
+  function handleExerciseSubmit (e) {
+    e.preventDefault();
+    const errors = [];
+    inputCheckStepThree(initialForm, errors);
+    if (errors.length) {
+      setInputError(errors);
+    } else {
+      dispatch(createExercise(initialForm));
+      setInputError([]);
+      setTestSuccess(`${initialForm.title} has been successfully created!`);
+    }
+  }
+
+  // HANDLE TESTS FOR IFRAME BLOCKING NEXT STEP IF THEY ARE FAILING
+  useEffect(() => {
+    window.addEventListener('message', e => {
+      const frame = document.getElementById('sandboxed');
+      if (e.origin === 'null' && e.source === frame.contentWindow) {
+        const errors = [];
+        setInputError([]);
+        isTestValid(e.data, errors);
+        if (errors.length) {
+          setInputError(errors);
+          setSecondStep(true);
+        } else {
+          setTestSuccess('All tests have passed!');
+          setInputError([]);
+          setSecondStep(true);
+        }
+      }
+    });
+  }, []);
   
   return (
-    <div>
+    <div style={{width: '60vw', height: '55vh'}}>
       <ToggleButtonGroup type="checkbox" value={buttonState}>
         <ToggleButton onChange={handleStepsTop} variant="info" value={1}>Step One</ToggleButton>
         <ToggleButton onChange={handleStepsTop} variant="info" value={2}>Step Two</ToggleButton>
         <ToggleButton onChange={handleStepsTop} variant="info" value={3}>Step Three</ToggleButton>
       </ToggleButtonGroup>
-      <div>
+      <div style={{display: 'flex'}}>
         {stepsState.one && <ExercisesCreateStepOne/>}
-        {stepsState.two && <ExercisesCreateStepTwo/>}
+        {stepsState.two && <ExercisesCreateStepTwo/> }
         {stepsState.three && <ExercisesCreateStepThree/>}
+        <div>
+          { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
+
+        </div>
       </div>
       {!!inputErrors.length && <Alert  variant='danger'>{inputErrors[0]}</Alert>}
+      {!inputErrors.length && testSuccess ? <Alert  variant='success'>{testSuccess}</Alert> : null}
       <div style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
         {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
-        { stepsState.two && <Button variant="success">Test</Button>}
         { stepsState.three ?
-          <Button variant="success" >Submit</Button>
+          <Button onClick={handleExerciseSubmit} variant="warning" >Submit</Button>
           :
           <Button variant="success" onClick={handleSteps}>Next</Button>
         }
       </div>
+      <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
     </div>
   );
 }
 
 export default ExercisesCreate;
 
-// HELPER FUNCTIONS
-
-const areInputsValid = (exercise, err) => {
+// HELPER FUNCTION TO CHECK INPUTS ON 3 STAGES OF STEPS
+const inputsCheckStepOne = (exercise, err) => {
   if (exercise.title === '') {
     err.push('Please enter exercise name.');
   }
   if (exercise.difficulty === 0) {
     err.push('Please enter exercise difficulty.');
   }
-  if (exercise.placeholderCode === '') {
-    err.push('Please enter placeholder function.');
+  if (!exercise.duration.match(/[0-9]/gi) || exercise.duration  === '' ) {
+    err.push('Please enter duration of the exercise as a number.');
+  }
+};
+
+const inputCheckStepTwo = (exercise, err) => {
+  if (exercise.solution === '') {
+    err.push('Please create function for the exercise.');  
   }
   if (exercise.tests === '') {
     err.push('Please enter tests for the exercise.');  
   }
-  if (exercise.hints === '') {
-    err.push('Please create hints for the exercise.');  
+};
+
+const inputCheckStepThree = (exercise, err) => {
+  if (exercise.placeholderCode === '') {
+    err.push('Please enter placeholder function.');
   }
-  if (exercise.solution === '') {
-    err.push('Please enter solution for the exercise.');  
+  if (!exercise.hints.length) {
+    err.push('Please create hints for the exercise.');  
   }
   if (exercise.instructions === '') {
     err.push('Please enter exercise instructions.');  
   }
 };
+// HELPER FUNCTION TO CHERCK TESTS
 
-
-{/* <Form onSubmit={handleSubmit} style ={{margin: '20px'}}>
-<Form.Group controlId="title">
-  <Form.Label>Name of the exercise</Form.Label>
-  <Form.Control value={exerciseData.exerciseName} type="text" placeholder="Name of the exercise" onChange={handleExerciseForm}/>
-</Form.Group>
-<Form.Group controlId="difficulty">
-  <Form.Label>Please select difficulty of your exercise</Form.Label>
-  <Form.Control as="select" onChange={handleExerciseForm}>
-    <option>0</option>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-  </Form.Control>
-</Form.Group>
-<Form.Row style={{display: 'flex', justifyContent: 'space-between', margin: '20px'}}>
-  <Form.Group  controlId="placeholderCode" >
-    <Form.Label>Please create your function here</Form.Label>
-    <AceEditor
-      mode='javascript'
-      theme='monokai'
-      fontSize='20px'
-      tabSize='2'
-      onChange={handlePlaceHolderEditor}
-      value={exerciseData.placeholderCode}
-      name='placeholderCode'
-      editorProps={{ $blockScrolling: true }}
-    />  
-  </Form.Group>
-  <Form.Group  controlId="testsCode" >
-    <Form.Label>Please create your tests here</Form.Label>
-    <AceEditor
-      mode='javascript'
-      theme='monokai'
-      fontSize='20px'
-      tabSize='2'
-      onChange={handleTestsEditor}
-      value={exerciseData.tests}
-      name='testsCode'
-      editorProps={{ $blockScrolling: true }}
-    />  
-  </Form.Group>
-  <Form.Group  controlId="solutionCode" >
-    <Form.Label>Please enter your solution here</Form.Label>
-    <AceEditor
-      mode='javascript'
-      theme='monokai'
-      fontSize='20px'
-      tabSize='2'
-      onChange={handleSolutionEditor}
-      value={exerciseData.solution}
-      name='solutionCode'
-      editorProps={{ $blockScrolling: true }}
-    />  
-  </Form.Group>
-</Form.Row>
-<Form.Group controlId="tests">
-  <Form.Label>Please enter instructions to your test here</Form.Label>
-  <Form.Control value={exerciseData.instructions} as="textarea" rows="5" onChange={handleExerciseForm}/>
-</Form.Group>
-{ inputFeedback && 
-  <div>
-    {
-      inputError.length
-        ?
-        <Alert  variant="danger">
-          {inputError[0] }
-        </Alert>
-        :
-        <Alert  variant="success">
-            Exercise has been created!
-        </Alert>
+const isTestValid = (test, err) => {
+  if (!test.stats) {
+    err.push('Please create correct function and tests');
+  } else {
+    if (test.stats.failures > 0) {
+      err.push('Tests are failing. Please check your function and/or tests');
     }
-  </div> 
-}
-<div style={{display: 'flex', justifyContent: 'space-between'}}>
-  <Button variant="primary" type="submit" >
-      Submit Exercise
-  </Button>
-  <Button variant="danger" type="submit" >
-      Delete Exercise
-  </Button>
-</div>
-</Form> */}
-
-
-
-// function handleExerciseForm (e) {
-//   e.preventDefault();
-//   const updatingExerciseForm = {...exerciseData};
-//   updatingExerciseForm[e.target.id] = e.target.value;
-//   setExerciseData(updatingExerciseForm);
-// }
-// // YOU CAN ONLY TARGET EVENT WHICH IS VALUE IN CODE EDITOR DIRECTLY SEPARATE FUNCTIONS NEEDED
-// // FOR PLACEHOLDER EDITOR
-// function handlePlaceHolderEditor (e) {
-//   const updatingExerciseForm = {...exerciseData};
-//   updatingExerciseForm.placeholderCode = e;
-//   setExerciseData(updatingExerciseForm);
-// }
-// // FOR TESTS EDITOR
-// function handleTestsEditor (e) {
-//   const updatingExerciseForm = {...exerciseData};
-//   updatingExerciseForm.tests = e;
-//   setExerciseData(updatingExerciseForm);
-// }
-// // FOR SOLUTION EDITOR
-// function handleSolutionEditor (e) {
-//   const updatingExerciseForm = {...exerciseData};
-//   updatingExerciseForm.solution = e;
-//   setExerciseData(updatingExerciseForm);
-// }
-
-// function handleSubmit (e) {
-//   e.preventDefault();
-//   const errors = [];
-//   areInputsValid(exerciseData, errors);
-//   if (!errors.length) {
-//     dispatch(createExercise(exerciseData));
-//   }
-//   setInputError(errors);
-//   setInputFeedback(true);
-// }
+  }
+};

@@ -9,6 +9,6 @@ import reducers from './rootReducer';
 export default createStore(
   reducers(history),
   composeWithDevTools(applyMiddleware(
-    thunk,
+    thunk.withExtraArgument(history),
     routerMiddleware(history)))
 );

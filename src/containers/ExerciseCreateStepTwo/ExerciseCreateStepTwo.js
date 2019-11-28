@@ -20,7 +20,7 @@ function ExerciseCreateStepTwo () {
   // FOR FUNCTION EDITOR
   function handleFunctionEditor (e) {
     const updatingExerciseForm = {...initialForm};
-    updatingExerciseForm.placeholderCode = e;
+    updatingExerciseForm.solution = e;
     dispatch(fillInExercise(updatingExerciseForm));
   }
   // FOR TESTS EDITOR
@@ -33,26 +33,28 @@ function ExerciseCreateStepTwo () {
 
 
   return (
-    <div>
-      <h1>ExerciseCreateStepTwo</h1>
+    // style={{width: '60vw', height: '55vh'}}
+    <div style={{width: '60vw', height: '55vh'}}>
       <Form style ={{margin: '20px'}}>
         <Form.Row style={{display: 'flex', justifyContent: 'space-between', margin: '20px'}}>
           <Form.Group  controlId="placeholderCode" >
             <Form.Label>Please create your function here</Form.Label>
             <AceEditor
+              height='400px'
               mode='javascript'
               theme='monokai'
               fontSize='20px'
               tabSize={2}
               onChange={handleFunctionEditor}
-              value={initialForm.placeholderCode}
-              name='placeholderCode'
+              value={initialForm.solution}
+              name='functionCode'
               editorProps={{ $blockScrolling: true }}
             />  
           </Form.Group>
           <Form.Group  controlId="testsCode" >
             <Form.Label>Please create your tests here</Form.Label>
             <AceEditor
+              height='400px'
               mode='javascript'
               theme='monokai'
               fontSize='20px'
