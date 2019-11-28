@@ -8,7 +8,7 @@ import moment from 'moment';
 
 function ExercisesListItem ({ exercise }) {
 
-  console.log(exercise, 'oneExercise');
+  // console.log(exercise, 'oneExercise');
   return (
     <Card className="text-center">
       <Card.Header>{exercise.title}</Card.Header>

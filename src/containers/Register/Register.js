@@ -55,8 +55,8 @@ function Register () {
     if (!errors.length) {
       await dispatch(registerCompany(companyDetails));
     } 
-    setInputFeedback(true);
     setInputError(errors);
+    setInputFeedback(true);
   }
 
 
