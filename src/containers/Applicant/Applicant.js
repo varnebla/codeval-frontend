@@ -12,10 +12,10 @@ import './Applicant.css';
 
 function Applicant () {
 
-  const dispatch = useDispatch();
-  const applicant = useSelector(store => store.application.application);
+  // const dispatch = useDispatch();
+  // const applicant = useSelector(store => store.application.application);
   
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const [ code, setCode ] = useState('');
 
@@ -24,21 +24,24 @@ function Applicant () {
   };
 
   useEffect(() => {
-    console.log(id);
-    dispatch(getApplication(id));
+    // console.log(id);
+    // dispatch(getApplication(id));
   }, []);
 
   return (
     <Router>
       <div className="applicant-container">
+        <div className="applicant-countdown">
+          <div className="top-countdown">10:00</div>
+        </div>
         <div className="applicant-top">
           <div className="top-logo">Codeval</div>
-          <div className="top-countdown">10:00</div>
           <div className="top-buttons">
             <button className="top-instructions-btn">Instructions</button>
             <button className="top-submit-btn">Submit</button>
           </div>
         </div>
+
         <div className="applicant-test">
           <div className="applicant-editor">
             <AceEditor
@@ -46,7 +49,9 @@ function Applicant () {
               theme='monokai'
               onChange={handleCodeChange}
               value={code}
-              defaultValue={applicant.exercise.placeholderCode}
+              height='100%'
+              width='100%'
+              defaultValue='{applicant.exercise.placeholderCode}'
               name='editorExercise'
             />
           </div>
