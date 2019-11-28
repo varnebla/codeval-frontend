@@ -44,7 +44,9 @@ function App () {
       <Route path='/dashboard'>
         {(!logged && !localStorage.getItem('jwtToken')) && <Redirect to="/landing"/> }
       </Route>
-      <Route to="/landing" component={Landing}/>
+      <Route path="/landing" component={Landing}/>
+      <Route path="/assessment/briefing/:id" component={Briefing}/>
+      <Route path="/assessment/applicant/:id" component={Applicant}/>
     </Switch>;
     
   return (

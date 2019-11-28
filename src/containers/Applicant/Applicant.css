@@ -1,0 +1,42 @@
+.applicant-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: antiquewhite;
+}
+
+.applicant-top {
+  /* display: flex; */
+  background-color: aquamarine;
+  width: 100%;
+  height: 60px;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 0 20px;
+}
+
+.top-logo {
+  float: left;
+}
+
+.top-countdown {
+  text-align: center;
+  width: 200px;
+  background-color: blue;
+  padding: 0;
+}
+
+.top-buttons {
+  float: right;
+
+}
+
+.top-instructions-btn {
+
+}
+
+.top-submit-btn {
+
+}
