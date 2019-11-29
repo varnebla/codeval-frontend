@@ -5,38 +5,80 @@
   height: 100vh;
   width: 100vw;
   background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
 }
 
 .applicant-top {
-  /* display: flex; */
-  background-color: aquamarine;
+  display: flex;
   width: 100%;
   height: 60px;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  position: relative;
 }
 
 .top-logo {
-  float: left;
+}
+
+
+.top-buttons {
+  
+}
+
+.top-instructions-btn {
+  
+}
+
+.top-submit-btn {
+  
+}
+
+.applicant-countdown {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  position: absolute;
+  top: 0;
 }
 
 .top-countdown {
   text-align: center;
   width: 200px;
-  background-color: blue;
   padding: 0;
 }
 
-.top-buttons {
-  float: right;
-
+.applicant-test {
+  background-color: tomato;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  margin: 0, 0, 20px 20px;
 }
 
-.top-instructions-btn {
-
+.applicant-editor {
+  background-color: violet;
+  width: 60%;
+  height: 100%;
 }
 
-.top-submit-btn {
+.applicant-console-container {
+  width: 40px;
+  margin: 0, 0, 20px 20px;
+  height: 100%;
+}
+
+.applicant-console {
+  
+  height: 80%;
+}
+
+.applicant-test-btn {
+  height: 20%;
+  width: 100%;
 
 }

@@ -4,12 +4,14 @@ import authentication from './authentication';
 import { connectRouter } from 'connected-react-router';
 import getExercises from './getExercises';
 import createExercise from './createExercise';
-import application from './applicant';
+import applicant from './applicant';
+import applications from './applications';
 
 export default (history) => combineReducers({
   router: connectRouter(history),
   user: authentication,
   getExercises,
   createExercise,
-  application
+  applications,
+  applicant
 });
