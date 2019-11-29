@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-chaos';
-import Spinner from 'react-bootstrap/Spinner';
-import Modal from 'react-bootstrap/Modal';
 
 import Console from '../Console/Console';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getApplication, updateTestCreator, submitApplication } from '../../redux/applicant';
-
+import { updateTestCreator, submitApplication } from '../../redux/applicant';
+import history from '../../history';
 
 import './Applicant.css';
 
@@ -18,7 +18,6 @@ function Applicant () {
 
   const dispatch = useDispatch();
   const applicant = useSelector(store => store.applicant);
-  const testStats = useSelector(store => store.applicant.situation.stats);
   
   const [ code, setCode ] = useState('');
   const [ loading, setLoading ] = useState(true);
@@ -42,30 +41,26 @@ function Applicant () {
   };
 
   const checkPassed = (tests, passes) => {
-    if (tests === passes) return 'passed';
-    return 'failed';
+    if (tests === passes) return true;
+    return false;
   };
 
   const handleSubmit = () => {
     handleTest();
-    console.log(applicant.situation);
     if (Object.keys(applicant.situation).length) {
-      console.log(testStats);
       const passed = checkPassed(applicant.situation.stats.tests, applicant.situation.stats.passes);
       const report = {
-        code,
-        time: Date.now(), 
+        submittedCode: code,
+        completionTime: Date.now(), 
         passed
       };
-      console.log(report);
+      dispatch(submitApplication(applicant._id, report));
     }
   };
 
   const loadCode = placeholderCode => setCode(placeholderCode);
 
   useEffect(() => {
-    const id = '5ddff9cfbc599e6ddaceff05';
-    dispatch(getApplication(id));
     setTimeout(setLoad, 1000);
     window.addEventListener('message', e => {
       const frame = document.getElementById('sandboxed');
@@ -74,6 +69,10 @@ function Applicant () {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (applicant.status === 'completed') history.push('/landing');
+  }, [applicant.status]);
 
   return (
     <Router>
@@ -112,7 +111,6 @@ function Applicant () {
                   value={code}
                   height='100%'
                   width='100%'
-                  // defaultValue={applicant.exercise.placeholderCode}
                   name='editorExercise'
                   onLoad={() => loadCode(applicant.exercise.placeholderCode)}
                 />

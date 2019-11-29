@@ -37,8 +37,8 @@ function Briefing () {
   };
 
   useEffect(() => {
-    dispatch(getApplication(id));
     setTimeout(setLoad, 2000);
+    dispatch(getApplication(id));
   }, []);
 
   return (
@@ -58,7 +58,7 @@ function Briefing () {
                   <h2>Examples</h2>
                   <div>{application.exercise.hints.map((item, i) => <p key={i}>{item}</p>)}</div>
                   <h2>Duration</h2>
-                  <p>{application.exercise.duration/1000} min</p>
+                  <p>{application.exercise.duration/60000} min</p>
                 </div>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="name" as={Col} sm="10">
