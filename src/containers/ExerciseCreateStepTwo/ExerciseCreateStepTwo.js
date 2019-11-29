@@ -6,14 +6,14 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 
-import { fillInExercise } from '../../redux/createExercise';
+import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 function ExerciseCreateStepTwo () {
 
   const dispatch = useDispatch();
-  const initialForm = useSelector(store => store.createExercise);
+  const initialForm = useSelector(store => store.exercises.exerciseCreate);
 
 
   // YOU CAN ONLY TARGET EVENT WHICH IS VALUE IN CODE EDITOR DIRECTLY SEPARATE FUNCTIONS NEEDED

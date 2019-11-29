@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import {Alert, Card, Button, Modal } from 'react-bootstrap';
 
-import { deleteExercise } from '../../redux/getExercises';
+import { deleteExercise, getExerciseToEdit } from '../../redux/exercises';
 import { useDispatch } from 'react-redux';
 
 import moment from 'moment';
@@ -22,6 +22,10 @@ function ExercisesListItem ({ exercise }) {
   const handleClose = () => setDeleteModal(false);
   const handleShow = () => setDeleteModal(true);
 
+  function handleEdit () {
+    dispatch(getExerciseToEdit(exercise._id));
+  }
+
   return (
     <div>
       <Card className="text-center">
@@ -31,7 +35,7 @@ function ExercisesListItem ({ exercise }) {
           <Card.Text>
             {exercise.tests}
           </Card.Text>
-          <Button variant="warning">Edit</Button>
+          <Button onClick={handleEdit} variant="warning">Edit</Button>
           <Button onClick={handleShow} variant="danger">Delete</Button>
         </Card.Body>
         <Card.Footer className="text-muted">Created at: {moment(exercise.created_at).format('LLL')} </Card.Footer>

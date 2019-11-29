@@ -2,21 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 import ApplicationsList from '../../presentational/ApplicationsList/ApplicationsList';
 
-
 import {Alert, Button, Modal, Form } from 'react-bootstrap';
 
 import Select from 'react-dropdown-select';
 // FIXING DROPDOWN SEARCH IN MODAL
 import './Applications.css';
 
-import { getExercises } from '../../redux/getExercises';
+import { getExercises } from '../../redux/exercises';
 import { getApplications, createApplication } from '../../redux/applications';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Applications () {
  
   const dispatch = useDispatch();
-  const exercisesList = useSelector(store => store.getExercises.exercises);
+  const exercisesList = useSelector(store => store.exercises.listOfExercises);
   const allApplications = useSelector(store => store.applications.applications);
 
   const initialApplication = {

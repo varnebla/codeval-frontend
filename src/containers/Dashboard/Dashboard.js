@@ -39,6 +39,7 @@ function Dashboard () {
         <Route path='/dashboard/employees' component={Employees}/>
         <Route path='/dashboard/exercises' component={Exercises}/>
         <Route path='/dashboard/createExercise' component={ExcercisesCreate}/>
+        <Route path='/dashboard/editExercise/:id' component={ExcercisesCreate}/>
         <Route path='/dashboard/applications' component={Applications}/>
       </Switch>
     </Router>

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
-import { getExercises } from '../../redux/getExercises';
+import { getExercises } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ExercisesList from '../../presentational/ExcercisesList/ExcercisesList';
@@ -15,7 +15,7 @@ function Exercises () {
 
   const dispatch = useDispatch();
 
-  const exercises = useSelector(store => store.getExercises.exercises); 
+  const exercises = useSelector(store => store.exercises.listOfExercises); 
 
   useEffect(() => {
     dispatch(getExercises());
