@@ -28,6 +28,7 @@ export const updateTestCreator = situation => {
 export const getApplication = id => async (dispatch) => {
   const applicationData = await ApiService.getApplication(id);
   dispatch(getApplicationCreator(applicationData));
+  
 };
 
 export const startApplication = (id, applicantName) => async (dispatch) => {
