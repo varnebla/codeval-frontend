@@ -3,7 +3,7 @@ import { Router, Switch, Route} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {sendLogout} from '../../redux/authentication';
 import Summary from '../Summary/Summary';
-import Employees from '../Employees/Employees';
+import Interviwers from '../Interviewers/Interviewers';
 import Exercises from '../Exercises/Exercises';
 import ExcercisesCreate from '../ExcercisesCreate/ExcercisesCreate';
 import Applications from '../Applications/Applications';
@@ -26,7 +26,7 @@ function Dashboard () {
         <Navbar.Brand href="/dashboard">Dasboard</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/dashboard">Summary</Nav.Link>
-          <Nav.Link href="/dashboard/employees">Employees</Nav.Link>
+          <Nav.Link href="/dashboard/interviewers">Interviewers</Nav.Link>
           <Nav.Link href="/dashboard/exercises">Exercises</Nav.Link>
           <Nav.Link href="/dashboard/applications">Applications</Nav.Link>
         </Nav>
@@ -36,7 +36,7 @@ function Dashboard () {
       </Navbar>
       <Switch>
         <Route exact path='/dashboard' component={Summary}/>
-        <Route path='/dashboard/employees' component={Employees}/>
+        <Route path='/dashboard/interviewers' component={Interviwers}/>
         <Route path='/dashboard/exercises' component={Exercises}/>
         <Route path='/dashboard/createExercise' component={ExcercisesCreate}/>
         <Route path='/dashboard/applications' component={Applications}/>

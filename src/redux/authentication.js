@@ -88,6 +88,17 @@ export const verifyToken = () =>
     } 
   };
 
+export const autoLogin = (loginObject) => 
+  (dispatch, getState, history) => {
+    loginObject.token && localStorage.setItem('jwtToken', loginObject.token);
+    dispatch({
+      type: LOGIN,
+      isAuthenticated: true,
+      user: loginObject
+    });
+    history.push('/dashboard');
+  };
+
 
 
 // REDUCER
