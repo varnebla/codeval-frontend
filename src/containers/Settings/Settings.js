@@ -3,7 +3,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {sendLogout} from '../../redux/authentication';
 
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
 function Settings () {
   
