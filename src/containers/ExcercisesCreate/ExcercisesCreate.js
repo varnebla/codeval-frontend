@@ -265,8 +265,11 @@ const inputCheckStepThree = (exercise, err) => {
   if (exercise.instructions === '') {
     err.push('Please enter exercise instructions.');  
   }
+  if (!exercise.examples.length) {
+    err.push('Please create hints for the exercise.');
+  }
 };
-// HELPER FUNCTION TO CHERCK TESTS
+// HELPER FUNCTION TO CHECK TESTS
 
 const isTestValid = (test, err) => {
   if (!test.stats) {
