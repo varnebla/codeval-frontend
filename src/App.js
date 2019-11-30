@@ -4,8 +4,6 @@ import React, { useEffect } from 'react';
 import Landing from './presentational/Landing/Landing';
 import Dashboard from './containers/Dashboard/Dashboard';
 import ConfirmAccount from './containers/ConfirmAccount/ConfirmAccount';
-import Briefing from './containers/Briefing/Briefing';
-import Applicant from './containers/Applicant/Applicant';
 import ConfirmInterviewer from './containers/ConfirmInterviewer/ConfirmInterviewer';
 import history from './history';
 import {useSelector, useDispatch} from 'react-redux';
