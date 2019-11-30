@@ -6,6 +6,9 @@ export default {
   },
   updateApplication: (id, applicant) => {
     return fetchRequestPost('startApplication', id, applicant);
+  },
+  submitApplication: (id, applicant) => {
+    return fetchRequestPost('submitApplication', id, applicant);
   }
 };
 
