@@ -57,7 +57,7 @@ function Register (props) {
         .catch(error => console.error(error)); //eslint-disable-line no-console
     } 
     setInputError(errors);
-    setInputFeedback(true);
+    //setInputFeedback(true);
   }
 
 
@@ -69,7 +69,7 @@ function Register (props) {
       <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <h3>Register</h3>
+            Register
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
