@@ -9,6 +9,7 @@ import Applicant from './containers/Applicant/Applicant';
 import history from './history';
 import {useSelector, useDispatch} from 'react-redux';
 import {verifyToken} from './redux/authentication';
+import Assessment from './containers/Assessment/Assessment';
 
 
 import './App.css';
@@ -47,8 +48,7 @@ function App () {
       </Route>
       <Route path="/landing" component={Landing}/>
       <Route path="/confirm/:id" component={ConfirmAccount}/>
-      <Route path="/assessment/briefing/:id" component={Briefing}/>
-      <Route path="/assessment/applicant/:id" component={Applicant}/>
+      <Route path="/assessment/:id" component={Assessment}/>
     </Switch>;
     
   return (

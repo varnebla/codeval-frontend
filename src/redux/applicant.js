@@ -28,23 +28,24 @@ export const updateTestCreator = situation => {
 export const getApplication = id => async (dispatch) => {
   const applicationData = await ApiService.getApplication(id);
   dispatch(getApplicationCreator(applicationData));
+  
 };
 
 export const startApplication = (id, applicantName) => async (dispatch) => {
   const result = await ApiService.updateApplication(id, { applicantName });
-  if (result === 'successfully started') {
+  if (result.message) {
     const applicationData = await ApiService.getApplication(id);
     dispatch(getApplicationCreator(applicationData));
   }
 };
 
 export const submitApplication = (id, report) => async (dispatch) => {
-  const result = await ApiService.updateApplication(id, report);
-  if (result === 'successfully started') {
+  const result = await ApiService.submitApplication(id, report);
+  if (result.message) {
     const applicationData = await ApiService.getApplication(id);
     dispatch(getApplicationCreator(applicationData));
   }
-}
+};
 
 // REDUCERS
 export default (state = INITIAL_STATE, action) => {
