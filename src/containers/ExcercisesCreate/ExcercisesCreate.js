@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+import { useParams } from 'react-router-dom';
+
+import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 
-import { createExercise } from '../../redux/createExercise';
+import { createExercise, updateExercise, getExerciseToEdit } from '../../redux/exercises';
 import { useSelector, useDispatch } from 'react-redux';
 
 import ExercisesCreateStepOne from '../ExerciseCreateStepOne/ExerciseCreateStepOne';
@@ -13,19 +16,22 @@ import ExercisesCreateStepTwo from '../ExerciseCreateStepTwo/ExerciseCreateStepT
 import ExercisesCreateStepThree from '../ExerciseCreateStepThree/ExerciseCreateStepThree';
 
 function ExercisesCreate () {
+  
+  // ID FROM PARAMS TO DEFINE IF ITS EDIT OR CREATION OF NEW EXERCISE
+  const exerciseId = useParams().id;
 
   const dispatch = useDispatch();
 
-  const initialForm = useSelector(store => store.createExercise);
-  const solution = useSelector(store => store.createExercise.solution);
-  const tests = useSelector(store => store.createExercise.tests);
+  const initialForm = useSelector(store => store.exercises.exerciseCreate);
+  const solution = useSelector(store => store.exercises.exerciseCreate.solution);
+  const tests = useSelector(store => store.exercises.exerciseCreate.tests);
   
   const initSteps = {
     one: true,
     two: false,
     three: false
   };
-   
+  
   const [stepsState, setStepsState] = useState(initSteps);
   const [buttonState, setButtonState] = useState(1);
   const [inputErrors, setInputError] = useState([]);
@@ -150,7 +156,11 @@ function ExercisesCreate () {
     if (errors.length) {
       setInputError(errors);
     } else {
-      dispatch(createExercise(initialForm));
+      if (e.target.innerText === 'Submit') {
+        dispatch(createExercise(initialForm));
+      } else if (e.target.innerText === 'Update') {
+        dispatch(updateExercise(initialForm));
+      }
       setInputError([]);
       setTestSuccess(`${initialForm.title} has been successfully created!`);
     }
@@ -175,6 +185,13 @@ function ExercisesCreate () {
       }
     });
   }, []);
+
+  // FETCHING EDIT EXERCISE DATA TO MAKE IT PERSISTANT ON RELOADS
+  useEffect(()=> {
+    if (exerciseId) {
+      dispatch(getExerciseToEdit(exerciseId));
+    }
+  }, []);
   
   return (
     <div style={{width: '60vw', height: '55vh'}}>
@@ -183,26 +200,33 @@ function ExercisesCreate () {
         <ToggleButton onChange={handleStepsTop} variant="info" value={2}>Step Two</ToggleButton>
         <ToggleButton onChange={handleStepsTop} variant="info" value={3}>Step Three</ToggleButton>
       </ToggleButtonGroup>
-      <div style={{display: 'flex'}}>
-        {stepsState.one && <ExercisesCreateStepOne/>}
-        {stepsState.two && <ExercisesCreateStepTwo/> }
-        {stepsState.three && <ExercisesCreateStepThree/>}
+      { (!initialForm.title && exerciseId)
+        ?
+        <Spinner style={{position: 'fixed', top: '50%', left: '50%'}} animation="border" role="status"/>
+        :
         <div>
-          { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
+          <div style={{display: 'flex'}}>
+            {stepsState.one && <ExercisesCreateStepOne/>}
+            {stepsState.two && <ExercisesCreateStepTwo/> }
+            {stepsState.three && <ExercisesCreateStepThree/>}
+            <div>
+              { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
 
-        </div>
-      </div>
-      {!!inputErrors.length && <Alert  variant='danger'>{inputErrors[0]}</Alert>}
-      {!inputErrors.length && testSuccess ? <Alert  variant='success'>{testSuccess}</Alert> : null}
-      <div style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-        {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
-        { stepsState.three ?
-          <Button onClick={handleExerciseSubmit} variant="warning" >Submit</Button>
-          :
-          <Button variant="success" onClick={handleSteps}>Next</Button>
-        }
-      </div>
-      <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+            </div>
+          </div>
+          {!!inputErrors.length && <Alert  variant='danger'>{inputErrors[0]}</Alert>}
+          {!inputErrors.length && testSuccess ? <Alert  variant='success'>{testSuccess}</Alert> : null}
+          <div style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+            {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
+            { stepsState.three ?
+              <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
+              :
+              <Button variant="success" onClick={handleSteps}>Next</Button>
+            }
+          </div>
+          <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+
+        </div>}
     </div>
   );
 }
@@ -241,8 +265,11 @@ const inputCheckStepThree = (exercise, err) => {
   if (exercise.instructions === '') {
     err.push('Please enter exercise instructions.');  
   }
+  if (!exercise.examples.length) {
+    err.push('Please create hints for the exercise.');
+  }
 };
-// HELPER FUNCTION TO CHERCK TESTS
+// HELPER FUNCTION TO CHECK TESTS
 
 const isTestValid = (test, err) => {
   if (!test.stats) {

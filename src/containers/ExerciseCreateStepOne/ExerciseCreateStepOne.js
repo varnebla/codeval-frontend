@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fillInExercise } from '../../redux/createExercise';
+import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {Form } from 'react-bootstrap';
@@ -8,8 +8,8 @@ import {Form } from 'react-bootstrap';
 function ExerciseCreateStepOne () {
 
   const dispatch = useDispatch();
-  const initialForm = useSelector(store => store.createExercise);
- 
+  const initialForm = useSelector(store => store.exercises.exerciseCreate);
+  
   function handleExerciseForm (e) {
     e.preventDefault();
     const updatingExerciseForm = {...initialForm};
