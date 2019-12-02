@@ -1,21 +1,89 @@
 import React, { useState } from 'react';
 
+import ApiService from '../../services/reportService';
+
 import {Alert, Card, Form, Button, ListGroup, Toast, Modal } from 'react-bootstrap';
+
+// import { useDispatch } from 'react-redux';
 
 import moment from 'moment';
 
 function ApplicationsListItem ( { application }) {
 
   // FOR TESTING****************
+  const fakeReport = {
+    submittedCode: 'function multiply(num, num1){return num*num1}',
+    exerciseStart: '14:30',
+    exerciseName: 'Multply function',
+    tests: [
+      {
+        title: 'return a number',
+        passed: true,
+      },
+      {
+        title: 'function accepts only numbers',
+        passed: true,
+      }
+    ],
+    hints: [ {
+      title: 'check if inpust is a number',
+      used: true,
+      time: '14:35'
+    }, 
+    {
+      title: 'input is 2 numbers',
+      used: false,
+      time: ''
+    }
+    ],
+    passed: true,
+    duration: '00:15',
+    finalScore: 87,
+    copyPaste: [
+      {
+        content: 'num * num1',
+        time: '14:37'
+      }
+    ],
+    testClicked: [
+      {
+        currentCode: 'function multiply(num, num1){console.log(num)}',
+        tests: [
+          {
+            title: 'return a number',
+            passed: false,
+          },
+          {
+            title: 'function accepts only numbers',
+            passed: false,
+          }
+        ],
+        time: '14:32'
+      }
+    ],
+    applicatntName: 'John Smith',
+    reviews: [],
+  };
+
+  console.log(fakeReport);
+  
   const [reviewComment, setReviewComment] = useState('');
+  const [reviewError, setReviewError] = useState([]);
   const [reviewsArray, setReviewsArray] = useState([]);
 
   function addReview (e) {
     e.preventDefault();
-    const comment = reviewsArray;
-    comment.push(e.target.parentElement.firstChild.value);
-    setReviewsArray(comment);
-    setReviewComment('');
+    const error = [];
+    if (reviewComment === '') {
+      error.push('Please write your review.');
+      setReviewError(error);
+    } else {
+      const comment = reviewsArray;
+      comment.push(e.target.parentElement.firstChild.value);
+      setReviewsArray(comment);
+      setReviewComment('');
+      setReviewError([]);
+    }
   }
   
   function handleReviewsInput (e) {
@@ -23,7 +91,6 @@ function ApplicationsListItem ( { application }) {
     let input = reviewComment;
     input = e.target.value;
     setReviewComment(input);
-
   }
 
   // TESTING ENDS HERE************
@@ -34,7 +101,14 @@ function ApplicationsListItem ( { application }) {
   const handleCloseReport = () => setShowReport(false);
 
   function handleReview () {
-    setReviewed(true);
+    const error = [];
+    if (reviewComment === '') {
+      error.push('You cannot mark this report as reviewed without leaving a review.');
+      setReviewError(error);
+    } else {
+      setReviewError([]);
+      setReviewed(true);
+    }
   }
 
 
@@ -72,29 +146,113 @@ function ApplicationsListItem ( { application }) {
         onHide={handleCloseReport}
         size="lg"
       >
+        <Modal.Header style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+            <h4 >{fakeReport.applicatntName}</h4>
+            <h4>{fakeReport.passed ? 'Passed' : 'Failed'}</h4>
+            <h4>Score: {fakeReport.finalScore}</h4>
+          </div>
+        </Modal.Header>
         <Modal.Body>
+          {/* SUBMITTED CODE AND DURATION */}
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div>
+              <h5>Submitted code</h5>
+              <p>{fakeReport.submittedCode}</p>
+            </div>
+            <div>
+              <p>Exercise has started at: {fakeReport.exerciseStart}</p>
+              <p>Duration: {fakeReport.duration}</p>
+            </div>
+          </div>
+          {/* HINTS USED */}
+          <div>
+            <h5>Hints</h5>
+            {fakeReport && fakeReport.hints.map(hint => (
+              <div key={hint.time} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <p>{hint.title}</p>
+                </div>
+                <div>
+                  <p>Used: {hint.used ? 'Yes' : 'No'}</p>
+                </div>
+                <div>
+                  <p>Used At: {hint.used ? hint.time : 'N/A'}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* TESTS PASSED / FAILED */}
+          <div>
+            <h5>Tests</h5>
+            {fakeReport && fakeReport.tests.map(test => (
+              <div key={test.title} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <p>{test.title}</p>
+                </div>
+                <div>
+                  <p>{test.passed ? 'Passed' : 'Failed'}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* PASTED CODE */}
+          <div>
+            <h5>Code pasted into code editor</h5>
+            {fakeReport && fakeReport.copyPaste.map(pasted => (
+              <div key={pasted.content} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <p>{pasted.content}</p>
+                </div>
+                <div>
+                  <p>{pasted.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* TEST BUTTON CLICKED WITH CONTENT */}
+          <div>
+            <h5>Code when test button was clicked</h5>
+            {fakeReport && fakeReport.testClicked.map(clicked => (
+              <div key={clicked.currentCode} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <p>{clicked.currentCode}</p>
+                </div>
+                <div>
+                  <p>Clicked at: {clicked.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
           {/* FORM FOR REVIEW INPUT */}
-          <Form>
-            <Form.Group style={{marginLeft: '20px'}} controlId="examples">
-              <Form.Label>Leave a review about the applicant</Form.Label>
-              <span style={{display: 'flex'}}>
-                <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
-                <button onClick={addReview}>Add</button>
-              </span>
-            </Form.Group>
-          </Form>
+          <div>
+            <Form>
+              <Form.Group style={{marginLeft: '20px'}} controlId="examples">
+                <Form.Label>Leave a review about the applicant</Form.Label>
+                <span style={{display: 'flex'}}>
+                  <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
+                  <button onClick={addReview}>Add</button>
+                </span>
+              </Form.Group>
+            </Form>
+          </div>
           {/* ONCE SERVER IS SET UP FUN THIS FROM THE SERVER */}
-          <h4>Reviews</h4>
-          {!!reviewsArray.length && reviewsArray.map(review=> (
-            <Toast key={Math.floor(Math.random() * 10000)} style={{maxWidth:'100%'}}>
-              <Toast.Header closeButton={false}>
-                <strong className="mr-auto">Created by:</strong>
-                <small>Created at: </small>
-              </Toast.Header>
-              <Toast.Body>{review}</Toast.Body>
-            </Toast>
-          ))}
+          <div>
+            <h4>Reviews</h4>
+            {!!reviewsArray.length && reviewsArray.map(review=> (
+              <Toast key={Math.floor(Math.random() * 10000)} style={{maxWidth:'100%'}}>
+                <Toast.Header closeButton={false}>
+                  <strong className="mr-auto">Created by:</strong>
+                  <small>Created at: </small>
+                </Toast.Header>
+                <Toast.Body>{review}</Toast.Body>
+              </Toast>
+            ))}
+
+          </div>
         </Modal.Body>
+        { reviewed && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="success">Application has been marked as reviewed!</Alert>}
+        { !!reviewError.length && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="danger">{reviewError[0]}</Alert>}
         <Modal.Footer>
           { reviewed
             ?
@@ -103,7 +261,6 @@ function ApplicationsListItem ( { application }) {
             <Button variant="success" onClick={handleReview}>Reviewed</Button>
           }
         </Modal.Footer>
-        { reviewed && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="success">Application has been marked as reviewed!</Alert>}
       </Modal>
     </div>
   );

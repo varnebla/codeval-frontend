@@ -6,6 +6,9 @@ export default {
   },
   getAllApplication: (token) => {
     return fetctRequestGet('getApplications', token);
+  },
+  reviewApplication: (token, applicationId) => {
+    return fetchRequesUpdateStatus(`setReviewed/${applicationId}`, token);
   }
 };
 
@@ -40,3 +43,18 @@ const fetctRequestGet = (url, token) => {
       console.log(`${error} while fetching /${url}`);
     });
 }; 
+
+// UPDATE APPLICATION TO REVIEWED
+const fetchRequesUpdateStatus = (url, token) => {
+  return fetch(`${BASE_URL}/${url}`, {
+    method: 'POST',
+    headers:{
+      'Authorization': `BEARER ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .catch(error => {
+    // eslint-disable-next-line no-console
+      console.log(`${error} while fetching /${url}`);
+    });
+};
