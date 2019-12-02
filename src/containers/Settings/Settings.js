@@ -50,9 +50,9 @@ function Settings () {
   }
 
   return (
-    <div className="settings-body">
-    
-      <Container className="settings-container">
+    <div className="body-container settings-body">  
+      <div className="settings-background"/>  
+      <Container className="top-bar-padding">
         <div className="top-bar">
           <h1>Settings</h1>
           <Button variant='danger' onClick={handleLogOut}>Log out</Button>
@@ -79,7 +79,7 @@ function Settings () {
               {inputError[0] || serverError}
             </Alert>
             }
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" className="settings-button" type="submit">Submit</Button>
 
           </Form>
         </Container>

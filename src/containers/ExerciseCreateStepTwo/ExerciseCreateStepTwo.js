@@ -37,7 +37,7 @@ function ExerciseCreateStepTwo () {
     <div style={{width: '60vw', height: '55vh'}}>
       <Form style ={{margin: '20px'}}>
         <Form.Row style={{display: 'flex', justifyContent: 'space-between', margin: '20px'}}>
-          <Form.Group  controlId="placeholderCode" >
+          <Form.Group  controlId="placeholderCode" className="code-editor">
             <Form.Label>Please create your function here</Form.Label>
             <AceEditor
               height='400px'
@@ -49,9 +49,11 @@ function ExerciseCreateStepTwo () {
               value={initialForm.solution}
               name='functionCode'
               editorProps={{ $blockScrolling: true }}
+              style={{fontFamily: 'Roboto Mono'}}
+              highlightActiveLine={false}
             />  
           </Form.Group>
-          <Form.Group  controlId="testsCode" >
+          <Form.Group  controlId="testsCode" className="code-editor" >
             <Form.Label>Please create your tests here</Form.Label>
             <AceEditor
               height='400px'

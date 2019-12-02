@@ -1,5 +1,35 @@
+@font-face{
+  font-family: 'Apercu';
+  font-style: normal;
+  src: url('./assets/fonts/ApercuPro-Regular.otf') format('opentype');
+}
+@font-face{
+  font-family: 'Apercu mono';
+  font-style: normal;
+  src: url('./assets/fonts/ApercuPro-Mono.otf') format('opentype');
+}
+@font-face{
+  font-family: 'GT Pressura mono';
+  font-style: normal;
+  src: url('./assets/fonts/gt-pressura-mono-regular.ttf') format('truetype');
+}
+@font-face{
+  font-family: 'Maison mono';
+  font-style: normal;
+  src: url('./assets/fonts/MaisonMono-Regular.otf') format('opentype');
+}
+@font-face{
+  font-family: 'Space mono';
+  font-style: normal;
+  src: url('./assets/fonts/SpaceMono-Regular.ttf') format('truetype');
+}
+
+*{
+  font-family:'Apercu Mono';
+}
 body {
   margin: 0;
+  overscroll-behavior: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
