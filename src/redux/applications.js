@@ -32,10 +32,32 @@ export const createApplication = (application) => async (dispatch) => {
   }); 
 };
 
+// SENDING REVIEW TO THE SERVER AND ADDING IT TO THE REPORT
+export const addReviewToDb = (review, reportId) =>  async (dispatch) => {
+  const token = localStorage.getItem('jwtToken');
+  await ApiService.addReview(token, reportId, review);
+  const allApplications = await ApiService.getAllApplication(token);
+  dispatch({
+    type: GET_APPLICATIONS,
+    payload: allApplications
+  });
+};
+
 // UPDATING STATUS OF APPLICATION TO REVIEWS AND UPDATING THE LIST
 export const updateStatus = (applicationId) => async (dispatch) => {
   const token = localStorage.getItem('jwtToken');
   await ApiService.reviewApplication(token, applicationId);
+  const allApplications = await ApiService.getAllApplication(token);
+  dispatch({
+    type: GET_APPLICATIONS,
+    payload: allApplications
+  });
+};
+
+// RMEOVING APPLICATION AND UPDATING LIST
+export const deleteApplication = (applicationId) => async (dispatch) => {
+  const token = localStorage.getItem('jwtToken');
+  await ApiService.deleteApplicationFromDb(token, applicationId);
   const allApplications = await ApiService.getAllApplication(token);
   dispatch({
     type: GET_APPLICATIONS,
