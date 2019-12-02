@@ -61,7 +61,7 @@ function LogIn (props) {
       <Form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <h3>Log in</h3>
+            Log in
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -81,7 +81,7 @@ function LogIn (props) {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.onHide}>Close</Button>
+          <Button variant="secondary" onClick={props.onHide}>Close</Button>          
           <Button variant="primary" type="submit">Submit</Button>
         </Modal.Footer>
       </Form> 
