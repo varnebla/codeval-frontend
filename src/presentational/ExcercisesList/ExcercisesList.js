@@ -3,7 +3,6 @@ import React from 'react';
 import ExercisesListItem from '../ExcercisesListItem/ExcercisesListItem';
 
 function ExercisesList ( { exercises }) {
-
   return (
     <div style={{margin: '20px'}}>
       {exercises && exercises.map(oneExer => (
