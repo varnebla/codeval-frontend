@@ -1,0 +1,13 @@
+.settings-body{
+  width: 100vw;
+  background-color:#fecd01;
+}
+.settings-container{
+  padding-top:35px;
+  background-color:#fecd01;
+  height: 100vh;
+}
+.top-bar{
+  display:flex;
+  justify-content: space-between;
+}

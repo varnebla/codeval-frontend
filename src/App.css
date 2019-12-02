@@ -1,3 +1,18 @@
+@font-face{
+  font-family: 'Apercu';
+  font-style: normal;
+  src: url('./assets/fonts/ApercuPro-Regular.otf') format('opentype');
+}
+@font-face{
+  font-family: 'Apercu mono';
+  font-style: normal;
+  src: url('./assets/fonts/ApercuPro-Mono.otf') format('opentype');
+}
+
+*{
+  font-family:'Apercu mono';
+}
+
 .App {
   text-align: center;
 }
@@ -19,4 +34,30 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.form-control{
+  border: 2pt solid black;
+  border-radius: 0px
+}
+.form-control:focus {
+  border-color:black;
+  box-shadow: 0 0 0 0.2rem #ffc107;
+}
+.btn-primary{
+  color: black;
+  background-color: white;
+  border: 2pt solid black;
+  border-radius:0px;
+}
+.btn-primary:hover{
+  color: white;
+  background-color: black;
+  border-color:lime;
+}
+.navbar{
+  background-color: black;
+}
+.nav, .nav-link{
+  color: white !important;
 }
