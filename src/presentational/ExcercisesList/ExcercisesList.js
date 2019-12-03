@@ -4,7 +4,6 @@ import ExercisesListItem from '../ExcercisesListItem/ExcercisesListItem';
 import './ExercisesList.css';
 
 function ExercisesList ( { exercises }) {
-
   return (
     <div className="exerciseList-container">
       {exercises && exercises.map(oneExer => (

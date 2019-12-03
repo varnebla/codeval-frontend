@@ -15,3 +15,9 @@
 .btn-create-exercise:hover, .btn-create-exercise:focus, .btn-create-exercise:active{
   border-color:white !important;
 }
+
+.spinner-exercises{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

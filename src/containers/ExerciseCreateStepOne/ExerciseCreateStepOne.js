@@ -3,7 +3,7 @@ import React from 'react';
 import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 function ExerciseCreateStepOne () {
 
@@ -16,7 +16,6 @@ function ExerciseCreateStepOne () {
     updatingExerciseForm[e.target.id] = e.target.value;
     dispatch(fillInExercise(updatingExerciseForm));
   }
-
   
   return (
     <div style={{width: '60vw', height: '55vh'}}> 

@@ -16,27 +16,30 @@ import './Applicant.css';
 function Applicant () {
 
   const dispatch = useDispatch();
-
   const applicant = useSelector(store => store.applicant);
   
+  // STATES
   const [ code, setCode ] = useState('');
-  const [ showInst, setShowInst ] = useState(false);
-  const [ showSub, setShowSub ] = useState(false);
-  const [ showCd, setShowCd ] = useState(false);
   const [ countdown, setCountdown ] = useState('');
-
-  // IN PROCESS
-  // const [ testResults, setTestResults ] = useState([]);
-  // const [ hintsUsed, setHintsUsed ] = useState([]);
-  // const [ duration, setDuration ] = useState(0);
-  // const [ finalScore, setFinalScore ] = useState(0);
-  // const [ proces, setProces ] = useState([]);
-  // const [ copyPaste, setCopyPaste ] = useState([]);
-
+  const [ submitting, setSubmitting ] = useState(false);
+  const [ hintsArr, setHintsArr ] = useState([]);
+  const [ hints, setHints ] = useState([]);
+  const [ testClicked, setTestClicked ] = useState([]);
+  const [ copyPaste, setCopyPaste ] = useState([]);
+  const [ copies, setCopies ] = useState([]);
+  
+  // MODALS
+  const [ showInst, setShowInst ] = useState(false);
   const setModalInst = () => setShowInst(!showInst);
+  const [ showSub, setShowSub ] = useState(false);
   const setModalSub = () => setShowSub(!showSub);
+  const [ showCd, setShowCd ] = useState(false);
   const setModalCd = () => setShowCd(true);
-
+  const [ showHintAlert, setShowHintAlert ] = useState(false);
+  const setModalHintAlert = () => setShowHintAlert(!showHintAlert);
+  const [ showHint, setShowHint ] = useState(false);
+  const setModalHint = () => setShowHint(!showHint);
+  
   const handleCodeChange = e => setCode(e);
   const loadCode = () => setCode(applicant.exercise.placeholderCode);
 
@@ -52,21 +55,113 @@ function Applicant () {
     return false;
   };
 
+  const returnTests = (suitesArr) => {
+    const tests = [];
+    suitesArr.forEach(suite => suite.forEach(test => {
+      const passed = test.state === 'passed' ? true : false;
+      tests.push({
+        title: test.title,
+        passed
+      });
+    }));
+    return tests;
+  };
+
   const handleSubmit = () => {
     handleTest();
-    if (Object.keys(applicant.situation).length) {
-      const passed = checkPassed(applicant.situation.stats.tests, applicant.situation.stats.passes);
-      const report = {
-        submittedCode: code,
-        completionTime: Date.now(), 
-        passed,
-      };
-      dispatch(submitApplication(applicant._id, report));
+    setSubmitting(true);
+  };
+
+  const handleHints = () => {
+    setModalHintAlert();
+    const hint = hintsArr.pop();
+    setHints([...hints, {
+      title: hint,
+      used: true,
+      time: Date.now()
+    }]);
+    setModalHint();
+  };
+
+  const calculateScore = (tests, hints, expectedDuration, duration, copyAndPaste) => {
+    let result = 0;
+    tests.forEach(test => {
+      if (test) result += Math.floor(50 / tests.length);
+    });
+    hints.forEach(hint => {
+      if (!hint) result += Math.floor(20 / hints.length);
+    });
+    const minimumDuration = expectedDuration/2;
+    result += Math.floor(10 - ((duration - minimumDuration) * 10) / minimumDuration);
+    let substractCopy = 0;
+    copyAndPaste.forEach(string => {
+      if (string.length > 40) substractCopy += 20;
+      else substractCopy += 10;
+    });
+    if (substractCopy < 20) result += 20 - substractCopy;
+    if (result > 100) result = 100;
+    if (result < 0) result = 0;
+    return result;
+  };
+
+  useEffect(() => {
+    if (submitting) {
+      if (Object.keys(applicant.situation).length) {
+        const passed = checkPassed(applicant.situation.stats.tests, applicant.situation.stats.passes);
+        const testResults = returnTests(applicant.situation.suites);
+        const start = moment(applicant.startingTime);
+        const end = moment();
+        const duration = moment.duration(end.diff(start))._milliseconds;
+        const finalHints = [...hints, ...hintsArr.map(hint => {
+          return {
+            title: hint,
+            used: false,
+            time: 0
+          };
+        })];
+        const finalScore = calculateScore(
+          testResults.map(test => test.passed),
+          finalHints.map(hint => hint.used),
+          applicant.exercise.duration,
+          duration,
+          copyPaste.map(copy => copy.content)
+        );
+        const report = {
+          submittedCode: code,
+          tests: testResults,
+          hints: finalHints,
+          passed,
+          duration,
+          finalScore,
+          copyPaste,
+          testClicked,
+          completionTime: Date.now()
+        };
+        dispatch(submitApplication(applicant._id, report));
+      }
+    } else {
+      if (code.length) {
+        const newTestClicked = {
+          time: Date.now(),
+          currentCode: code
+        };
+        setTestClicked([...testClicked, newTestClicked]);  
+      }
     }
+  }, [applicant]);
+
+  const handleCopy = (string) => setCopies([...copies, string.text]);
+
+  const handlePaste = (string) => {
+    if (!copies.includes(string.text)) setCopyPaste([...copyPaste, {
+      content: string.text,
+      time: Date.now()
+    }]);
   };
 
   useEffect(() => {
     setCountdown(moment(applicant.startingTime).add(applicant.exercise.duration, 'milliseconds')._d);
+    setHintsArr(applicant.exercise.hints);
     window.addEventListener('message', e => {
       const frame = document.getElementById('sandboxed');
       if (e.origin === 'null' && e.source === frame.contentWindow) {
@@ -82,7 +177,7 @@ function Applicant () {
   return (
     <div className="applicant-container">
       <div className="applicant-countdown">
-        <Countdown date={moment(applicant.startingTime).add(applicant.exercise.duration, 'milliseconds')._d} onComplete={setModalCd}/>
+        <Countdown date={countdown} onComplete={setModalCd}/>
         <Modal show={showCd}>
           <p>Time to submit</p>
           <button onClick={handleSubmit}>Submit</button>
@@ -91,6 +186,17 @@ function Applicant () {
       <div className="applicant-top">
         <div className="top-logo">Codeval</div>
         <div className="top-buttons">
+          {
+            !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>Hints</button>
+          }
+          <Modal show={showHintAlert} onHide={setModalHintAlert}>
+            <p>its okay to use hints</p>
+            <button onClick={setModalHintAlert}>No</button>
+            <button onClick={handleHints}>Yes</button>
+          </Modal>
+          <Modal show={showHint} onHide={setModalHint}>
+            <p>{!!hints.length && hints[hints.length-1].title}</p>
+          </Modal>
           <button className="top-instructions-btn" onClick={setModalInst}>Instructions</button>
           <Modal show={showInst} onHide={setModalInst}>
             <h1>Instructions</h1>
@@ -116,6 +222,8 @@ function Applicant () {
             width='100%'
             name='editorExercise'
             onLoad={loadCode}
+            onCopy={handleCopy}
+            onPaste={handlePaste}
           />
         </div>
         <div className="applicant-console-container">
