@@ -86,27 +86,27 @@ function Applications () {
     }
   }, [allApplications, exercisesList]);
 
-  const handleDateLow = () => {
+  const handleDateHigh = () => {
     const newOrder = applications.sort((a,b) => {
       return new Date(b.created_at) - new Date(a.created_at);
     });
     setApplications([...newOrder]);
   }; 
-  const handleDateHigh = () => {
+  const handleDateLow = () => {
     const newOrder = applications.sort((a,b) => {
       return new Date(a.created_at) - new Date(b.created_at);
     });
     setApplications([...newOrder]);
   }; 
 
-  const handleStatusLow = () => {
+  const handleStatusHigh = () => {
     const statuses = ['issued', 'activated', 'completed', 'reviewed', 'expired'];
     const newOrder = applications.sort((a,b) => {
       return statuses.indexOf(b.status) - statuses.indexOf(a.status);
     });
     setApplications([...newOrder]);
   };
-  const handleStatusHigh = () => {
+  const handleStatusLow = () => {
     const statuses = ['issued', 'activated', 'completed', 'reviewed', 'expired'];
     const newOrder = applications.sort((a,b) => {
       return statuses.indexOf(a.status) - statuses.indexOf(b.status);
@@ -147,8 +147,8 @@ function Applications () {
                 id="dropdown-variants-Info"
                 key="Info"
               >
-                <Dropdown.Item eventKey="1" onClick={handleDateLow}>Most recent</Dropdown.Item>
-                <Dropdown.Item eventKey="2" onClick={handleDateHigh}>Oldest</Dropdown.Item>
+                <Dropdown.Item eventKey="1" onClick={handleDateHigh}>Most recent</Dropdown.Item>
+                <Dropdown.Item eventKey="2" onClick={handleDateLow}>Oldest</Dropdown.Item>
                 <Dropdown.Item eventKey="3" onClick={handleStatusLow}>Lowest status</Dropdown.Item>
                 <Dropdown.Item eventKey="4" onClick={handleStatusHigh}>Highest status</Dropdown.Item>
                 <Dropdown.Item eventKey="5" onClick={handleScoreLow}>Lowest final score</Dropdown.Item>

@@ -35,7 +35,7 @@ function Assessment () {
   }, [application]);
 
   return (
-    <div className="assessment-container">
+    <>
       {
         loading
           ? <Spinner animation="border" role="status">
@@ -43,7 +43,7 @@ function Assessment () {
           </Spinner>
           : applicantCurrentPage
       }
-    </div>
+    </>
   );
 
 }

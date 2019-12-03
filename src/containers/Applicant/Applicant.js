@@ -85,14 +85,21 @@ function Applicant () {
 
   const calculateScore = (tests, hints, expectedDuration, duration, copyAndPaste) => {
     let result = 0;
+    // CHECK THE TESTS PASSED
     tests.forEach(test => {
-      if (test) result += Math.floor(50 / tests.length);
+      if (test) result += 50 / tests.length;
     });
+    result = Math.floor(result);
+    // CHECK THE HINTS USED
     hints.forEach(hint => {
-      if (!hint) result += Math.floor(20 / hints.length);
+      if (!hint) result += 20 / hints.length;
     });
+    result = Math.floor(result);
+    // CHECK THE DURATION
     const minimumDuration = expectedDuration/2;
-    result += Math.floor(10 - ((duration - minimumDuration) * 10) / minimumDuration);
+    if (duration < minimumDuration) result += 10;
+    else result += Math.floor(10 - ((duration - minimumDuration) * 10) / minimumDuration);
+    // CHECK THE COPY AND PASTE
     let substractCopy = 0;
     copyAndPaste.forEach(string => {
       if (string.length > 40) substractCopy += 20;

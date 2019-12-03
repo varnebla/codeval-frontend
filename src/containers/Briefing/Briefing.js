@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { startApplication } from '../../redux/applicant';
+import './Briefing.css';
 
 function Briefing () {
 
@@ -34,33 +33,30 @@ function Briefing () {
     }
   };
 
+  const string = `Hello, you've been invited to participate on this exercise, the first thing you need to do is enter your name. Once you submit the name the exercise will start. You have ${applicant.exercise.duration/60000} min to do it so be ready once you click to start. At the top you will have three buttons, one to get a hint, don't worry about using them, we all need help sometime :). Another will have the instructions of the exercise, be sure to understand everything before you start coding. The last one will be the submit button. Once you submit your assessment the company will recieve an email. At the left you have the code editor where you will code, and at the right you have a console to see which tests you're passing and if you fail them why you're failing them. If you want to test your code just press the test button. Good luck with your assessment!`;
+
   return (
     <div className="briefing-page">
-      <Container>
-        <Row className= "justify-content-md-center">
-          <div className="briefing-info">
-            <h1>About the exercise</h1>
-            <h2>Instructions</h2>
-            <p>{applicant.exercise.instructions}</p>
-            <h2>Examples</h2>
-            <div>{applicant.exercise.hints.map((item, i) => <p key={i}>{item}</p>)}</div>
-            <h2>Duration</h2>
-            <p>{applicant.exercise.duration/60000} min</p>
+      <div className="briefing-container">
+        <div className="briefing-info">
+          <h1 className="briefing-title">How to proceed</h1>
+          <p className="briefing-text">{string}</p>
+        </div>
+        <Form className="briefing-form" onSubmit={setModalSub}>
+          <Form.Group className="briefing-form-group" controlId="name">
+            {/* <Form.Label className="briefing-form-label">Name</Form.Label> */}
+            <Form.Control value={name} type="text" placeholder="Enter name" onChange={handleChange} className="briefing-form-control"/>
+          </Form.Group>
+          <Button type="submit" className="briefing-button">Submit</Button>
+        </Form> 
+        <Modal dialogClassName="briefing-modal" show={showSub} onHide={setModalSub} centered>
+          <p className="briefing-modal-text">Once you click the clock will start and you will have {applicant.exercise.duration/60000} min to solve it</p>
+          <div className="briefing-modal-btn-container">
+            <button onClick={setModalSub} className="briefing-modal-btn">No</button>
+            <button onClick={handleSubmit} className="briefing-modal-btn">Yes</button>
           </div>
-          <Form onSubmit={setModalSub}>
-            <Form.Group controlId="name" as={Col} sm="10">
-              <Form.Label>Name</Form.Label>
-              <Form.Control value={name} type="text" placeholder="Enter name" onChange={handleChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
-          </Form> 
-        </Row>
-      </Container>
-      <Modal show={showSub} onHide={setModalSub}>
-        <p>Once you click the clock will start and you will have {applicant.exercise.duration/60000} min to solve it</p>
-        <button onClick={setModalSub}>No</button>
-        <button onClick={handleSubmit}>Yes</button>
-      </Modal>
+        </Modal>
+      </div>
     </div>
   );
 }
