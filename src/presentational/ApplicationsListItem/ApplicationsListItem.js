@@ -190,12 +190,12 @@ function ApplicationsListItem ( { application }) {
               <div key={pasted.content} style={{display: 'flex', justifyContent: 'space-between'}}>
                 <textarea 
                   readOnly 
-                  rows={ pasted.content.split('\n').length}
+                  rows={ pasted.content.split('\n').length <= 3 ? 3 : pasted.content.split('\n').length}
                   style={{border: 'none', outline: 'none', resize: 'none'}}
                   value={pasted.content}>
                 </textarea>
                 <div>
-                  <p>{pasted.time}</p>
+                  <p>Pasted at: {moment(pasted.time).format('HH:mm')}</p>
                 </div>
               </div>
             ))}
