@@ -116,9 +116,9 @@ function Applications () {
 
   const handleScoreLow = () => {
     const newOrder = applications.sort((a,b) => {
-      if (!a.report || !a.report.finalScore) return -1;
-      else if (!b.report || !b.report.finalScore) return 1;
-      else return b.report.finalScore - a.report.finalScore;
+      if (!b.report || !b.report.finalScore) return -1;
+      else if (!a.report || !a.report.finalScore) return 1;
+      else return a.report.finalScore - b.report.finalScore;
     });
     setApplications([...newOrder]);
   };
@@ -126,7 +126,7 @@ function Applications () {
     const newOrder = applications.sort((a,b) => {
       if (!b.report || !b.report.finalScore) return -1;
       else if (!a.report || !a.report.finalScore) return 1;
-      else return a.report.finalScore - b.report.finalScore;
+      else return b.report.finalScore - a.report.finalScore;
     });
     setApplications([...newOrder]);
   };
