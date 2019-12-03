@@ -24,6 +24,13 @@
   src: url('./assets/fonts/SpaceMono-Regular.ttf') format('truetype');
 }
 
+<<<<<<< HEAD
+=======
+*{
+  font-family:'Apercu Mono';
+}
+
+>>>>>>> refs/remotes/origin/develop
 body {
   margin: 0;
   overscroll-behavior: none;
