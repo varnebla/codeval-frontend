@@ -1,0 +1,15 @@
+.exercise-card{
+  width: 29%;
+  margin: 2%;
+}
+.exercise-header{
+  font-size:20px;
+}
+
+.exercise-firstRow{
+  margin-bottom: 10%;
+}
+.exercise-footer{
+  display: flex;
+  justify-content: space-around;
+}

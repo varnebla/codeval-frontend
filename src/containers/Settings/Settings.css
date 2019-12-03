@@ -1,0 +1,19 @@
+.settings-background{
+  position: fixed;
+  height: 200vh;
+  width: 200vw;
+  left: -50vw;
+  top:-50vh;
+  background-color: #fecd01;
+  overflow: hidden;
+  z-index: -1;
+}
+/* .settings-body{
+  background-color:#fecd01;
+} */
+.container-box{
+  background-color: white;
+}
+.settings-button:hover, .settings-button:active, .settings-button:focus{
+  border-color:#fecd01 !important;
+}

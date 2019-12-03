@@ -102,6 +102,7 @@ function ExerciseCreateStepThree () {
               value={initialForm.placeholderCode}
               name='placeholderCode'
               editorProps={{ $blockScrolling: true }}
+              style={{fontFamily: 'Apercu mono'}}
             />  
           </Form.Group>
           <div>

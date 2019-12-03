@@ -11,29 +11,25 @@ import history from '../../history';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import './Dashboard.css';
 
 function Dashboard () {
 
-  function gotoSettings () {
-    history.push('/dashboard/settings');
-  }
-
   return (
     <Router history={history}>
-      <Navbar bg="light" variant="light" sticky="top">
+      <Navbar className="navbar" sticky="top">
         {/* ONCE LOGO IS READY IT SHOULD GO HERE INSTEAD OF DASHBOARD */}
-        <Navbar.Brand href="/dashboard">Dashboard</Navbar.Brand> 
+        <Navbar.Brand className="nav" href="/dashboard">CODEVAL</Navbar.Brand> 
         <Nav className="mr-auto">
 
         </Nav>
-        <Nav inline="true">
-          <Nav.Link href="/dashboard/interviewers">Interviewers</Nav.Link>
-          <Nav.Link href="/dashboard/exercises">Exercises</Nav.Link>
-          <Nav.Link onClick={gotoSettings}><i className="fas fa-user-cog"></i></Nav.Link>
+        <Nav inline="true" className="nav">
+          <Nav.Link href="/dashboard/interviewers">INTERVIEWERS</Nav.Link>
+          <Nav.Link href="/dashboard/exercises">EXERCISES</Nav.Link>
+          <Nav.Link href="/dashboard/settings">SETTINGS</Nav.Link>
         </Nav>
       </Navbar>
       <Switch>
-
         <Route exact path='/dashboard' component={Applications}/>
         <Route path='/dashboard/interviewers' component={Interviewers}/>
         <Route path='/dashboard/exercises' component={Exercises}/>

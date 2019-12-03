@@ -1,0 +1,23 @@
+.exercises-background{
+  position: fixed;
+  height: 200vh;
+  width: 200vw;
+  left: -50vw;
+  top:-50vh;
+  background-color: #32ae7e;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.exercises-top-bar{
+  margin: 0 3% 0 2%;
+}
+.btn-create-exercise:hover, .btn-create-exercise:focus, .btn-create-exercise:active{
+  border-color:white !important;
+}
+
+.spinner-exercises{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

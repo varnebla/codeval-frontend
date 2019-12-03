@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import Container from 'react-bootstrap/Container';
+import './ExercisesCreate.css';
 
 import { createExercise, updateExercise, getExerciseToEdit } from '../../redux/exercises';
 import { useSelector, useDispatch } from 'react-redux';
@@ -194,39 +196,47 @@ function ExercisesCreate () {
   }, []);
   
   return (
-    <div style={{width: '60vw', height: '55vh'}}>
-      <ToggleButtonGroup type="checkbox" value={buttonState}>
-        <ToggleButton onChange={handleStepsTop} variant="info" value={1}>Step One</ToggleButton>
-        <ToggleButton onChange={handleStepsTop} variant="info" value={2}>Step Two</ToggleButton>
-        <ToggleButton onChange={handleStepsTop} variant="info" value={3}>Step Three</ToggleButton>
-      </ToggleButtonGroup>
-      { (!initialForm.title && exerciseId)
-        ?
-        <Spinner style={{position: 'fixed', top: '50%', left: '50%'}} animation="border" role="status"/>
-        :
-        <div>
-          <div style={{display: 'flex'}}>
-            {stepsState.one && <ExercisesCreateStepOne/>}
-            {stepsState.two && <ExercisesCreateStepTwo/> }
-            {stepsState.three && <ExercisesCreateStepThree/>}
-            <div>
-              { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
-
+    <div className="body-container" >
+      <div className="exercises-create-background"/>
+      <Container className="top-bar-padding exercise-creator-container">
+        <div className="exercises-creator-top-bar">
+          <ToggleButtonGroup type="checkbox" className="stepper-buttons" value={buttonState}>
+            <ToggleButton onChange={handleStepsTop} variant="info" value={1}>Step One</ToggleButton>
+            <ToggleButton onChange={handleStepsTop} variant="info" value={2}>Step Two</ToggleButton>
+            <ToggleButton onChange={handleStepsTop} variant="info" value={3}>Step Three</ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+        { (!initialForm.title && exerciseId)
+          ?
+          <Spinner style={{position: 'fixed', top: '50%', left: '50%'}} animation="border" role="status"/>
+          :
+          <div className="creator-container">
+            <div className="exercise-creator-buttons-bar" style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+              {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
+              { stepsState.three ?
+                <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
+                :
+                <Button variant="success" onClick={handleSteps} className="next-button">Next</Button>
+              }
             </div>
-          </div>
-          {!!inputErrors.length && <Alert  variant='danger'>{inputErrors[0]}</Alert>}
-          {!inputErrors.length && testSuccess ? <Alert  variant='success'>{testSuccess}</Alert> : null}
-          <div style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-            {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
-            { stepsState.three ?
-              <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
-              :
-              <Button variant="success" onClick={handleSteps}>Next</Button>
-            }
-          </div>
-          <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+            <div style={{display: 'flex'}}>
+              {stepsState.one && <ExercisesCreateStepOne/>}
+              {stepsState.two && <ExercisesCreateStepTwo/> }
+              {stepsState.three && <ExercisesCreateStepThree/>}
+              <div>
+                { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
 
-        </div>}
+              </div>
+            </div>
+            <div className="alert-div">
+              {!!inputErrors.length && <Alert variant='danger'>{inputErrors[0]}</Alert>}
+              {!inputErrors.length && testSuccess ? <Alert variant='success'>{testSuccess}</Alert> : null}
+            </div>
+            <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+
+          </div>}
+
+      </Container>
     </div>
   );
 }
