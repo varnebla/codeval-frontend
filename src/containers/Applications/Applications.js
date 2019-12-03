@@ -80,11 +80,11 @@ function Applications () {
   }, []);
 
   useEffect(() => {
-    if (allApplications) {
+    if (allApplications && exercisesList) {
       setApplications(allApplications);
       setLoading(false);
     }
-  }, [allApplications]);
+  }, [allApplications, exercisesList]);
 
   const handleDateLow = () => {
     const newOrder = applications.sort((a,b) => {
