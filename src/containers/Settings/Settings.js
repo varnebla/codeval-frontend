@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {sendLogout} from '../../redux/authentication';
-import {getUserInfo, updateUserInfo} from '../../services/settingsService';
+import {sendLogout, updateUser} from '../../redux/authentication';
+import {getUserInfo} from '../../services/settingsService';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -15,9 +15,15 @@ function Settings () {
   
   const userDefault = useSelector(store => store.user);
   const dispatch = useDispatch();
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    user: {
+      name: '',
+      email: ''
+    }
+  });
   const [inputError, setInputError] = useState([]);
   const [serverError, setServerError] = useState([]);
+  const [inputFeedback, setInputFeedback] = useState([]);
 
   function handleLogOut () {
     dispatch(sendLogout());
@@ -26,12 +32,23 @@ function Settings () {
   function handleChange (event) {
     event.preventDefault();
     const updatedUser = {...userInfo};
-    updatedUser[event.target.id] = event.target.value;
+    updatedUser.user[event.target.id] = event.target.value;
     setUserInfo(updatedUser);
   }
 
   function handleSubmit (event) {
-
+    event.preventDefault();
+    const errors = checkForm(userInfo.user);
+    console.log(errors)
+    if (errors.length === 0) {
+      console.log('gonna dispatch')
+      dispatch(updateUser(userInfo.user)).then(result=> {
+        console.log(result)
+        setUserInfo(result);
+        setInputFeedback('User successfuly updated');
+      } );
+    }
+    setInputError(errors);
   }
 
   useEffect(()=> {
@@ -42,9 +59,12 @@ function Settings () {
 
   function checkForm (user) {
     const newErrors = [];
-
     Object.keys(user).forEach(key => {
-      if (user[key].trim() === '') newErrors.push(`The field ${key} shouldn not be empty`);
+      if (user[key]==='name' || user[key] === 'email') {
+        if (user[key].trim() === '') newErrors.push(`The field ${key} shouldn not be empty`);
+        else isEmailInvalid(user[key], key) &&
+            newErrors.push('Email must be a valid email address');
+      }
     });
     return newErrors;
   }
@@ -67,17 +87,23 @@ function Settings () {
           </Form.Group> */}
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
-              <Form.Control value={userDefault.user.name} onChange={handleChange}></Form.Control>
+              <Form.Control value={userInfo.user.name} onChange={handleChange}></Form.Control>
             </Form.Group>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control value={userDefault.user.email} onChange={handleChange}></Form.Control>
+              <Form.Control value={userInfo.user.email} onChange={handleChange}></Form.Control>
             </Form.Group>
             {
               (inputError.length > 0 || serverError.length > 0) &&
             <Alert  variant="danger">
               {inputError[0] || serverError}
             </Alert>
+            }
+            {
+              inputFeedback.length>0 &&
+              <Alert variant="success">
+                {inputFeedback}
+              </Alert>
             }
             <Button variant="primary" className="settings-button" type="submit">Submit</Button>
 
@@ -91,3 +117,8 @@ function Settings () {
 }
 
 export default Settings;
+
+function isEmailInvalid (el, key) {
+  const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+  return key === 'email' && !el.match(regEx);
+}
