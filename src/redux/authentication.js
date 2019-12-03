@@ -1,4 +1,5 @@
 import {sendLoginUser} from '../services/LoginService';
+import {updateUserInfo} from '../services/settingsService';
 import jwtDecode from 'jwt-decode';
 
 
@@ -99,6 +100,17 @@ export const autoLogin = (loginObject) =>
     history.push('/dashboard');
   };
 
+export const updateUser = (updateObject) => 
+  async (dispatch) =>{
+    const user = await updateUserInfo(updateObject);
+    if (user)
+      dispatch({
+        type:REFRESH,
+        token: localStorage.getItem('jwtToken'),
+        user: updateObject,
+        isAuthenticated: true
+      });
+  };
 
 
 // REDUCER
