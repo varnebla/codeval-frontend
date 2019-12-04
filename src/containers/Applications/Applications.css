@@ -12,7 +12,6 @@
   box-shadow: none !important;
 }
 
-
 .btn-create-application:hover, .btn-create-application:focus, .btn-create-application:active{
   border-color:white !important;
 }
@@ -25,8 +24,4 @@
 
 .applications-top-bar{
   margin: 0 3.8% 0 3.5%;
-}
-
-.applicationsContainer{
-
 }
