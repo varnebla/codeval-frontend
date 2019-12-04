@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { startApplication } from '../../redux/applicant';
@@ -18,7 +17,7 @@ function Briefing () {
 
   const setModalSub = (e) => {
     if (e) e.preventDefault();
-    setShowSub(!showSub);
+    if (name.length) setShowSub(!showSub);
   };
 
   const handleChange = event => {
@@ -53,8 +52,8 @@ function Briefing () {
           <div className="briefing-modal">
             <p className="briefing-modal-text">Once you click the clock will start and you will have {applicant.exercise.duration/60000} min to solve it</p>
             <div className="briefing-modal-btn-container">
-              <button onClick={setModalSub} className="briefing-modal-btn">No</button>
-              <button onClick={handleSubmit} className="briefing-modal-btn">Yes</button>
+              <button onClick={setModalSub} className="briefing-modal-btn no">No</button>
+              <button onClick={handleSubmit} className="briefing-modal-btn yes">Yes</button>
             </div>
           </div>
         </Modal>
