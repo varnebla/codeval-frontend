@@ -26,7 +26,7 @@
         try {
           let consoles = [];
           console.log = function () {
-            consoles.push(...arguments);
+            consoles.push(JSON.stringify(...arguments));
           }
           const should = chai.should();
           mocha.suite.suites = [];

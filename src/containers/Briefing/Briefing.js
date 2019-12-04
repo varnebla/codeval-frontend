@@ -49,11 +49,13 @@ function Briefing () {
           </Form.Group>
           <Button type="submit" className="briefing-button">Submit</Button>
         </Form> 
-        <Modal dialogClassName="briefing-modal" show={showSub} onHide={setModalSub} centered>
-          <p className="briefing-modal-text">Once you click the clock will start and you will have {applicant.exercise.duration/60000} min to solve it</p>
-          <div className="briefing-modal-btn-container">
-            <button onClick={setModalSub} className="briefing-modal-btn">No</button>
-            <button onClick={handleSubmit} className="briefing-modal-btn">Yes</button>
+        <Modal  show={showSub} onHide={setModalSub} centered>
+          <div className="briefing-modal">
+            <p className="briefing-modal-text">Once you click the clock will start and you will have {applicant.exercise.duration/60000} min to solve it</p>
+            <div className="briefing-modal-btn-container">
+              <button onClick={setModalSub} className="briefing-modal-btn">No</button>
+              <button onClick={handleSubmit} className="briefing-modal-btn">Yes</button>
+            </div>
           </div>
         </Modal>
       </div>
