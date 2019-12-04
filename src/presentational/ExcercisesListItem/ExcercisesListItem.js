@@ -87,7 +87,8 @@ function ExercisesListItem ({ exercise }) {
           </Row>
           <Row>
             <Col sm={12} className="text-left">
-              Created at {moment(exercise.created_at).format('LLL')} by {exercise.created_by.name} 
+              Created at {moment(exercise.created_at).format('LLL')} by { exercise.created_by.name }  
+              {/* exercise.created_by.name */}
             </Col>
 
           </Row>
@@ -95,7 +96,7 @@ function ExercisesListItem ({ exercise }) {
             <Col sm={12} className="text-left">
               {
                 (exercise.updated_at && exercise.updated_by) &&
-              `Updated at ${moment(exercise.updated_at).format('LLL')} by ${exercise.updated_by.name}`
+              `Updated at ${moment(exercise.updated_at).format('LLL')} by ${ exercise.updated_by.name}`
               }
             </Col>
            

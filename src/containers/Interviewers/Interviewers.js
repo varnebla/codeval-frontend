@@ -5,6 +5,7 @@ import InterviewersCreate from '../InterviewersCreate/InterviewersCreate';
 
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 
 import './Interviewers.css';
 
@@ -20,13 +21,19 @@ function Interviewers () {
 
   return (
     <div className="interviewersContainer">
-      <Container className="top-bar-padding ">
-        <div className="interviewers-top-bar">
-          <Button variant="primary" onClick={()=>{setCreateModal(true);}}>Create Interviewer</Button>
-        </div>
-        {interviewers && <InterviewersList interviewers={interviewers}/>}
-        <InterviewersCreate show={createModal} onHide={()=>{setCreateModal(false);}} />
-      </Container>
+      { !interviewers.length
+        ?
+        <Spinner className="spinnerInterviewers" animation="border" role="status"/>
+        :
+        <Container className="top-bar-padding ">
+          <div className="interviewers-top-bar">
+            <Button variant="primary" onClick={()=>{setCreateModal(true);}}>Create Interviewer</Button>
+          </div>
+          {interviewers && <InterviewersList interviewers={interviewers}/>}
+          <InterviewersCreate show={createModal} onHide={()=>{setCreateModal(false);}} />
+        </Container>
+
+      }
     </div>
   );
 }
