@@ -18,3 +18,12 @@
   border: 1px solid black;
   border-radius: 0px !important;
 }
+.delete-hints-button{
+  font-size: 27px;
+  padding: 0px 5px;
+  line-height: 0.9;
+  color: black;
+}
+.hints-text{
+  margin-bottom: 0;
+}

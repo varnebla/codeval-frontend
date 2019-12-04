@@ -19,8 +19,8 @@ function Landing () {
 
   return (
     <div>
-      <Navbar bg="light" variant="light" sticky="top">
-        <Navbar.Brand href="/landing">AppName</Navbar.Brand>
+      <Navbar className="landing-navbar" sticky="top">
+        <Navbar.Brand href="/landing" className="navbar-logo">//CODEVAL {/*eslint-disable-line*/}</Navbar.Brand> 
         <Nav className="mr-auto">
           <Nav.Link onClick={()=> setLoginModal(true)}>Log In</Nav.Link>
           <Nav.Link onClick={()=> setRegisterModal(true)}>Register</Nav.Link>
