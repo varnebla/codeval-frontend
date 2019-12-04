@@ -3,7 +3,7 @@
 }
 
 .logs-container {
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
 }
 
 .console-title {
@@ -17,6 +17,10 @@
   font-size: 16px;
   margin: 0;
   padding-left: 20px;
+}
+
+.logs-padding {
+  margin-bottom: 20px;
 }
 
 .test-result-container {

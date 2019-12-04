@@ -241,89 +241,36 @@ function Applicant () {
       <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
 
       {/* MODALS */}
-      <Modal show={showCd}>
-        <p>Time to submit</p>
-        <button onClick={handleSubmit}>Submit</button>
+      <Modal show={showCd} centered>
+        <div className="applicant-modal">
+          <p>Time to submit</p>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
       </Modal>
-      <Modal show={showHintAlert} onHide={setModalHintAlert}>
-        <p>its okay to use hints</p>
-        <button onClick={setModalHintAlert}>No</button>
-        <button onClick={handleHints}>Yes</button>
+      <Modal show={showHintAlert} onHide={setModalHintAlert} centered>
+        <div className="applicant-modal">
+          <p className="applicant-modal-title">its okay to use hints</p>
+          <div className="applicant-modal-btn-container">
+            <button className="applicant-modal-btn no" onClick={setModalHintAlert}>No</button>
+            <button className="applicant-modal-btn yes" onClick={handleHints}>Yes</button>
+          </div>
+        </div>
       </Modal>
-      <Modal show={showHint} onHide={setModalHint}>
-        <p>{!!hints.length && hints[hints.length-1].title}</p>
+      <Modal show={showHint} onHide={setModalHint} centered>
+        <div className="applicant-modal">
+          <p className="applicant-hint">{!!hints.length && hints[hints.length-1].title}</p>
+        </div>
       </Modal>
-      <Modal show={showInst} onHide={setModalInst}>
-        <h1>Instructions</h1>
-        <p>{applicant.exercise.instructions}</p>
-      </Modal>
-      <Modal show={showSub} onHide={setModalSub}>
-        <p>Are you sure you want to submit?</p>
-        <button onClick={setModalSub}>No</button>
-        <button onClick={handleSubmit}>Yes</button>
+      <Modal show={showSub} onHide={setModalSub} centered dialogClassName="something-modal">
+        <div className="applicant-modal">
+          <p className="applicant-modal-title">Are you sure you want to submit?</p>
+          <div className="applicant-modal-btn-container">
+            <button className="applicant-modal-btn no" onClick={setModalSub}>No</button>
+            <button className="applicant-modal-btn yes" onClick={handleSubmit}>Yes</button>
+          </div>
+        </div>
       </Modal>
     </div>
-    // <div className="applicant-container">
-    //   <div className="applicant-countdown">
-    //     <Countdown date={countdown} onComplete={setModalCd}/>
-    //   </div>
-    //   <div className="applicant-top">
-    //     <div className="top-logo">Codeval</div>
-    //     <div className="top-buttons">
-    //       {
-    //         !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>Hints</button>
-    //       }
-    //       <button className="top-instructions-btn" onClick={setModalInst}>Instructions</button>
-    //       <button className="top-submit-btn" onClick={setModalSub}>Submit</button>
-    //     </div>
-    //   </div>
-    //   <div className="applicant-test">
-    //     <div className="applicant-editor">
-    //       <AceEditor
-    //         mode='javascript'
-    //         theme='monokai'
-    //         onChange={handleCodeChange}
-    //         value={code}
-    //         height='100%'
-    //         width='100%'
-    //         name='editorExercise'
-    //         onLoad={loadCode}
-    //         onCopy={handleCopy}
-    //         onPaste={handlePaste}
-    //       />
-    //     </div>
-    //     <div className="applicant-console-container">
-    //       <div className="applicant-console">
-    //         <Console/>
-    //       </div>
-    //       <button className="applicant-test-btn" onClick={handleTest}>Test</button>
-    //     </div>
-    //   </div>
-    //   <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
-    //   {/* MODALS */}
-    //   <Modal show={showCd}>
-    //     <p>Time to submit</p>
-    //     <button onClick={handleSubmit}>Submit</button>
-    //   </Modal>
-    //   <Modal show={showHintAlert} onHide={setModalHintAlert}>
-    //     <p>its okay to use hints</p>
-    //     <button onClick={setModalHintAlert}>No</button>
-    //     <button onClick={handleHints}>Yes</button>
-    //   </Modal>
-    //   <Modal show={showHint} onHide={setModalHint}>
-    //     <p>{!!hints.length && hints[hints.length-1].title}</p>
-    //   </Modal>
-    //   <Modal show={showInst} onHide={setModalInst}>
-    //     <h1>Instructions</h1>
-    //     <p>{applicant.exercise.instructions}</p>
-    //   </Modal>
-    //   <Modal show={showSub} onHide={setModalSub}>
-    //     <p>Are you sure you want to submit?</p>
-    //     <button onClick={setModalSub}>No</button>
-    //     <button onClick={handleSubmit}>Yes</button>
-    //   </Modal>
-    // </div>
-
   );
 }
 
