@@ -147,9 +147,9 @@ function ApplicationsListItem ( { application }) {
         </Card.Body>
         <Card.Footer style={{padding: '0', display: 'flex'}}>
           <div style={{borderRight: '3px solid black', width: '50%'}}>
-            <Button variant='secondary' style={{ width: '100%'}} onClick={handleShowReport}>Report</Button>
+            <Button variant='secondary' style={{ width: '100%', border: 'none'}} onClick={handleShowReport}>Report</Button>
           </div>  
-          <Button onClick={handleDelete} style={{ width: '50%' }} variant='danger'>Delete</Button> 
+          <Button onClick={handleDelete} style={{ width: '50%', border: 'none' }} variant='danger'>Delete</Button> 
         </Card.Footer>
       </Card>
 
@@ -265,7 +265,7 @@ function ApplicationsListItem ( { application }) {
                 <h5>// Leave a review about the applicant</h5>
                 <span style={{display: 'flex'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
-                  <Button variant="secondary" onClick={addReview}>Add</Button>
+                  <button variant="secondary" onClick={addReview}>Add</button>
                 </span>
               </Form.Group>
             </Form>
