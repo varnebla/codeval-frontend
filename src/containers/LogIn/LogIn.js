@@ -66,11 +66,11 @@ function LogIn (props) {
         </Modal.Header>
         <Modal.Body>
           <Container>
-            <Form.Group controlId="email" as={Col} sm="10">
+            <Form.Group controlId="email" as={Col} >
               <Form.Label>Email adress</Form.Label>
               <Form.Control value={user.email} type="text" placeholder="Enter email" onChange={handleChange} />
             </Form.Group>
-            <Form.Group controlId="password" as={Col} sm="10">
+            <Form.Group controlId="password" as={Col}>
               <Form.Label>Password</Form.Label>
               <Form.Control value={user.password} type="password" placeholder="Password" onChange={handleChange} />
             </Form.Group>
@@ -81,8 +81,8 @@ function LogIn (props) {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.onHide}>Close</Button>          
           <Button variant="primary" type="submit">Submit</Button>
+          <Button variant="secondary" onClick={props.onHide}>Close</Button>          
         </Modal.Footer>
       </Form> 
     </Modal>

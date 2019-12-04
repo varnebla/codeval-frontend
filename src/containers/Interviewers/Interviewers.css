@@ -17,3 +17,10 @@
   height: 100%;
   width: 100%;
 }
+
+.spinnerInterviewers{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: black;
+}

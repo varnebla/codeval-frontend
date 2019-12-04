@@ -39,7 +39,7 @@
 }
 .form-control:focus {
   border-color:black;
-  box-shadow: 0 0 0 0.2rem #ffc107;
+  box-shadow: 0 0 0 0.2rem white;
 }
 .btn{
   border-radius:0px;

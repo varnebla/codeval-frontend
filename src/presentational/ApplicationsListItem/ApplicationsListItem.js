@@ -38,6 +38,7 @@ function ApplicationsListItem ( { application }) {
   const handleCloseReport = () => {
     setShowReport(false);
     setReviewed(false);
+    setReviewError([]);
   };
 
   // DELETE MODAL
@@ -148,9 +149,9 @@ function ApplicationsListItem ( { application }) {
         </Card.Body>
         <Card.Footer style={{padding: '0', display: 'flex'}}>
           <div style={{borderRight: '3px solid black', width: '50%'}}>
-            <Button variant='secondary' style={{ width: '100%'}} onClick={handleShowReport}>Report</Button>
+            <Button className="applicationReportBtn" variant='secondary' style={{ width: '100%', border: 'none'}} onClick={handleShowReport}>Report</Button>
           </div>  
-          <Button onClick={handleDelete} style={{ width: '50%' }} variant='danger'>Delete</Button> 
+          <Button className="applicationDeleteBtn" onClick={handleDelete} style={{ width: '50%', border: 'none' }} variant='danger'>Delete</Button> 
         </Card.Footer>
       </Card>
 
@@ -271,7 +272,7 @@ function ApplicationsListItem ( { application }) {
                 <h5>// Leave a review about the applicant</h5>
                 <span style={{display: 'flex'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
-                  <Button variant="secondary" onClick={addReview}>Add</Button>
+                  <button className='addBtnsApplicationExercise' variant="secondary" onClick={addReview}>Add</button>
                 </span>
               </Form.Group>
             </Form>
@@ -291,14 +292,14 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* MODAL BUTTONS */}
         </Modal.Body>
-        { reviewed && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="success">Application has been marked as reviewed!</Alert>}
-        { !!reviewError.length && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="danger">{reviewError[0]}</Alert>}
+        { reviewed && <Alert className="reportAlert"  variant="success">Application has been marked as reviewed!</Alert>}
+        { !!reviewError.length && <Alert className="reportAlert" variant="danger">{reviewError[0]}</Alert>}
         <Modal.Footer>
           { application.status === 'reviewed'
             ?
-            <Button variant="secondary" onClick={handleCloseReport}>Close</Button>
+            <Button className="reportBtnCloseReviewed" variant="secondary" onClick={handleCloseReport}>Close</Button>
             :
-            <Button variant="success" onClick={handleReview}>Reviewed</Button>
+            <Button className="reportBtnCloseReviewed" variant="success" onClick={handleReview}>Reviewed</Button>
           }
         </Modal.Footer>
       </Modal>

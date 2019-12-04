@@ -79,7 +79,7 @@ function Settings () {
     if (sessionStorage.getItem('success')) {
       sessionStorage.removeItem('success');
       setInputFeedback(true);
-    }  
+    } 
     getUserInfo(userDefault.user.id)
       .then(response => setUserInfo(response))
       .catch(error => console.error(error));//eslint-disable-line no-console
@@ -99,7 +99,13 @@ function Settings () {
   }
   console.log(userInfo);
   return (
-    <div className="body-container settings-body">  
+    <div className="body-container settings-body">
+      { !userInfo.user.name
+      ?
+       <Spinner className="spinnerApplications" animation="border" role="status"/> 
+       :
+       <div>
+
       <div className="settings-background"/>  
       <Container className="top-bar-padding">
         <div className="top-bar">
@@ -142,6 +148,9 @@ function Settings () {
           </Form>
         </Container>
       </Container>
+       </div>
+
+      }
     </div>
 
 
