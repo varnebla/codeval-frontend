@@ -82,7 +82,7 @@ function ExercisesListItem ({ exercise }) {
         <Card.Header className="exercise-header">{exercise.title}</Card.Header>
         <Card.Body className="exercise-body">
           <Row className="exercise-firstRow">
-            <Col sm={6}>{exercise.difficulty}</Col>
+            <Col sm={6}>Level {exercise.difficulty}</Col>
             <Col sm={6}>{exercise.duration/60000} min</Col>
           </Row>
           <Row>

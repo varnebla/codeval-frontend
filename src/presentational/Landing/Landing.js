@@ -12,6 +12,10 @@ function Landing () {
   const [loginModal, setLoginModal] = useState(false);
   const [registerModal, setRegisterModal] = useState(false);
 
+  function handleGetStarted () {
+    setRegisterModal(true);
+  }
+
   useEffect(()=>{
     if (sessionStorage.getItem('validation')) {
       setLoginModal(true);
@@ -31,7 +35,7 @@ function Landing () {
           <Nav.Link onClick={()=> setRegisterModal(true)}>Register</Nav.Link>
         </Nav>
       </Navbar>
-      <Introduction />
+      <Introduction handleGetStarted={handleGetStarted}/>
       <Login
         show={loginModal}
         onHide={()=>{setLoginModal(false);}}
