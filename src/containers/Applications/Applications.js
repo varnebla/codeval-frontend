@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import ApplicationsList from '../../presentational/ApplicationsList/ApplicationsList';
 
-import {Alert, Button, Modal, Form, Dropdown, DropdownButton  } from 'react-bootstrap';
+import {Alert, Container,  Button, Modal, Form, Dropdown, DropdownButton  } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 
 
@@ -132,15 +132,13 @@ function Applications () {
   };
 
   return (
-    <div>
+    <div className='applicationsContainer'>
       {
         loading
-          ? <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
+          ? <Spinner animation="border" role="status" className="spinnerApplications">
           </Spinner>
-          :<div style={{display: 'flex', flexDirection: 'column'}}>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-              <h1>Applications</h1>
+          :<Container className="top-bar-padding">
+            <div className="top-bar applications-top-bar">
               <DropdownButton
                 title="Order applications by"
                 variant="info"
@@ -154,7 +152,7 @@ function Applications () {
                 <Dropdown.Item eventKey="5" onClick={handleScoreLow}>Lowest final score</Dropdown.Item>
                 <Dropdown.Item eventKey="6" onClick={handleScoreHigh}>Highest final score</Dropdown.Item>
               </DropdownButton>
-              <Button onClick={handleShow} variant="success">Create Application</Button>
+              <Button onClick={handleShow} variant="primary" className="btn-create-application">Create Application</Button>
             </div>
             <ApplicationsList allApplications={applications}/>
             <Modal
@@ -204,7 +202,7 @@ function Applications () {
                 </Button>}
               </Modal.Footer>
             </Modal>
-          </div>
+          </Container>
       } 
     </div>
   );

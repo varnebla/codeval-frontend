@@ -1,0 +1,15 @@
+.interviewerCard{
+  width: 31.33%;
+  margin-bottom: 2%;
+  margin-left: 2%;
+}
+
+
+.interviewerCardImage{
+  height: 100%;
+  width: 60%;
+}
+
+.interviewerCardHeader{
+  text-align: center;
+}
