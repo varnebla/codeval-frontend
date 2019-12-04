@@ -156,6 +156,8 @@ function ExercisesCreate () {
     const errors = [];
     inputCheckStepThree(initialForm, errors);
     if (errors.length) {
+      console.log('ERRORS!!', errors)
+      console.log('FORM!', initialForm)
       setInputError(errors);
     } else {
       if (e.target.innerText === 'Submit') {
