@@ -52,21 +52,25 @@ function ExerciseCreateStepThree () {
   // ADDING HINTS TO THE ARRAY IN REDUX STORE
   function addHint (e) {
     e.preventDefault();
-    let hint = hintText;
-    const updatingExerciseForm = {...initialForm};
-    updatingExerciseForm.hints.push(hint.trim());
-    dispatch(fillInExercise(updatingExerciseForm));
-    setHintText('');
+    if (hintText.length) {
+      let hint = hintText;
+      const updatingExerciseForm = {...initialForm};
+      updatingExerciseForm.hints.push(hint.trim());
+      dispatch(fillInExercise(updatingExerciseForm));
+      setHintText('');
+    }
   }
 
   // ADDING EXAMPLES TO ARRAY IN REDUX STORE
   function addExample (e) {
     e.preventDefault();
-    let example = exampleText;
-    const updatingExerciseForm = {...initialForm};
-    updatingExerciseForm.examples.push(example.trim());
-    dispatch(fillInExercise(updatingExerciseForm));
-    setExampleText('');
+    if (exampleText.length) {
+      let example = exampleText;
+      const updatingExerciseForm = {...initialForm};
+      updatingExerciseForm.examples.push(example.trim());
+      dispatch(fillInExercise(updatingExerciseForm));
+      setExampleText('');
+    }
   }
 
   // REMOVE HINTS AND UPDATE STORE
@@ -132,8 +136,8 @@ function ExerciseCreateStepThree () {
                     as="li"
                     key={Math.floor(Math.random() * 10000)} 
                     className="hint-item">
-                    <p>{hint}</p>
-                    <Button variant='outline-danger' onClick={removeHint}>x</Button>
+                    <p className="hints-text">{hint}</p>
+                    <Button variant='outline-danger' className="delete-hints-button" onClick={removeHint}>x</Button>
                   </ListGroup.Item>
                 ))}
 
@@ -174,8 +178,8 @@ function ExerciseCreateStepThree () {
                     as="li"
                     key={Math.floor(Math.random() * 10000)} 
                     className="hint-item">
-                    <p>{example}</p>
-                    <Button variant='outline-danger' onClick={removeExample}>x</Button>
+                    <p className="hints-text">{example}</p>
+                    <Button variant='outline-danger' className="delete-hints-button" onClick={removeExample}>x</Button>
                   </ListGroup.Item>
                 ))}
 
