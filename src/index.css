@@ -24,15 +24,15 @@
   src: url('./assets/fonts/SpaceMono-Regular.ttf') format('truetype');
 }
 
-*{
-  font-family:'Apercu Mono';
-}
+
+
 body {
   margin: 0;
   overscroll-behavior: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: 'Apercu';
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

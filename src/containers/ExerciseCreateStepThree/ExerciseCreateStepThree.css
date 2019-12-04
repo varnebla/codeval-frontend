@@ -1,0 +1,20 @@
+.hints-list-group{
+  border:2px solid black;
+  border-radius:0px;
+  overflow-y: scroll;
+  max-height: 17vh;
+}
+.placeholder-code-editor{
+  width: 100%;
+  height: 23vh;
+}
+.third-step-firstRow{
+  margin-bottom:5%
+}
+.hint-item{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 0px !important;
+}

@@ -212,31 +212,33 @@ function ExercisesCreate () {
           ?
           <Spinner style={{position: 'fixed', top: '50%', left: '50%'}} animation="border" role="status"/>
           :
-          <div className="creator-container">
-            <div className="exercise-creator-buttons-bar" style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
-              {(stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>}
-              { stepsState.three ?
-                <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
-                :
-                <Button variant="success" onClick={handleSteps} className="next-button">Next</Button>
-              }
-            </div>
+          <Container className="creator-container">
             <div style={{display: 'flex'}}>
               {stepsState.one && <ExercisesCreateStepOne/>}
               {stepsState.two && <ExercisesCreateStepTwo/> }
               {stepsState.three && <ExercisesCreateStepThree/>}
-              <div>
-                { stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>}
-
-              </div>
             </div>
             <div className="alert-div">
               {!!inputErrors.length && <Alert variant='danger'>{inputErrors[0]}</Alert>}
-              {!inputErrors.length && testSuccess ? <Alert variant='success'>{testSuccess}</Alert> : null}
+              {!inputErrors.length && testSuccess && stepsState.two ? <Alert variant='success'>{testSuccess}</Alert> : null}
+            </div>
+            <div className="exercise-creator-buttons-bar" style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+              {
+                (stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>
+              }
+              { 
+                stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>
+              }
+              { stepsState.three ?
+                <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
+                :
+                <Button variant="success" onClick={handleSteps} className="next-button">Next</Button>
+              }              
+              
             </div>
             <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
 
-          </div>}
+          </Container>}
 
       </Container>
     </div>
@@ -278,7 +280,7 @@ const inputCheckStepThree = (exercise, err) => {
     err.push('Please enter exercise instructions.');  
   }
   if (!exercise.examples.length) {
-    err.push('Please create hints for the exercise.');
+    err.push('Please create examples for the exercise.');
   }
 };
 // HELPER FUNCTION TO CHECK TESTS

@@ -4,6 +4,9 @@ import InterviewersList from '../../presentational/InterviewersList/Interviewers
 import InterviewersCreate from '../InterviewersCreate/InterviewersCreate';
 
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+
+import './Interviewers.css';
 
 function Interviewers () {
 
@@ -16,11 +19,14 @@ function Interviewers () {
   },[]);
 
   return (
-    <div>
-      <h2>Interviewers</h2>
-      <Button variant="primary" onClick={()=>{setCreateModal(true);}}>Create Interviewer</Button>
-      {interviewers && <InterviewersList interviewers={interviewers}/>}
-      <InterviewersCreate show={createModal} onHide={()=>{setCreateModal(false);}} />
+    <div className="interviewersContainer">
+      <Container className="top-bar-padding ">
+        <div className="interviewers-top-bar">
+          <Button variant="primary" onClick={()=>{setCreateModal(true);}}>Create Interviewer</Button>
+        </div>
+        {interviewers && <InterviewersList interviewers={interviewers}/>}
+        <InterviewersCreate show={createModal} onHide={()=>{setCreateModal(false);}} />
+      </Container>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Countdown from 'react-countdown-now';
 import Modal from 'react-bootstrap/Modal';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-chaos';
+import 'ace-builds/src-noconflict/theme-tomorrow';
 import moment from 'moment';
 
 import Console from '../Console/Console';
@@ -12,6 +12,7 @@ import Console from '../Console/Console';
 import { updateTestCreator, submitApplication } from '../../redux/applicant';
 
 import './Applicant.css';
+import '../../assets/CodeEditor.css';
 
 function Applicant () {
 
@@ -85,14 +86,21 @@ function Applicant () {
 
   const calculateScore = (tests, hints, expectedDuration, duration, copyAndPaste) => {
     let result = 0;
+    // CHECK THE TESTS PASSED
     tests.forEach(test => {
-      if (test) result += Math.floor(50 / tests.length);
+      if (test) result += 50 / tests.length;
     });
+    result = Math.floor(result);
+    // CHECK THE HINTS USED
     hints.forEach(hint => {
-      if (!hint) result += Math.floor(20 / hints.length);
+      if (!hint) result += 20 / hints.length;
     });
+    result = Math.floor(result);
+    // CHECK THE DURATION
     const minimumDuration = expectedDuration/2;
-    result += Math.floor(10 - ((duration - minimumDuration) * 10) / minimumDuration);
+    if (duration < minimumDuration) result += 10;
+    else result += Math.floor(10 - ((duration - minimumDuration) * 10) / minimumDuration);
+    // CHECK THE COPY AND PASTE
     let substractCopy = 0;
     copyAndPaste.forEach(string => {
       if (string.length > 40) substractCopy += 20;
@@ -177,64 +185,144 @@ function Applicant () {
   return (
     <div className="applicant-container">
       <div className="applicant-countdown">
-        <Countdown date={countdown} onComplete={setModalCd}/>
-        <Modal show={showCd}>
-          <p>Time to submit</p>
-          <button onClick={handleSubmit}>Submit</button>
-        </Modal>
+        <Countdown date={countdown} onComplete={setModalCd} daysInHours={true}/>
       </div>
       <div className="applicant-top">
         <div className="top-logo">Codeval</div>
         <div className="top-buttons">
           {
-            !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>Hints</button>
+            !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>HINTS</button>
           }
-          <Modal show={showHintAlert} onHide={setModalHintAlert}>
-            <p>its okay to use hints</p>
-            <button onClick={setModalHintAlert}>No</button>
-            <button onClick={handleHints}>Yes</button>
-          </Modal>
-          <Modal show={showHint} onHide={setModalHint}>
-            <p>{!!hints.length && hints[hints.length-1].title}</p>
-          </Modal>
-          <button className="top-instructions-btn" onClick={setModalInst}>Instructions</button>
-          <Modal show={showInst} onHide={setModalInst}>
-            <h1>Instructions</h1>
-            <p>{applicant.exercise.instructions}</p>
-          </Modal>
-          <button className="top-submit-btn" onClick={setModalSub}>Submit</button>
-          <Modal show={showSub} onHide={setModalSub}>
-            <p>Are you sure you want to submit?</p>
-            <button onClick={setModalSub}>No</button>
-            <button onClick={handleSubmit}>Yes</button>
-          </Modal>
         </div>
       </div>
-
-      <div className="applicant-test">
-        <div className="applicant-editor">
-          <AceEditor
-            mode='javascript'
-            theme='monokai'
-            onChange={handleCodeChange}
-            value={code}
-            height='100%'
-            width='100%'
-            name='editorExercise'
-            onLoad={loadCode}
-            onCopy={handleCopy}
-            onPaste={handlePaste}
-          />
-        </div>
-        <div className="applicant-console-container">
-          <div className="applicant-console">
-            <Console/>
+      <div className="applicant-instructions">
+        <div className="instructions-container">
+          <div className="instructions-info">
+            <div className="instructions-instructions">
+              <h1 className="instructions-title">{'// Instructions'}</h1>
+              <p className="instructions-text">{applicant.exercise.instructions}</p>
+            </div>
+            <div className="instructions-examples">
+              <h1 className="instructions-title">{'// Examples'}</h1>
+              {applicant.exercise.examples.map((example, i) => <p key={i} className="instructions-text">{example}</p>)}
+            </div>
           </div>
-          <button className="applicant-test-btn" onClick={handleTest}>Test</button>
+          <div className="instructions-scroll">Scroll down</div>
+        </div>
+      </div>
+      <div className="applicant-test">
+        <div className="test-container">
+          <div className="applicant-editor">
+            <AceEditor
+              mode='javascript'
+              theme='tomorrow'
+              onChange={handleCodeChange}
+              value={code}
+              height='100%'
+              width='100%'
+              name='editorExercise'
+              onLoad={loadCode}
+              onCopy={handleCopy}
+              onPaste={handlePaste}
+              style={{color: 'black', fontFamily: 'Roboto Mono'}}
+            />
+          </div>
+          <div className="applicant-console-container">
+            <div className="applicant-console">
+              <Console/>
+            </div>
+            <div className="applicant-console-buttons">
+              <button className="applicant-test-btn test" onClick={handleTest}>Test</button>
+              <button className="applicant-test-btn submit" onClick={setModalSub}>Submit</button>
+            </div>
+          </div>
         </div>
       </div>
       <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+
+      {/* MODALS */}
+      <Modal show={showCd}>
+        <p>Time to submit</p>
+        <button onClick={handleSubmit}>Submit</button>
+      </Modal>
+      <Modal show={showHintAlert} onHide={setModalHintAlert}>
+        <p>its okay to use hints</p>
+        <button onClick={setModalHintAlert}>No</button>
+        <button onClick={handleHints}>Yes</button>
+      </Modal>
+      <Modal show={showHint} onHide={setModalHint}>
+        <p>{!!hints.length && hints[hints.length-1].title}</p>
+      </Modal>
+      <Modal show={showInst} onHide={setModalInst}>
+        <h1>Instructions</h1>
+        <p>{applicant.exercise.instructions}</p>
+      </Modal>
+      <Modal show={showSub} onHide={setModalSub}>
+        <p>Are you sure you want to submit?</p>
+        <button onClick={setModalSub}>No</button>
+        <button onClick={handleSubmit}>Yes</button>
+      </Modal>
     </div>
+    // <div className="applicant-container">
+    //   <div className="applicant-countdown">
+    //     <Countdown date={countdown} onComplete={setModalCd}/>
+    //   </div>
+    //   <div className="applicant-top">
+    //     <div className="top-logo">Codeval</div>
+    //     <div className="top-buttons">
+    //       {
+    //         !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>Hints</button>
+    //       }
+    //       <button className="top-instructions-btn" onClick={setModalInst}>Instructions</button>
+    //       <button className="top-submit-btn" onClick={setModalSub}>Submit</button>
+    //     </div>
+    //   </div>
+    //   <div className="applicant-test">
+    //     <div className="applicant-editor">
+    //       <AceEditor
+    //         mode='javascript'
+    //         theme='monokai'
+    //         onChange={handleCodeChange}
+    //         value={code}
+    //         height='100%'
+    //         width='100%'
+    //         name='editorExercise'
+    //         onLoad={loadCode}
+    //         onCopy={handleCopy}
+    //         onPaste={handlePaste}
+    //       />
+    //     </div>
+    //     <div className="applicant-console-container">
+    //       <div className="applicant-console">
+    //         <Console/>
+    //       </div>
+    //       <button className="applicant-test-btn" onClick={handleTest}>Test</button>
+    //     </div>
+    //   </div>
+    //   <iframe style={{display: 'none'}} sandbox='allow-scripts' title='dontknow' id='sandboxed' src={process.env.PUBLIC_URL + '/test.html'}></iframe>
+    //   {/* MODALS */}
+    //   <Modal show={showCd}>
+    //     <p>Time to submit</p>
+    //     <button onClick={handleSubmit}>Submit</button>
+    //   </Modal>
+    //   <Modal show={showHintAlert} onHide={setModalHintAlert}>
+    //     <p>its okay to use hints</p>
+    //     <button onClick={setModalHintAlert}>No</button>
+    //     <button onClick={handleHints}>Yes</button>
+    //   </Modal>
+    //   <Modal show={showHint} onHide={setModalHint}>
+    //     <p>{!!hints.length && hints[hints.length-1].title}</p>
+    //   </Modal>
+    //   <Modal show={showInst} onHide={setModalInst}>
+    //     <h1>Instructions</h1>
+    //     <p>{applicant.exercise.instructions}</p>
+    //   </Modal>
+    //   <Modal show={showSub} onHide={setModalSub}>
+    //     <p>Are you sure you want to submit?</p>
+    //     <button onClick={setModalSub}>No</button>
+    //     <button onClick={handleSubmit}>Yes</button>
+    //   </Modal>
+    // </div>
 
   );
 }

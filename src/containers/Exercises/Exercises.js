@@ -33,26 +33,26 @@ function Exercises () {
   }, [exercisesStore]);
 
 
-  const handleDateLow = () => {
+  const handleDateHigh = () => {
     const newOrder = exercises.sort((a,b) => {
       return new Date(b.created_at) - new Date(a.created_at);
     });
     setExercises([...newOrder]);
   }; 
-  const handleDateHigh = () => {
+  const handleDateLow = () => {
     const newOrder = exercises.sort((a,b) => {
       return new Date(a.created_at) - new Date(b.created_at);
     });
     setExercises([...newOrder]);
   }; 
 
-  const handleDifficultyLow = () => {
+  const handleDifficultyHigh = () => {
     const newOrder = exercises.sort((a,b) => {
       return new Date(b.difficulty) - new Date(a.difficulty);
     });
     setExercises([...newOrder]);
   };
-  const handleDifficultyHigh = () => {
+  const handleDifficultyLow = () => {
     const newOrder = exercises.sort((a,b) => {
       return new Date(a.difficulty) - new Date(b.difficulty);
     });
@@ -74,8 +74,8 @@ function Exercises () {
                 id="dropdown-variants-Info"
                 key="Info"
               >
-                <Dropdown.Item eventKey="1" onClick={handleDateLow}>Most recent</Dropdown.Item>
-                <Dropdown.Item eventKey="2" onClick={handleDateHigh}>Oldest</Dropdown.Item>
+                <Dropdown.Item eventKey="1" onClick={handleDateHigh}>Most recent</Dropdown.Item>
+                <Dropdown.Item eventKey="2" onClick={handleDateLow}>Oldest</Dropdown.Item>
                 <Dropdown.Item eventKey="3" onClick={handleDifficultyLow}>Lowest difficulty</Dropdown.Item>
                 <Dropdown.Item eventKey="4" onClick={handleDifficultyHigh}>Highest difficulty</Dropdown.Item>
               </DropdownButton>

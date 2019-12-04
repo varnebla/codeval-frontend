@@ -1,11 +1,14 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from 'react';
 
-import {Alert, Card, Form, Button, ListGroup, Toast, Modal } from 'react-bootstrap';
+import {Alert, Container, Card, Col, Form, Button,  Toast, Modal, Row } from 'react-bootstrap';
 
 import {addReviewToDb, updateStatus, deleteApplication} from '../../redux/applications';
 import { useDispatch, useSelector } from 'react-redux';
 
 import moment from 'moment';
+
+import './ApplicationsListItem.css';
 
 function ApplicationsListItem ( { application }) {
   
@@ -96,152 +99,190 @@ function ApplicationsListItem ( { application }) {
   }
 
   return (
-    <div style={{margin: '20px'}}>
-      <Card >
-        <ListGroup variant="flush">
-          <ListGroup.Item variant={status}>
-            <div style={{display: 'inline-flex', width: '75%', justifyContent: 'space-between'}}>
-              <h5>Status: {application.status}</h5>
-              <h6>Created by: {application.created_by.name}</h6>
-              <h6>Created at: {moment(application.created_at).format('LLL')}</h6>
-            </div>
-          </ListGroup.Item>
-          <ListGroup.Item variant={status}>
-            <div style={{display: 'flex', width: '75%', justifyContent: 'space-between'}}>
-              <h5>Applicant: {application.applicantName && application.applicantName}</h5>
-              <h6>Email: {application.applicantEmail}</h6>
-            </div>
-          </ListGroup.Item >
-          <ListGroup.Item variant={status}>
-            <div style={{display: 'flex', flexDirection: 'row' , justifyContent: 'flex-end'}}>
-              <Button variant='secondary' style={{marginRight: '5%'}} onClick={handleShowReport}>Report</Button>
-              <Button onClick={handleDelete} variant='danger'>Delete</Button>
-            </div>
-          </ListGroup.Item>
-        </ListGroup>
+    <div style={{margin: '1.6%'}}>
+      <Card>
+        
+        <Card.Header variant={status}>
+         
+          <Row>
+            <Col xs={4}>
+              <p style={{margin: '0', textAlign: 'left'}}>{application.applicantEmail}</p>
+            </Col>
+            <Col xs={4}>
+              <p style={{margin: '0', textAlign: 'center'}}>{application.status.toUpperCase()}</p>
+            </Col>
+            <Col xs={4}>
+              <p style={{margin: '0', textAlign: 'right'}}>Score: {application.report && application.report.finalScore}</p>
+            </Col>
+          </Row>
+
+         
+
+        </Card.Header>
+        <Card.Body style={{padding: '0 1.25rem'}}  variant={status}>
+          <Row >
+            <Col style={{borderRight: '3px solid black'}} xs={6}>
+              <p style={{textAlign: 'left'}}>Applicant: {application.applicantName && application.applicantName}</p>
+            </Col>
+            <Col xs={6}>
+              <p style={{textAlign: 'right'}}>{exercise && exercise.title}</p>
+            </Col>
+          </Row>
+          <Row >
+            <Col style={{borderRight: '3px solid black'}} xs={6}>
+              <p style={{textAlign: 'left'}}>
+                {!application.report
+                  ? 
+                  'Application has not been submitted yet'
+                  :
+                  application.passed ? 'Passed' : 'Failed'}
+              </p>
+            </Col>
+            <Col xs={6}>
+              <p style={{textAlign: 'right'}}>
+                  Created by {application.created_by.name}, at: {moment(application.created_at).format('LLL')}
+              </p>
+            </Col>
+          </Row>
+        </Card.Body>
+        <Card.Footer style={{padding: '0', display: 'flex'}}>
+          <div style={{borderRight: '3px solid black', width: '50%'}}>
+            <Button variant='secondary' style={{ width: '100%'}} onClick={handleShowReport}>Report</Button>
+          </div>  
+          <Button onClick={handleDelete} style={{ width: '50%' }} variant='danger'>Delete</Button> 
+        </Card.Footer>
       </Card>
+
       {/* MODAL */}
-      <Modal 
+      <Modal
         show={showReport}
         onHide={handleCloseReport}
-        size="lg"
-      >
-        <Modal.Header style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-            <h4 >{application.report && application.report.applicantName}</h4>
-            <h4>{application.passed ? 'Passed' : 'Failed'}</h4>
-            <h4>Score: {application.report && application.report.finalScore}</h4>
-          </div>
-        </Modal.Header>
+        size="xl"
+      > 
+        <Container>
+          <Modal.Header style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', width: '100%',  padding: '0 15px'}}>
+              <h4 >{application.report && application.report.applicantName}</h4>
+              <h4>{application.passed ? 'Passed' : 'Failed'}</h4>
+              <h4>Score: {application.report && application.report.finalScore}</h4>
+            </div>
+          </Modal.Header>
+        </Container>
         <Modal.Body>
           {/* SUBMITTED CODE AND DURATION */}
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <div>
-              <h5>Submitted code</h5>
-              <textarea 
-                readOnly 
-                rows={!!application.report && application.report.submittedCode.split('\n').length}
-                style={{border: 'none', outline: 'none', resize: 'none'}}
-                value={application.report && application.report.submittedCode}>
-              </textarea>
-            </div>
-            <div>
-              <h5>{exercise && exercise.title}</h5>
-              <p>Duration: {exercise && moment.utc(exercise.duration).format('HH:mm')}</p>
-              <p>Exercise has started at: {moment(application.startingTime).format('HH:mm')}</p>
-              <p>Exercise has been submitted at: {moment(application.completionTime).format('HH:mm')} </p>
-            </div>
-          </div>
+          <Container className="applicationModalSubmittedCode applicationModalContainer" >
+            <Row className="applicationModalRow">
+              <Col xs={12} lg={8}>
+                <h5>// Submitted code</h5> 
+                <textarea
+                  className='textAreaModal'
+                  readOnly 
+                  rows={!!application.report && application.report.submittedCode.split('\n').length}
+                  value={application.report && application.report.submittedCode}>
+                </textarea>
+              </Col>
+              <Col xs={12} lg={4} className="applicationModalLastCol">
+                <h5>// {exercise && exercise.title}</h5>
+                <p>Duration: {exercise && moment.utc(exercise.duration).format('HH:mm')}</p>
+                <p>Exercise has started at: {moment(application.startingTime).format('HH:mm')}</p>
+                <p>Exercise has been submitted at: {moment(application.completionTime).format('HH:mm')} </p>
+              </Col>
+            </Row>
+          </Container>
           {/* HINTS USED */}
-          <div>
-            <h5>Hints</h5>
+          <Container className="applicationModalContainer">
+            <h5>// Hints</h5>
             {application.report && application.report.hints.map(hint => (
-              <div key={Math.floor(Math.random() * 10000)} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div>
+              <Row key={Math.floor(Math.random() * 10000)} className="applicationModalRow" >
+                <Col xs={12} lg={6}>
                   <p>{hint.title}</p>
-                </div>
-                <div>
+                </Col>
+                <Col xs={12} lg={2}>
                   <p>Used: {hint.used ? 'Yes' : 'No'}</p>
-                </div>
-                <div>
+                </Col>
+                <Col xs={12} lg={4} className="applicationModalLastCol">
                   <p>Used At: {hint.used ? moment(hint.time).format('HH:mm') : 'N/A'}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
             ))}
-          </div>
+          </Container>
           {/* TESTS PASSED / FAILED */}
-          <div>
-            <h5>Tests</h5>
+          <Container className="applicationModalContainer">
+            <h5>// Tests</h5>
             {application.report && application.report.tests.map(test => (
-              <div key={test._id} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div>
+              <Row key={test._id} className="applicationModalRow" >
+                <Col xs={12} lg={10}>
                   <p>{test.title}</p>
-                </div>
-                <div>
+                </Col>
+                <Col xs={12} lg={2} className="applicationModalLastCol">
                   <p>{test.passed ? 'Passed' : 'Failed'}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
             ))}
-          </div>
+          </Container>
           {/* PASTED CODE */}
-          <div>
-            <h5>Code pasted into code editor</h5>
+          <Container className="applicationModalContainer">
+            <h5>// Code pasted into code editor</h5>
             {application.report && application.report.copyPaste.map(pasted => (
-              <div key={pasted.content} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <textarea 
-                  readOnly 
-                  rows={ pasted.content.split('\n').length <= 3 ? 3 : pasted.content.split('\n').length}
-                  style={{border: 'none', outline: 'none', resize: 'none'}}
-                  value={pasted.content}>
-                </textarea>
-                <div>
+              <Row key={pasted.content} className="applicationModalRow">
+                <Col xs={12} lg={9}>
+                  <textarea
+                    className='textAreaModal'
+                    readOnly 
+                    rows={ pasted.content.split('\n').length <= 3 ? 3 : pasted.content.split('\n').length}
+                    value={pasted.content}>
+                  </textarea>
+                </Col>
+                <Col xs={12} lg={3} className="applicationModalLastCol">
                   <p>Pasted at: {moment(pasted.time).format('HH:mm')}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
             ))}
-          </div>
+          </Container>
           {/* TEST BUTTON CLICKED WITH CONTENT */}
-          <div>
-            <h5>Code when test button was clicked</h5>
+          <Container className="applicationModalContainer">
+            <h5>// Code when test button was clicked</h5>
             {application.report && application.report.testClicked.map(clicked => (
-              <div key={clicked._id} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <textarea 
-                  readOnly 
-                  rows={ clicked.currentCode.split('\n').length}
-                  style={{border: 'none', outline: 'none', resize: 'none'}}
-                  value={clicked.currentCode}>
-                </textarea>
-                <div>
+              <Row key={clicked._id} className="applicationModalRow" >
+                <Col xs={12} lg={9}>
+                  <textarea
+                    className='textAreaModal'
+                    readOnly 
+                    rows={ clicked.currentCode.split('\n').length}
+                    value={clicked.currentCode}>
+                  </textarea> 
+                </Col>
+                <Col xs={12} lg={3} className="applicationModalLastCol">
                   <p>Clicked at: {moment(clicked.time).format('HH:mm')}</p>
-                </div>
-              </div>
+                </Col>
+              </Row>
             ))}
-          </div>
+          </Container>
           {/* FORM FOR REVIEW INPUT */}
-          <div>
+          <Container className="applicationModalContainer">
             <Form>
-              <Form.Group style={{marginLeft: '20px'}} controlId="examples">
-                <Form.Label>Leave a review about the applicant</Form.Label>
+              <Form.Group controlId="examples">
+                <h5>// Leave a review about the applicant</h5>
                 <span style={{display: 'flex'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
-                  <button onClick={addReview}>Add</button>
+                  <Button variant="secondary" onClick={addReview}>Add</Button>
                 </span>
               </Form.Group>
             </Form>
-          </div>
+          </Container>
           {/* REVIEWS  */}
-          <div>
-            <h4>Reviews</h4>
+          <Container className="applicationModalContainer">
+            <h5>// Reviews</h5>
             {!!sortedReviews && sortedReviews.map(review=> (
-              <Toast key={Math.floor(Math.random() * 10000)} style={{maxWidth:'100%'}}>
-                <Toast.Header closeButton={false}>
+              <Toast key={Math.floor(Math.random() * 10000)} className="appplicationModalToast" >
+                <Toast.Header className="appplicationModalToastHeader" closeButton={false}>
                   <strong className="mr-auto">Created by: {review.created_by}</strong>
                   <small>Created at: {moment(review.created_at).format('HH:mm')}</small>
                 </Toast.Header>
-                <Toast.Body>{review.content}</Toast.Body>
+                <Toast.Body className="appplicationModalToastBody">{review.content}</Toast.Body>
               </Toast>
             ))}
-          </div>
+          </Container>
           {/* MODAL BUTTONS */}
         </Modal.Body>
         { reviewed && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="success">Application has been marked as reviewed!</Alert>}

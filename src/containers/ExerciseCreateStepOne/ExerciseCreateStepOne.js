@@ -3,7 +3,8 @@ import React from 'react';
 import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Form } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import './ExerciseCreateStepOne.css';
 
 function ExerciseCreateStepOne () {
 
@@ -18,8 +19,8 @@ function ExerciseCreateStepOne () {
   }
   
   return (
-    <div style={{width: '60vw', height: '55vh'}}> 
-      <Form style ={{margin: '20px'}}>
+    <> 
+      <Form className="first-exercise-form">
         <Form.Group controlId="title">
           <Form.Label>Name of the exercise</Form.Label>
           <Form.Control value={initialForm.title} type="text" placeholder="Name of the exercise" onChange={handleExerciseForm}/>
@@ -44,7 +45,7 @@ function ExerciseCreateStepOne () {
           <Form.Control value={initialForm.duration} type="text" placeholder="Duration of the exercise" onChange={handleExerciseForm}/>
         </Form.Group>
       </Form>
-    </div>
+    </>
   );
 }
 
