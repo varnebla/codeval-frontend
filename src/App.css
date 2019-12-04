@@ -43,11 +43,11 @@
 }
 .btn{
   border-radius:0px;
+  border: 2pt solid black;
 }
 .btn-primary{
   color: black;
   background-color: white;
-  border: 2pt solid black;
   border-radius:0px;
 }
 .btn-primary:hover,.btn-primary:active, .btn-primary:focus {
@@ -55,6 +55,11 @@
   background-color: black !important;
   border-color:white;
   box-shadow: none !important;
+  outline:none;
+}
+.btn-info:focus{
+  box-shadow: none !important;
+  color:white;
 }
 
 .navbar{
@@ -106,5 +111,10 @@
 
 }
 .close:focus{
+  outline:none;
+}
+.dropdown-item:active, .dropdown-item:hover, .dropdown-item:focus {
+  background-color: black;
+  color:white;
   outline:none;
 }
