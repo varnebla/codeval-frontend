@@ -118,7 +118,45 @@
   color:white;
   outline:none;
 }
-
+.highlighted-text{
+  position: relative;
+  z-index: 2;
+}
+.highlight-report {
+  background: #a2e2a2;
+  position: relative;
+  height: 20px;
+  margin-top: -29px;
+  z-index: 1;
+  transform: rotate(-2deg) skewX(-10deg);
+}
+.highlight-reviewed {
+  background: #a2e2a2;
+  position: relative;
+  height: 20px;
+  margin-top: -20px;
+  z-index: 1;
+  width: 270px;
+  transform: rotate(-2deg) skewX(-10deg);
+}
+.highlight-completed {
+  background: #a2e2a2;
+  position: relative;
+  height: 20px;
+  margin-top: -20px;
+  z-index: 1;
+  width: 270px;
+  transform: rotate(-2deg) skewX(-10deg);
+}
+.highlight-issued {
+  background: #a2e2a2;
+  position: relative;
+  height: 20px;
+  margin-top: -20px;
+  z-index: 1;
+  width: 270px;
+  transform: rotate(-2deg) skewX(-10deg);
+}
 .tabs_codeval_content {
   margin: 0 3.8% 0 3.5%;
 }

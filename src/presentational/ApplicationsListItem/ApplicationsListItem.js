@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import './ApplicationsListItem.css';
+import '../../App.css';
 
 function ApplicationsListItem ( { application }) {
   
@@ -172,8 +173,9 @@ function ApplicationsListItem ( { application }) {
           {/* SUBMITTED CODE AND DURATION */}
           <Container className="applicationModalSubmittedCode applicationModalContainer" >
             <Row className="applicationModalRow">
-              <Col xs={12} lg={8}>
-                <h5>// Submitted code</h5> 
+              <Col xs={12} lg={8}>                
+                <h5 className="highlighted-text">// Submitted code</h5> 
+                <div className="highlight-report" style={{width:'220px'}}></div>
                 <textarea
                   className='textAreaModal'
                   readOnly 
@@ -191,7 +193,8 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* HINTS USED */}
           <Container className="applicationModalContainer">
-            <h5>// Hints</h5>
+            <h5 className="highlighted-text">// Hints</h5>
+            <div className="highlight-report" style={{width:'100px'}}></div>
             {application.report && application.report.hints.map(hint => (
               <Row key={Math.floor(Math.random() * 10000)} className="applicationModalRow" >
                 <Col xs={12} lg={6}>
@@ -208,7 +211,8 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* TESTS PASSED / FAILED */}
           <Container className="applicationModalContainer">
-            <h5>// Tests</h5>
+            <h5 className="highlighted-text">// Tests</h5>
+            <div className="highlight-report" style={{width:'80px'}}></div>
             {application.report && application.report.tests.map(test => (
               <Row key={test._id} className="applicationModalRow" >
                 <Col xs={12} lg={10}>
@@ -222,7 +226,8 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* PASTED CODE */}
           <Container className="applicationModalContainer">
-            <h5>// Code pasted into code editor</h5>
+            <h5 className="highlighted-text">// Code pasted into code editor</h5>
+            <div className="highlight-report"  style={{width:'300px'}}></div>
             {application.report && application.report.copyPaste.map(pasted => (
               <Row key={pasted.content} className="applicationModalRow">
                 <Col xs={12} lg={9}>
@@ -241,7 +246,8 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* TEST BUTTON CLICKED WITH CONTENT */}
           <Container className="applicationModalContainer">
-            <h5>// Code when test button was clicked</h5>
+            <h5 className="highlighted-text">// Code when test button was clicked</h5>
+            <div className="highlight-report"  style={{width:'360px'}}></div>
             {application.report && application.report.testClicked.map(clicked => (
               <Row key={clicked._id} className="applicationModalRow" >
                 <Col xs={12} lg={9}>

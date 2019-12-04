@@ -32,7 +32,11 @@ function Briefing () {
     }
   };
 
-  const string = `Hello, you've been invited to participate on this exercise, the first thing you need to do is enter your name. Once you submit the name the exercise will start. You have ${applicant.exercise.duration/60000} min to do it so be ready once you click to start. At the top you will have three buttons, one to get a hint, don't worry about using them, we all need help sometime :). Another will have the instructions of the exercise, be sure to understand everything before you start coding. The last one will be the submit button. Once you submit your assessment the company will recieve an email. At the left you have the code editor where you will code, and at the right you have a console to see which tests you're passing and if you fail them why you're failing them. If you want to test your code just press the test button. Good luck with your assessment!`;
+  const string = 'Hi, welcome to Codeval!';
+  const string2 = 'You\'ve been invited to participate on this exercise. Before submitting your name, we would like to introduce you to our code editor. At first sight you will find instructions and examples of the exercise. Be sure you understand them before start coding.';
+  const string3 = 'At the top right you have hints, which will help you in case you get stuck. We all need help sometimes!';
+  const string4 = 'If you need to test or log your code, simply click test button. Once you feel that your code is ready (or you are running out of the time) click submit button.';
+  const string5 = `Once you submit your name, the exercise will start. You have ${applicant.exercise.duration/60000} min. Good luck with your assessment! `;
 
   return (
     <div className="briefing-page">
@@ -40,13 +44,17 @@ function Briefing () {
         <div className="briefing-info">
           <h1 className="briefing-title">How to proceed</h1>
           <p className="briefing-text">{string}</p>
+          <p className="briefing-text">{string2}</p>
+          <p className="briefing-text">{string3}</p>
+          <p className="briefing-text">{string4}</p>
+          <p className="briefing-text">{string5}</p>
         </div>
         <Form className="briefing-form" onSubmit={setModalSub}>
           <Form.Group className="briefing-form-group" controlId="name">
             {/* <Form.Label className="briefing-form-label">Name</Form.Label> */}
-            <Form.Control value={name} type="text" placeholder="Enter name" onChange={handleChange} className="briefing-form-control"/>
+            <Form.Control value={name} type="text" placeholder="Enter your name" onChange={handleChange} className="briefing-form-control"/>
           </Form.Group>
-          <Button type="submit" className="briefing-button">Submit</Button>
+          <Button type="submit" className="briefing-button">Start</Button>
         </Form> 
         <Modal  show={showSub} onHide={setModalSub} centered>
           <div className="briefing-modal">

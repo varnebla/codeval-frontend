@@ -66,10 +66,10 @@ function Settings () {
     console.log(errors);
     if (errors.length === 0) {
       console.log('gonna dispatch');
-      // dispatch(updateUser(updateObject)).then(result=> {
-      //   setInputFeedback(true);
-      //   sessionStorage.removeItem('success');
-      // });
+      dispatch(updateUser(updateObject)).then(result=> {
+        setInputFeedback(true);
+        sessionStorage.removeItem('success');
+      });
     }
     setInputFeedback(false);
     setInputError(errors);
