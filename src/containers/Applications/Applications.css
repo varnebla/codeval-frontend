@@ -3,4 +3,32 @@
 .e1qjn9k90{
   width: 100% !important;
   top: 115% !important;
+  max-height: 675% !important;
+}
+
+.e1gzf2xs0 {
+  border-radius: 0 !important;
+  border: 3px solid black !important;
+  box-shadow: none !important;
+}
+
+
+.btn-create-application:hover, .btn-create-application:focus, .btn-create-application:active{
+  border-color:white !important;
+}
+
+.spinnerApplications{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.applications-top-bar{
+  margin: 0 3.8% 0 3.5%;
+}
+
+.applicationsContainer{
+  background: url('https://images.unsplash.com/photo-1487837647815-bbc1f30cd0d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80');
+  background-repeat: no-repeat;
+  background-size: 100% 100%; 
 }

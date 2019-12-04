@@ -1,0 +1,47 @@
+.applicationModalSubmittedCode{
+  display: flex;
+  justify-content: space-between;
+}
+
+.applicationModalRow{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1.5% 0;
+  border-bottom: 3px solid black;
+}
+
+.textAreaModal{
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+.applicationModalLastCol{
+  /* background-color: pink; */
+  text-align: right;
+}
+
+.appplicationModalToast{
+  max-width: 100%;
+  color: black;
+  box-shadow: none;
+}
+
+.appplicationModalToastHeader{
+  color: black;
+  border: 2px solid black;
+}
+
+.appplicationModalToastBody{
+  font-size: 1.3em;
+  border: 2px solid black;
+  border-top: 0;
+}
+
+.buttonsRow {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+}

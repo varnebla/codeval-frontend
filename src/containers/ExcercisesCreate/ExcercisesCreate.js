@@ -278,7 +278,7 @@ const inputCheckStepThree = (exercise, err) => {
     err.push('Please enter exercise instructions.');  
   }
   if (!exercise.examples.length) {
-    err.push('Please create hints for the exercise.');
+    err.push('Please create examples for the exercise.');
   }
 };
 // HELPER FUNCTION TO CHECK TESTS

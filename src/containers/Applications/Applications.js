@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import ApplicationsList from '../../presentational/ApplicationsList/ApplicationsList';
 
-import {Alert, Button, Modal, Form, Dropdown, DropdownButton  } from 'react-bootstrap';
+import {Alert, Container,  Button, Modal, Form, Dropdown, DropdownButton  } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 
 
@@ -86,27 +86,27 @@ function Applications () {
     }
   }, [allApplications, exercisesList]);
 
-  const handleDateLow = () => {
+  const handleDateHigh = () => {
     const newOrder = applications.sort((a,b) => {
       return new Date(b.created_at) - new Date(a.created_at);
     });
     setApplications([...newOrder]);
   }; 
-  const handleDateHigh = () => {
+  const handleDateLow = () => {
     const newOrder = applications.sort((a,b) => {
       return new Date(a.created_at) - new Date(b.created_at);
     });
     setApplications([...newOrder]);
   }; 
 
-  const handleStatusLow = () => {
+  const handleStatusHigh = () => {
     const statuses = ['issued', 'activated', 'completed', 'reviewed', 'expired'];
     const newOrder = applications.sort((a,b) => {
       return statuses.indexOf(b.status) - statuses.indexOf(a.status);
     });
     setApplications([...newOrder]);
   };
-  const handleStatusHigh = () => {
+  const handleStatusLow = () => {
     const statuses = ['issued', 'activated', 'completed', 'reviewed', 'expired'];
     const newOrder = applications.sort((a,b) => {
       return statuses.indexOf(a.status) - statuses.indexOf(b.status);
@@ -132,29 +132,27 @@ function Applications () {
   };
 
   return (
-    <div>
+    <div className='applicationsContainer'>
       {
         loading
-          ? <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
+          ? <Spinner animation="border" role="status" className="spinnerApplications">
           </Spinner>
-          :<div style={{display: 'flex', flexDirection: 'column'}}>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-              <h1>Applications</h1>
+          :<Container className="top-bar-padding">
+            <div className="top-bar applications-top-bar">
               <DropdownButton
                 title="Order applications by"
                 variant="info"
                 id="dropdown-variants-Info"
                 key="Info"
               >
-                <Dropdown.Item eventKey="1" onClick={handleDateLow}>Most recent</Dropdown.Item>
-                <Dropdown.Item eventKey="2" onClick={handleDateHigh}>Oldest</Dropdown.Item>
+                <Dropdown.Item eventKey="1" onClick={handleDateHigh}>Most recent</Dropdown.Item>
+                <Dropdown.Item eventKey="2" onClick={handleDateLow}>Oldest</Dropdown.Item>
                 <Dropdown.Item eventKey="3" onClick={handleStatusLow}>Lowest status</Dropdown.Item>
                 <Dropdown.Item eventKey="4" onClick={handleStatusHigh}>Highest status</Dropdown.Item>
                 <Dropdown.Item eventKey="5" onClick={handleScoreLow}>Lowest final score</Dropdown.Item>
                 <Dropdown.Item eventKey="6" onClick={handleScoreHigh}>Highest final score</Dropdown.Item>
               </DropdownButton>
-              <Button onClick={handleShow} variant="success">Create Application</Button>
+              <Button onClick={handleShow} variant="primary" className="btn-create-application">Create Application</Button>
             </div>
             <ApplicationsList allApplications={applications}/>
             <Modal
@@ -204,7 +202,7 @@ function Applications () {
                 </Button>}
               </Modal.Footer>
             </Modal>
-          </div>
+          </Container>
       } 
     </div>
   );
