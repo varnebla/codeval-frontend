@@ -1,0 +1,12 @@
+.ace_gutter {
+  background: white !important;
+  color: black !important;
+}
+
+.ace_gutter-active-line {
+  background: #EFEFEF !important;
+}
+
+.ace_open {
+  border: none !important;
+}

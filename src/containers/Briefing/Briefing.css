@@ -1,0 +1,117 @@
+.briefing-page {
+  font-family: 'Apercu';
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5485a5;
+}
+
+.briefing-container {
+  background-color: white;
+  border: 2px solid black;
+  padding: 15px 20px 20px 20px;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.briefing-info {
+  width: 100%;
+}
+.briefing-info::selection {
+  background-color: #fecd01;
+}
+
+.briefing-title {
+  text-transform: uppercase;
+  font-family: 'Apercu mono';
+  font-size: 24px;
+}
+
+.briefing-title::selection {
+  background-color: #fecd01;
+}
+.briefing-text::selection {
+  background-color: #fecd01;
+}
+
+.briefing-form {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+}
+
+.briefing-form-group {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.briefing-form-control {
+  background-color: transparent;
+  color: black;
+  height: 100%;
+}
+.briefing-form-control:focus {
+  background-color: transparent;
+  color: black;
+  box-shadow: 0 0 0 0.2rem #fecd01 !important;
+}
+.briefing-form-control::placeholder {
+  color: black;
+}
+.briefing-form-control::selection {
+  background-color: #fecd01;
+}
+
+.briefing-button {
+  align-self: flex-end;
+  background-color: transparent !important;
+}
+.briefing-form .btn-primary:hover {
+  background-color: #fecd01 !important;
+  border: 2px solid black;
+  color: black !important;
+}
+
+.briefing-form .btn-primary:focus {
+  background-color: #fecd01 !important;
+  border: 2px solid black;
+  color: black !important;
+}
+
+.briefing-modal {
+  padding: 15px 20px 23px 20px;
+  font-family: 'Apercu';
+  background-color: #fecd01;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.briefing-modal-text {
+
+}
+
+.briefing-modal-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.briefing-modal-btn {
+  background-color: transparent;
+  padding: 5px 10px;
+  border: 2px solid black;
+}
+.briefing-modal-btn+.briefing-modal-btn {
+  margin-left: 20px;
+}
+
+.briefing-modal-btn:focus {
+  outline: 0;
+}
