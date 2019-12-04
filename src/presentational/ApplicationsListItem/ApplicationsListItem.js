@@ -269,8 +269,9 @@ function ApplicationsListItem ( { application }) {
           <Container className="applicationModalContainer">
             <Form>
               <Form.Group controlId="examples">
-                <h5>// Leave a review about the applicant</h5>
-                <span style={{display: 'flex'}}>
+                <h5 className="highlighted-text">// Leave a review about the applicant</h5>
+                <div className="highlight-report"  style={{width:'380px'}}></div>
+                <span style={{display: 'flex', marginTop:'10px'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
                   <button className='addBtnsApplicationExercise' variant="secondary" onClick={addReview}>Add</button>
                 </span>
@@ -279,7 +280,8 @@ function ApplicationsListItem ( { application }) {
           </Container>
           {/* REVIEWS  */}
           <Container className="applicationModalContainer">
-            <h5>// Reviews</h5>
+            <h5 className="highlighted-text">// Reviews</h5>
+            <div className="highlight-report"  style={{width:'100px', marginBottom:'10px'}}></div>
             {!!sortedReviews && sortedReviews.map(review=> (
               <Toast key={Math.floor(Math.random() * 10000)} className="appplicationModalToast" >
                 <Toast.Header className="appplicationModalToastHeader" closeButton={false}>
