@@ -157,3 +157,22 @@
   width: 270px;
   transform: rotate(-2deg) skewX(-10deg);
 }
+.tabs_codeval_content {
+  margin: 0 3.8% 0 3.5%;
+}
+
+.nav-tabs .nav-link {
+  border-radius: 0;
+}
+.bg_tabs {
+  background-color: aliceblue;
+}
+.tab-panel.active {
+  border: 0px
+}
+.active{
+  border: 0px
+}
+.controlled-tab-example-tab-all{
+  background-color: blueviolet;
+}
