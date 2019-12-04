@@ -9,9 +9,9 @@
   z-index: -1;
 }
 
-.exercises-top-bar{
+/* .exercises-top-bar{
   margin: 0 3% 0 2%;
-}
+} */
 .btn-create-exercise:hover, .btn-create-exercise:focus, .btn-create-exercise:active{
   border-color:white !important;
 }

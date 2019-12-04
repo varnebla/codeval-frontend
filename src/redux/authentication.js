@@ -101,15 +101,18 @@ export const autoLogin = (loginObject) =>
   };
 
 export const updateUser = (updateObject) => 
-  async (dispatch) =>{
+  async (dispatch, getState, history) =>{
     const user = await updateUserInfo(updateObject);
-    if (user)
+    if (user) {
       dispatch({
         type:REFRESH,
         token: localStorage.getItem('jwtToken'),
         user: updateObject,
         isAuthenticated: true
       });
+      sessionStorage.setItem('success', 'true');
+      history.push('/dashboard/settings');
+    }
   };
 
 

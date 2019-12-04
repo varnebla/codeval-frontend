@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-import {Form, Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
+import './ExerciseCreateStepThree.css';
 
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -69,7 +74,8 @@ function ExerciseCreateStepThree () {
     e.preventDefault();
     const target = e.target.parentElement.firstChild.innerText;
     const updatingExerciseForm = {...initialForm};
-    const allHints = initialForm.hints.filter(hint => hint !== target);
+    const allHints = initialForm.hints.filter(hint => hint !== target
+    );
     updatingExerciseForm.hints = allHints;
     dispatch(fillInExercise(updatingExerciseForm));
   }
@@ -86,72 +92,102 @@ function ExerciseCreateStepThree () {
 
   return (
    
-    <div style={{width: '80vw', height: '55vh'}}>
-      <Form style ={{margin: '20px', width: '80vw'}}>
-        <Form.Row style={{display: 'flex', margin: '20px'}}>
-          <Form.Group  controlId="placeholderCode" >
-            <Form.Label>Please create placeholder function here</Form.Label>
-            <AceEditor
-              height='150px'
-              width='400px'
-              mode='javascript'
-              theme='monokai'
-              fontSize='20px'
-              tabSize={2}
-              onChange={handleFunctionPlaceholder}
-              value={initialForm.placeholderCode}
-              name='placeholderCode'
-              editorProps={{ $blockScrolling: true }}
-              style={{fontFamily: 'Apercu mono'}}
-            />  
-          </Form.Group>
-          <div>
-            <Form.Group style={{marginLeft: '20px'}} controlId="hints">
-              <Form.Label>Hints for the exercise</Form.Label>
-              <span style={{display: 'flex'}}>
-                <Form.Control value={hintText} type="text" placeholder="Hints" onChange={handleExerciseForm}/>
-                <button onClick={addHint}>Add</button>
-              </span>
-            </Form.Group>
-            <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}>
-              {initialForm.hints && initialForm.hints.map(hint => (
-                <div key={Math.floor(Math.random() * 10000)} 
-                  style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <p>{hint}</p>
-                  <Button variant='outline-danger' onClick={removeHint}>X</Button>
+    <>
+    <Row>
+      <Col sm={12}>
+
+        <Form style ={{margin: '20px'}}>
+          <Row className="third-step-firstRow">
+            {/* <Form.Row style={{display: 'flex', margin: '20px'}}> */}
+            <Col sm={6}>
+              <Form.Group  controlId="placeholderCode" className="placeholder-code-editor">
+                <Form.Label>Please create placeholder function here</Form.Label>
+                <AceEditor
+                  height='100%'
+                  width='100%'
+                  mode='javascript'
+                  theme='monokai'
+                  fontSize='20px'
+                  tabSize={2}
+                  onChange={handleFunctionPlaceholder}
+                  value={initialForm.placeholderCode}
+                  name='placeholderCode'
+                  editorProps={{ $blockScrolling: true }}
+                  style={{fontFamily: 'Apercu mono'}}
+                />  
+              </Form.Group>
+            </Col>
+            <Col sm={6}>
+        
+              <Form.Group  controlId="hints">
+                <Form.Label>Hints for the exercise</Form.Label>
+                <div style={{display: 'flex'}}>
+                  <Form.Control value={hintText} type="text" placeholder="Hints" onChange={handleExerciseForm}/>
+                  <button variant="secondary" onClick={addHint}>Add</button>
                 </div>
-              ))}
-            </div> 
-          </div>
-        </Form.Row>
-      </Form>
-      <Form style ={{margin: '20px', width: '80vw'}}>
-        <Form.Row style={{display: 'flex', margin: '20px'}}>
-          <Form.Group controlId="instructions" style={{width: '400px'}}>
-            <Form.Label>Please enter instructions for the exercise</Form.Label>
-            <Form.Control as="textarea" rows="6" value={initialForm.instructions} type="text" placeholder="Instructions for the exercise" onChange={handleExerciseForm} style={{resize:'none'}}/>
-          </Form.Group>
-          <div>
-            <Form.Group style={{marginLeft: '20px'}} controlId="examples">
-              <Form.Label>Please create examples for the exercise</Form.Label>
-              <span style={{display: 'flex'}}>
-                <Form.Control value={exampleText} type="text" placeholder="Examples" onChange={handleExerciseForm}/>
-                <button onClick={addExample}>Add</button>
-              </span>
-            </Form.Group>
-            <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}>
-              {initialForm.examples && initialForm.examples.map(example => (
-                <div key={Math.floor(Math.random() * 10000)} 
-                  style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <p>{example}</p>
-                  <Button variant='outline-danger' onClick={removeExample}>X</Button>
-                </div>
-              ))}
-            </div> 
-          </div>
-        </Form.Row>
-      </Form>
-    </div>
+              </Form.Group>
+              <ListGroup as="ul" className="hints-list-group">
+                {initialForm.hints && initialForm.hints.map(hint => (
+                  <ListGroup.Item 
+                    as="li"
+                    key={Math.floor(Math.random() * 10000)} 
+                    className="hint-item">
+                    <p>{hint}</p>
+                    <Button variant='outline-danger' onClick={removeHint}>x</Button>
+                  </ListGroup.Item>
+                ))}
+
+              </ListGroup>
+              {/* <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}>
+              </div>  */}
+        
+
+            </Col>
+          </Row>
+        </Form>
+      </Col>
+      {/* </Form.Row> */}
+      <Col sm={12}>
+
+        <Form style ={{margin: '20px'}}>
+          <Row>
+            <Col sm={6}>
+              <Form.Group controlId="instructions" style={{width: '400px'}}>
+                <Form.Label>Please enter instructions for the exercise</Form.Label>
+                <Form.Control as="textarea" rows="6" value={initialForm.instructions} type="text" placeholder="Instructions for the exercise" onChange={handleExerciseForm} style={{resize:'none'}}/>
+              </Form.Group>
+
+            </Col>
+            <Col sm={6}>
+            
+              <Form.Group controlId="examples">
+                <Form.Label>Please create examples for the exercise</Form.Label>
+                <span style={{display: 'flex'}}>
+                  <Form.Control value={exampleText} type="text" placeholder="Examples" onChange={handleExerciseForm}/>
+                  <button variant="secondary" onClick={addExample}>Add </button>
+                </span>
+              </Form.Group>
+              {/* <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}> */}
+              <ListGroup as="ul" className="hints-list-group">
+                {initialForm.examples && initialForm.examples.map(example => (
+                  <ListGroup.Item 
+                    as="li"
+                    key={Math.floor(Math.random() * 10000)} 
+                    className="hint-item">
+                    <p>{example}</p>
+                    <Button variant='outline-danger' onClick={removeExample}>x</Button>
+                  </ListGroup.Item>
+                ))}
+
+              </ListGroup>
+
+
+            </Col>
+          </Row>
+        </Form>
+      </Col>
+    </Row>
+    </>
   );
 }
 

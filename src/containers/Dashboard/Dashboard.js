@@ -11,23 +11,28 @@ import history from '../../history';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 import './Dashboard.css';
 
 function Dashboard () {
 
   return (
     <Router history={history}>
-      <Navbar className="navbar" sticky="top">
+      <Navbar collapseOnSelect expand="lg" className="navbar" sticky="top">
         {/* ONCE LOGO IS READY IT SHOULD GO HERE INSTEAD OF DASHBOARD */}
         <Navbar.Brand className="nav" href="/dashboard">CODEVAL</Navbar.Brand> 
-        <Nav className="mr-auto">
+        <Navbar.Toggle className="nav-bar-toggle" aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
 
-        </Nav>
-        <Nav inline="true" className="nav">
-          <Nav.Link href="/dashboard/interviewers">INTERVIEWERS</Nav.Link>
-          <Nav.Link href="/dashboard/exercises">EXERCISES</Nav.Link>
-          <Nav.Link href="/dashboard/settings">SETTINGS</Nav.Link>
-        </Nav>
+          <Nav className="mr-auto">
+
+          </Nav>
+          <Nav inline="true" className="nav">
+            <Nav.Link href="/dashboard/interviewers">INTERVIEWERS</Nav.Link>
+            <Nav.Link href="/dashboard/exercises">EXERCISES</Nav.Link>
+            <Nav.Link href="/dashboard/settings">SETTINGS</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
       <Switch>
         <Route exact path='/dashboard' component={Applications}/>
@@ -38,6 +43,12 @@ function Dashboard () {
         <Route path='/dashboard/settings' component={Settings}/>
       </Switch>
     </Router>
+  );
+}
+
+export function ToggleButton () {
+  return (
+    <Button className="toggle-button" variant="danger"></Button>
   );
 }
 
