@@ -45,3 +45,37 @@
   margin-left: 0 !important;
   width: 100% !important;
 }
+
+.addBtnsApplicationExercise{
+  background: white;
+  border: 3px solid black;
+  border-left: none;
+  outline: none;
+
+}
+
+.addBtnsApplicationExercise:hover {
+  background: black;
+  color: white;
+  outline: none;
+}
+
+.reportAlert{
+  margin: 0 2.77%;
+}
+
+.reportBtnCloseReviewed{
+  margin-right: 1.35%;
+}
+
+.applicationReportBtn {
+  background: white;
+  color: black;
+}
+
+.applicationDeleteBtn{
+  background: white;
+  color: black;
+}
+
+

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Router, Switch, Route} from 'react-router-dom';
+import { Router, Switch, Route, NavLink} from 'react-router-dom';
 import Settings from '../Settings/Settings';
 import Interviewers from '../Interviewers/Interviewers';
 import Exercises from '../Exercises/Exercises';
@@ -23,14 +23,12 @@ function Dashboard () {
         <Navbar.Brand className="nav" href="/dashboard">CODEVAL</Navbar.Brand> 
         <Navbar.Toggle className="nav-bar-toggle" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-
           <Nav className="mr-auto">
-
           </Nav>
           <Nav inline="true" className="nav">
-            <Nav.Link href="/dashboard/interviewers">INTERVIEWERS</Nav.Link>
-            <Nav.Link href="/dashboard/exercises">EXERCISES</Nav.Link>
-            <Nav.Link href="/dashboard/settings">SETTINGS</Nav.Link>
+            <NavLink className="nav-link" to="/dashboard/interviewers" activeClassName="selected" activeStyle={{fontWeight: "1000"}}>INTERVIEWERS</NavLink>
+            <NavLink className="nav-link" to="/dashboard/exercises" activeClassName="selected" activeStyle={{fontWeight: "1000"}}>EXERCISES</NavLink>
+            <NavLink className="nav-link" to="/dashboard/settings" activeClassName="selected" activeStyle={{fontWeight: "1000"}}>SETTINGS</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

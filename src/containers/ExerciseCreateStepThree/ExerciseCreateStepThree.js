@@ -127,7 +127,7 @@ function ExerciseCreateStepThree () {
                 <Form.Label>Hints for the exercise</Form.Label>
                 <div style={{display: 'flex'}}>
                   <Form.Control value={hintText} type="text" placeholder="Hints" onChange={handleExerciseForm}/>
-                  <button variant="secondary" onClick={addHint}>Add</button>
+                  <button className='addBtnsApplicationExercise' variant="secondary" onClick={addHint}>Add</button>
                 </div>
               </Form.Group>
               <ListGroup as="ul" className="hints-list-group">
@@ -142,10 +142,6 @@ function ExerciseCreateStepThree () {
                 ))}
 
               </ListGroup>
-              {/* <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}>
-              </div>  */}
-        
-
             </Col>
           </Row>
         </Form>
@@ -156,9 +152,9 @@ function ExerciseCreateStepThree () {
         <Form style ={{margin: '20px'}}>
           <Row>
             <Col sm={6}>
-              <Form.Group controlId="instructions" style={{width: '400px'}}>
+              <Form.Group controlId="instructions" style={{width: '100%'}}>
                 <Form.Label>Please enter instructions for the exercise</Form.Label>
-                <Form.Control as="textarea" rows="6" value={initialForm.instructions} type="text" placeholder="Instructions for the exercise" onChange={handleExerciseForm} style={{resize:'none'}}/>
+                <Form.Control as="textarea" rows="6" value={initialForm.instructions} type="text" placeholder="Instructions for the exercise" onChange={handleExerciseForm} style={{resize:'none', height: '23.05vh'}}/>
               </Form.Group>
 
             </Col>
@@ -168,10 +164,9 @@ function ExerciseCreateStepThree () {
                 <Form.Label>Please create examples for the exercise</Form.Label>
                 <span style={{display: 'flex'}}>
                   <Form.Control value={exampleText} type="text" placeholder="Examples" onChange={handleExerciseForm}/>
-                  <button variant="secondary" onClick={addExample}>Add </button>
+                  <button className='addBtnsApplicationExercise' variant="secondary" onClick={addExample}>Add </button>
                 </span>
               </Form.Group>
-              {/* <div style={{display: 'flex', flexDirection: 'column', marginLeft: '20px', overflowY: 'scroll', maxHeight: '95px'}}> */}
               <ListGroup as="ul" className="hints-list-group">
                 {initialForm.examples && initialForm.examples.map(example => (
                   <ListGroup.Item 
