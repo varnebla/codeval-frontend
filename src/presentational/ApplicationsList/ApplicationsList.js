@@ -9,10 +9,12 @@ function ApplicationsList ( { allApplications }) {
   return (
     <div className="applicationsList-container">
       {allApplications && allApplications.map(oneApplication => (
-        <ApplicationsListItem key={oneApplication._id} application={oneApplication}/>
+        <ApplicationsListItem key={oneApplication._id} application={oneApplication} />
       ))}
     </div>
   );
 }
 
 export default ApplicationsList;
+
+

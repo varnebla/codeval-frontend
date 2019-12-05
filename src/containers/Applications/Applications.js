@@ -166,6 +166,7 @@ function Applications () {
     }
   };
 
+
   return (
     <div className="applicationsContainer vh-100">
       {loading ? (
@@ -211,7 +212,7 @@ function Applications () {
             </Button>
           </div>
           <Tabs
-            className=" applications-top-bar tabs_codeval mt-5"
+            className="applications-top-bar tabs_codeval mt-5 applicationsTabs"
             id="controlled-tab-example"
             activeKey={key}
             onSelect={k => {
@@ -230,7 +231,7 @@ function Applications () {
               title="Issued/Activated"
             ></Tab>
             <Tab
-              className="tabs_codeval_content"
+              className="tabs_codeval_content "
               eventKey="completed"
               title="Completed"
             ></Tab>
@@ -240,7 +241,7 @@ function Applications () {
               title="Reviewed"
             ></Tab>
             <Tab
-              className="tabs_codeval_content"
+              className="tabs_codeval_content "
               eventKey="expired"
               title="Expired"
             ></Tab>
@@ -333,3 +334,12 @@ const isValidEmail = email => {
   const re = /^[^@]+@[^.]+[.][a-zA-z]{2,}$/;
   return re.test(email);
 };
+
+function test () {
+  let x = document.getElementsByClassName('tabs_codeval');
+  console.log(x, 'from func')
+  for (let i = 0; i < x.length; i++) {
+    console.log('getting here');
+  }
+}
+

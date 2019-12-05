@@ -25,3 +25,28 @@
 .applications-top-bar{
   margin: 0 3.8% 0 3.5%;
 }
+
+.applications-top-bar > .nav-link {
+  margin-right: 10px;
+  color: black;
+  border: 3px solid black;
+  border-bottom: none;
+};
+
+.nav-link, .active {
+  color:white !important
+}
+
+.nav-item.show, .active{
+  color: white !important;
+}
+
+.tabs_codeval_content{
+  border: 1.5px solid black !important;
+}
+
+.applications-top-bar > .nav-link:hover {
+  border-color: black !important;
+  color: white;
+  background: black;
+}
