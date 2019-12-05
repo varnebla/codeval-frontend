@@ -15,11 +15,11 @@ function DeleteModal (props) {
         <Modal.Body>Are you sure you would like to delete {props.exercise.title}?</Modal.Body>
       }
       <Modal.Footer>
-        <Button variant="secondary" onClick={props.onHide}>
-            Close
-        </Button>
         <Button variant="danger" onClick={props.handleDeleteExercise}>
             Delete
+        </Button>
+        <Button variant="secondary" onClick={props.onHide}>
+            Close
         </Button>
       </Modal.Footer>
       { props.successAlert && <Alert style={{marginLeft: '15px', marginRight: '15px'}} variant="success">Exercise has been deleted!</Alert>}

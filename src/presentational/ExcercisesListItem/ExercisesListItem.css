@@ -12,5 +12,39 @@
 }
 .exercise-footer{
   display: flex;
-  justify-content: space-around;
+  padding: 0;
+}
+
+.exerciseEditBtn{
+  width: 100%;
+  border: none !important;
+  background: white;
+  color: black;
+}
+
+.exerciseEditBtn:hover{
+  background: #f9e124 !important;
+}
+
+.exerciseEditBtn:active{
+  box-shadow: none !important;
+}
+
+.exerciseEditBtn:focus{
+  box-shadow: none !important;
+}
+
+.exerciseDeleteBtn{
+  width: 50%;
+  border: none !important;
+  background: white;
+  color: black;
+}
+
+.exerciseDeleteBtn:active{
+  box-shadow: none !important;
+}
+
+.exerciseDeleteBtn:focus{
+  box-shadow: none !important;
 }
