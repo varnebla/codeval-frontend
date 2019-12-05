@@ -72,6 +72,10 @@
   background: white;
   color: black;
 }
+.applicationReportBtn:hover{
+  background: #a2e2a2;
+}
+
 
 .applicationDeleteBtn{
   background: white;

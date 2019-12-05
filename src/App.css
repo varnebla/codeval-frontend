@@ -65,9 +65,9 @@
 .navbar{
   background-color: black;
 }
-.nav, .nav-link{
+/* .customStyle >.nav, .nav-link{
   color: white !important;
-}
+} */
 .card{
   border-radius: 0px;
   border: 3px solid;
@@ -130,6 +130,38 @@
   z-index: 1;
   transform: rotate(-2deg) skewX(-10deg);
 }
+
+.h-r{
+  transform: rotate(-2deg) skewX(-10deg);
+}
+.h-r1{
+  transform: rotate(-2.5deg) skewX(-15deg);
+}
+.h-r2{
+  transform: rotate(-1deg) skewX(-30deg);
+}
+.h-r3{
+  transform: rotate(1deg) skewX(-10deg);
+}
+.h-r4{
+  transform: rotate(2deg) skewX(-10deg);
+}
+.h-r5{
+  transform: rotate(-2.5deg) skewX(-30deg);
+}
+.h-r6{
+  transform: rotate(-1deg) skewX(-5deg);
+}
+.h-r7{
+  transform: rotate(1deg) skewX(-30deg);
+}
+.h-r8{
+  transform: rotate(2.5deg) skewX(-15deg);
+}
+.h-r9{
+  transform: rotate(1.5deg) skewX(-10deg);
+}
+
 .highlight-reviewed {
   background: #a2e2a2;
   position: relative;
