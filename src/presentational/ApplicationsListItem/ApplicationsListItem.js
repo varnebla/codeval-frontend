@@ -156,7 +156,17 @@ function ApplicationsListItem ( { application }) {
         </Card.Body>
         <Card.Footer style={{padding: '0', display: 'flex'}}>
           <div style={{borderRight: '3px solid black', width: '50%'}}>
-            <Button className="applicationReportBtn" variant='secondary' style={{ width: '100%', border: 'none'}} onClick={handleShowReport}>Report</Button>
+            {
+              (application.status === 'completed' || application.status === 'reviewed')
+                ?<Button className="applicationReportBtn" variant="secondary" style={{ width: '100%', border: 'none'}} 
+                  onClick={handleShowReport}>
+                Report
+                </Button>
+                : <Button className="applicationReportDisabledBtn" disabled variant="secondary" style={{ width: '100%', border: 'none'}}>
+              No report yet
+                </Button>
+            }
+            
           </div>  
           <Button className="applicationDeleteBtn" onClick={handleDelete} style={{ width: '50%', border: 'none' }} variant='danger'>Delete</Button> 
         </Card.Footer>

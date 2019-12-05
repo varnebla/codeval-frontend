@@ -9,7 +9,7 @@ import './ExerciseCreateStepThree.css';
 
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/theme-tomorrow';
 
 import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
@@ -110,14 +110,14 @@ function ExerciseCreateStepThree () {
                   height='100%'
                   width='100%'
                   mode='javascript'
-                  theme='monokai'
-                  fontSize='20px'
+                  theme='tomorrow'
+                  fontSize='16px'
                   tabSize={2}
                   onChange={handleFunctionPlaceholder}
                   value={initialForm.placeholderCode}
                   name='placeholderCode'
                   editorProps={{ $blockScrolling: true }}
-                  style={{fontFamily: 'Apercu mono'}}
+                  style={{fontFamily: 'Roboto Mono', border:'3px solid black'}}
                 />  
               </Form.Group>
             </Col>

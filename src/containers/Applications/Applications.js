@@ -227,8 +227,13 @@ function Applications () {
             ></Tab>
             <Tab
               className="tabs_codeval_content"
-              eventKey="issued/activated"
-              title="Issued/Activated"
+              eventKey="issued"
+              title="Issued"
+            ></Tab>
+            <Tab
+              className="tabs_codeval_content"
+              eventKey="activated"
+              title="Activated"
             ></Tab>
             <Tab
               className="tabs_codeval_content "

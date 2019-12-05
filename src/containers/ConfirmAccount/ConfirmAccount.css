@@ -1,0 +1,18 @@
+.confirm-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-size:22px;
+}
+.confirm-alert{
+  margin-bottom: 35px;
+}
+.confirm-button{
+  font-size:20px;
+}
+.confirm-button:active{
+  border: none;
+}
