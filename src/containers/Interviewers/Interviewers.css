@@ -1,17 +1,16 @@
 .interviewers-top-bar {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   margin-right: 1.8%;
+  margin-left: 3.3%;
+
 }
 
 .containetInterviewers {
   width: 100%;
 }
 
-.interviewersContainer{
-  height: 93.8vh;
-  width: 100%;
-  background:linear-gradient(160deg, #013A6B, #013A6B 50%, white 50%, white);
-}
+
 
 .background{
   height: 100%;
