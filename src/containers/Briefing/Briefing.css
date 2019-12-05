@@ -86,7 +86,7 @@
 .briefing-modal {
   padding: 15px 20px 23px 20px;
   font-family: 'Apercu';
-  background-color: #fecd01;
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,7 +120,7 @@
 
 .briefing-modal-btn:hover {
   background-color: black;
-  color: #fecd01;
+  color: white;
 }
 
 .briefing-modal-btn:focus {

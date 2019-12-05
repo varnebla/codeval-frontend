@@ -30,8 +30,6 @@ function Applicant () {
   const [ copies, setCopies ] = useState([]);
   
   // MODALS
-  const [ showInst, setShowInst ] = useState(false);
-  const setModalInst = () => setShowInst(!showInst);
   const [ showSub, setShowSub ] = useState(false);
   const setModalSub = () => setShowSub(!showSub);
   const [ showCd, setShowCd ] = useState(false);
