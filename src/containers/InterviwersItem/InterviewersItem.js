@@ -13,7 +13,7 @@ function InterviewersItem ({interviewer}) {
   return (
     <Card className="interviewerCard">
       <Card.Header className="interviewerCardHeader">
-        <Image className="interviewerCardImage" src="https://www.leftvoice.org/wp-content/uploads/2017/03/arton1534.jpg" roundedCircle/>
+        <Image className="interviewerCardImage" src={interviewer.profileImage && interviewer.profileImage} roundedCircle/>
       </Card.Header>
       <Card.Body>
         <Container>
