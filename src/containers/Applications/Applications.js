@@ -334,12 +334,3 @@ const isValidEmail = email => {
   const re = /^[^@]+@[^.]+[.][a-zA-z]{2,}$/;
   return re.test(email);
 };
-
-function test () {
-  let x = document.getElementsByClassName('tabs_codeval');
-  console.log(x, 'from func')
-  for (let i = 0; i < x.length; i++) {
-    console.log('getting here');
-  }
-}
-

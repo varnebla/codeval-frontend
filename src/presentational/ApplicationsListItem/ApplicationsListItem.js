@@ -17,7 +17,7 @@ function ApplicationsListItem ( { application }) {
     if (!random) {
       setRandom(randomMarker());
     }  
-  }, [])
+  }, []);
 
   const dispatch = useDispatch();
   
@@ -35,7 +35,7 @@ function ApplicationsListItem ( { application }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [noDeleteModal, setNoDeleteModal] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  // 
+  // STATE FOR MARKER LINES
   const [random, setRandom]= useState('');
   
 
@@ -118,7 +118,7 @@ function ApplicationsListItem ( { application }) {
             </Col>
             <Col xs={4}>
               <p className="highlighted-text" style={{margin: '0', textAlign: 'center', fontSize: '1.2em'}}>{application.status.toUpperCase()}</p>
-              <div className={"highlight-report" + " " + random } style={{marginTop: '-24px'}}></div>
+              <div className={'highlight-report' + ' ' + random } style={{marginTop: '-24px'}}></div>
             </Col>
             <Col xs={4}>
               <p style={{margin: '0', textAlign: 'right'}}>Score: {application.report && application.report.finalScore}</p>
@@ -183,7 +183,7 @@ function ApplicationsListItem ( { application }) {
             <Row className="applicationModalRow">
               <Col xs={12} lg={8}>                
                 <h5 className="highlighted-text">// Submitted code</h5> 
-                <div className={"highlight-report" + " " + randomMarker() } style={{width:'220px'}}></div>
+                <div className={'highlight-report' + ' ' + randomMarker() } style={{width:'220px'}}></div>
                 <textarea
                   className='textAreaModal'
                   readOnly 
@@ -202,7 +202,7 @@ function ApplicationsListItem ( { application }) {
           {/* HINTS USED */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Hints</h5>
-            <div className={"highlight-report" + " " + randomMarker() } style={{width:'100px'}}></div>
+            <div className={'highlight-report' + ' ' + randomMarker() } style={{width:'100px'}}></div>
             {application.report && application.report.hints.map(hint => (
               <Row key={Math.floor(Math.random() * 10000)} className="applicationModalRow" >
                 <Col xs={12} lg={6}>
@@ -220,7 +220,7 @@ function ApplicationsListItem ( { application }) {
           {/* TESTS PASSED / FAILED */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Tests</h5>
-            <div className={"highlight-report" + " " +randomMarker() } style={{width:'80px'}}></div>
+            <div className={'highlight-report' + ' ' +randomMarker() } style={{width:'80px'}}></div>
             {application.report && application.report.tests.map(test => (
               <Row key={test._id} className="applicationModalRow" >
                 <Col xs={12} lg={10}>
@@ -235,7 +235,7 @@ function ApplicationsListItem ( { application }) {
           {/* PASTED CODE */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Code pasted into code editor</h5>
-            <div className={"highlight-report" + " " + randomMarker() }  style={{width:'300px'}}></div>
+            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'300px'}}></div>
             {application.report && application.report.copyPaste.map(pasted => (
               <Row key={pasted.content} className="applicationModalRow">
                 <Col xs={12} lg={9}>
@@ -255,7 +255,7 @@ function ApplicationsListItem ( { application }) {
           {/* TEST BUTTON CLICKED WITH CONTENT */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Code when test button was clicked</h5>
-            <div className={"highlight-report" + " " + randomMarker() }  style={{width:'360px'}}></div>
+            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'360px'}}></div>
             {application.report && application.report.testClicked.map(clicked => (
               <Row key={clicked._id} className="applicationModalRow" >
                 <Col xs={12} lg={9}>
@@ -277,7 +277,7 @@ function ApplicationsListItem ( { application }) {
             <Form>
               <Form.Group controlId="examples">
                 <h5 className="highlighted-text">// Leave a review about the applicant</h5>
-                <div className={"highlight-report" + " " + randomMarker() }  style={{width:'380px'}}></div>
+                <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'380px'}}></div>
                 <span style={{display: 'flex', marginTop:'10px'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
                   <button className='addBtnsApplicationExercise' variant="secondary" onClick={addReview}>Add</button>
@@ -288,7 +288,7 @@ function ApplicationsListItem ( { application }) {
           {/* REVIEWS  */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Reviews</h5>
-            <div className={"highlight-report" + " " + randomMarker() }  style={{width:'100px', marginBottom:'10px'}}></div>
+            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'100px', marginBottom:'10px'}}></div>
             {!!sortedReviews && sortedReviews.map(review=> (
               <Toast key={Math.floor(Math.random() * 10000)} className="appplicationModalToast" >
                 <Toast.Header className="appplicationModalToastHeader" closeButton={false}>
@@ -342,6 +342,6 @@ export default ApplicationsListItem;
 
 // HELPER FUNCTION TO GET RANDOM POSTION OF THE MARKER AND USE EFFECT TO MAKE IT
 function randomMarker () {
-  const arr = ["h-r", "h-r1", "h-r2", "h-r3", "h-r4", "h-r5", "h-r6", "h-r7", "h-r8" ,"h-r9"];
-  return arr[Math.floor(Math.random() * 10)]
+  const arr = ['h-r', 'h-r1', 'h-r2', 'h-r3', 'h-r4', 'h-r5', 'h-r6', 'h-r7', 'h-r8' ,'h-r9'];
+  return arr[Math.floor(Math.random() * 10)];
 }
