@@ -35,7 +35,7 @@ function ApplicationsListItem ( { application }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [noDeleteModal, setNoDeleteModal] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  // 
+  // STATE FOR MARKER LINES
   const [random, setRandom]= useState('');
   
 
