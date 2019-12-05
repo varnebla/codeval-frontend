@@ -1,14 +1,18 @@
 import React from 'react';
 
+import './FinishedAssessment.css';
+
 function FinishedAssessment ({ status }) {
 
   return (
-    <div>
-      {
-        status === 'completed'
-          ? <p>Application submitted</p>
-          : <p>Application expired</p>
-      }
+    <div className="finished-container">
+      <div className="finished-border">
+        {
+          status === 'completed' || status === 'reviewed'
+            ? <p className="finished-text">Application has been submitted</p>
+            : <p className="finished-text">Application has expired</p>
+        }
+      </div>
     </div>
   );
 

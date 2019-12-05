@@ -195,6 +195,11 @@
   border: 2px solid black;
 }
 
+.applicant-test-btn:hover {
+  background-color: black;
+  color: white;
+}
+
 .applicant-test-btn+.applicant-test-btn {
   margin-left: 20px;
 }

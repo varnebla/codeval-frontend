@@ -10,6 +10,7 @@ import FinishedAssessment from '../../presentational/FinishedAssessment/Finished
 
 import { getApplication } from '../../redux/applicant';
 
+import './Assessment.css';
 
 function Assessment () {
 
@@ -38,9 +39,11 @@ function Assessment () {
     <>
       {
         loading
-          ? <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          ? <div className="assessment-container">
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          </div>
           : applicantCurrentPage
       }
     </>
