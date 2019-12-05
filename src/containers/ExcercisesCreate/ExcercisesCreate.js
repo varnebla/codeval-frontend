@@ -224,15 +224,15 @@ function ExercisesCreate () {
             </div>
             <div className="exercise-creator-buttons-bar" style={{padding: '20px', width: '100%', display: 'flex', justifyContent: 'space-between'}}>
               {
-                (stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success">Previous</Button>
+                (stepsState.two || stepsState.three) && <Button onClick={handleSteps} variant="success" className="mr-auto">Previous</Button>
               }
               { 
-                stepsState.two && <Button onClick={handleTest} variant="warning">Tests</Button>
+                stepsState.two && <Button onClick={handleTest} variant="warning" className="mx-auto">Tests</Button>
               }
               { stepsState.three ?
                 <Button onClick={handleExerciseSubmit} variant="warning">{exerciseId ? 'Update' : 'Submit'}</Button>
                 :
-                <Button variant="success" onClick={handleSteps} className="next-button">Next</Button>
+                <Button variant="success" onClick={handleSteps} className="next-button ml-auto">Next</Button>
               }              
               
             </div>

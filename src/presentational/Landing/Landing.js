@@ -25,14 +25,13 @@ function Landing () {
 
   return (
     <div>
-      <Navbar className="landing-navbar" sticky="top">
-        <Navbar.Brand href="/landing" className="navbar-logo">//CODEVAL {/*eslint-disable-line*/}</Navbar.Brand> 
+      <Navbar className="landing-navbar" sticky="top"> 
         <Nav className="mr-auto">
 
         </Nav>
         <Nav inline="true">
-          <Nav.Link onClick={()=> setLoginModal(true)}>Log In</Nav.Link>
-          <Nav.Link onClick={()=> setRegisterModal(true)}>Register</Nav.Link>
+          <Nav.Link onClick={()=> setLoginModal(true)} style={{color:'white'}}>LOG IN</Nav.Link>
+          <Nav.Link onClick={()=> setRegisterModal(true)} style={{color:'white'}}>REGISTER</Nav.Link>
         </Nav>
       </Navbar>
       <Introduction handleGetStarted={handleGetStarted}/>

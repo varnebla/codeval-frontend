@@ -20,15 +20,17 @@ function Dashboard () {
     <Router history={history}>
       <Navbar collapseOnSelect expand="lg" className="navbar" sticky="top">
         {/* ONCE LOGO IS READY IT SHOULD GO HERE INSTEAD OF DASHBOARD */}
-        <NavLink className="nav nav-link"  activeClassName="selected" to="/dashboard" style={{fontSize: '1.25em', color: 'white'}}>CODEVAL</NavLink> 
+        <NavLink className="nav nav-link"  activeClassName="selected" to="/dashboard" style={{fontSize: '1.25em', color: 'white'}}>
+          <div className="navbar-logo"/>
+        </NavLink> 
         <Navbar.Toggle className="nav-bar-toggle" aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
           </Nav>
           <Nav inline="true" className="nav">
-            <NavLink className="nav-link" to="/dashboard/interviewers" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: "1000"}}>INTERVIEWERS</NavLink>
-            <NavLink className="nav-link" to="/dashboard/exercises" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: "1000"}}>EXERCISES</NavLink>
-            <NavLink className="nav-link" to="/dashboard/settings" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: "1000"}}>SETTINGS</NavLink>
+            <NavLink className="nav-link" to="/dashboard/interviewers" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: '1000'}}>INTERVIEWERS</NavLink>
+            <NavLink className="nav-link" to="/dashboard/exercises" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: '1000'}}>EXERCISES</NavLink>
+            <NavLink className="nav-link" to="/dashboard/settings" activeClassName="selected" style={{color: 'white'}} activeStyle={{fontWeight: '1000'}}>SETTINGS</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import './ConfirmAccount.css';
 
 
 function ConfirmAccount () {
@@ -45,15 +46,15 @@ function ConfirmAccount () {
     <div>
       {
         !verified
-          ? <Spinner animation="border" />
+          ? <Spinner className="spinner-exercises" animation="border" />
           : denied 
-            ? <div>
-              <Alert variant="danger">{errors[0]}</Alert>
-              <Button variant="primary" href="/landing">Go to Landing</Button>
+            ? <div className="confirm-container">
+              <Alert variant="danger" className="confirm-alert">{errors[0]}</Alert>
+              <Button variant="primary" className="confirm-button" href="/landing">Go to Landing</Button>
             </div>
             : <div>
-              <Alert variant="success">{errors[0]}</Alert>
-              <Button variant="primary" href="/landing">Go to Login</Button>
+              <Alert variant="success" className="confirm-alert">{errors[0]}</Alert>
+              <Button variant="primary" className="confirm-button" href="/landing">Go to Login</Button>
             </div>
       }
       

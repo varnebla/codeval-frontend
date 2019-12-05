@@ -7,7 +7,7 @@ import './ExerciseCreateStepTwo.css';
 
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/theme-tomorrow';
 
 import { fillInExercise } from '../../redux/exercises';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,14 +48,14 @@ function ExerciseCreateStepTwo () {
                 height='100%'
                 width='100%'
                 mode='javascript'
-                theme='monokai'
-                fontSize='20px'
+                theme='tomorrow'
+                fontSize='16px'
                 tabSize={2}
                 onChange={handleFunctionEditor}
                 value={initialForm.solution}
                 name='functionCode'
                 editorProps={{ $blockScrolling: true }}
-                style={{fontFamily: 'Roboto Mono'}}
+                style={{fontFamily: 'Roboto Mono', border:'3px solid black'}}
                 highlightActiveLine={false}
               />  
             </Form.Group>
@@ -68,13 +68,14 @@ function ExerciseCreateStepTwo () {
                 height='100%'
                 width='100%'
                 mode='javascript'
-                theme='monokai'
-                fontSize='20px'
+                theme='tomorrow'
+                fontSize='16px'
                 tabSize={2}
                 onChange={handleTestsEditor}
                 value={initialForm.tests}
                 name='testsCode'
                 editorProps={{ $blockScrolling: true }}
+                style={{fontFamily: 'Roboto Mono', border:'3px solid black'}}
               />  
             </Form.Group>
 

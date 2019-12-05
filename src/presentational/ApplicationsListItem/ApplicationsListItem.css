@@ -75,7 +75,13 @@
 .applicationReportBtn:hover{
   background: #a2e2a2;
 }
-
+.applicationReportDisabledBtn{
+  background: white;
+}
+.applicationReportDisabledBtn.btn-secondary:disabled{
+  background-color: white;
+  color:black;
+}
 
 .applicationDeleteBtn{
   background: white;
