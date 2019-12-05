@@ -13,12 +13,7 @@ import '../../App.css';
 
 function ApplicationsListItem ( { application }) {
 
-  useEffect(()=> {
-    if (!random) {
-      setRandom(randomMarker());
-    }  
-  }, []);
-
+  
   const dispatch = useDispatch();
   
   const exercise = useSelector(store => store.exercises.listOfExercises).filter(el => el._id === application.exercise)[0];
@@ -27,6 +22,16 @@ function ApplicationsListItem ( { application }) {
   // SORTING REVIEWS BY THE TIME NEWEST AT THE TOP
   const sortedReviews = application.report && application.report.reviews.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
   
+  const initialRandomModal = {
+    one: '',
+    two: '',
+    three: '',
+    four: '',
+    five: '',
+    six: '',
+    seven: ''
+  };
+
   const [reviewComment, setReviewComment] = useState('');
   const [reviewError, setReviewError] = useState([]);
   const [showReport, setShowReport] = useState(false);
@@ -37,7 +42,29 @@ function ApplicationsListItem ( { application }) {
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   // STATE FOR MARKER LINES
   const [random, setRandom]= useState('');
+  const [randomModal, setRandomModal] = useState(initialRandomModal);
+
   
+  useEffect(() => {
+    if (!random) {
+      setRandom(randomMarker());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!randomModal.one) {
+      const random = {
+        one: randomMarker(),
+        two: randomMarker(),
+        three: randomMarker(),
+        four: randomMarker(),
+        five: randomMarker(),
+        six: randomMarker(),
+        seven: randomMarker()
+      };
+      setRandomModal(random);
+    }
+  }, []);
 
   // REPORT MODALS
   const handleShowReport = () => setShowReport(true);
@@ -193,7 +220,7 @@ function ApplicationsListItem ( { application }) {
             <Row className="applicationModalRow">
               <Col xs={12} lg={8}>                
                 <h5 className="highlighted-text">// Submitted code</h5> 
-                <div className={'highlight-report' + ' ' + randomMarker() } style={{width:'220px'}}></div>
+                <div className={'highlight-report' + ' ' + randomModal.one } style={{width:'220px'}}></div>
                 <textarea
                   className='textAreaModal'
                   readOnly 
@@ -212,7 +239,7 @@ function ApplicationsListItem ( { application }) {
           {/* HINTS USED */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Hints</h5>
-            <div className={'highlight-report' + ' ' + randomMarker() } style={{width:'100px'}}></div>
+            <div className={'highlight-report' + ' ' + randomModal.two } style={{width:'100px'}}></div>
             {application.report && application.report.hints.map(hint => (
               <Row key={Math.floor(Math.random() * 10000)} className="applicationModalRow" >
                 <Col xs={12} lg={6}>
@@ -230,7 +257,7 @@ function ApplicationsListItem ( { application }) {
           {/* TESTS PASSED / FAILED */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Tests</h5>
-            <div className={'highlight-report' + ' ' +randomMarker() } style={{width:'80px'}}></div>
+            <div className={'highlight-report' + ' ' + randomModal.three } style={{width:'80px'}}></div>
             {application.report && application.report.tests.map(test => (
               <Row key={test._id} className="applicationModalRow" >
                 <Col xs={12} lg={10}>
@@ -245,7 +272,7 @@ function ApplicationsListItem ( { application }) {
           {/* PASTED CODE */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Code pasted into code editor</h5>
-            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'300px'}}></div>
+            <div className={'highlight-report' + ' ' + randomModal.four }  style={{width:'300px'}}></div>
             {application.report && application.report.copyPaste.map(pasted => (
               <Row key={pasted.content} className="applicationModalRow">
                 <Col xs={12} lg={9}>
@@ -265,7 +292,7 @@ function ApplicationsListItem ( { application }) {
           {/* TEST BUTTON CLICKED WITH CONTENT */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Code when test button was clicked</h5>
-            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'360px'}}></div>
+            <div className={'highlight-report' + ' ' + randomModal.five }  style={{width:'360px'}}></div>
             {application.report && application.report.testClicked.map(clicked => (
               <Row key={clicked._id} className="applicationModalRow" >
                 <Col xs={12} lg={9}>
@@ -287,7 +314,7 @@ function ApplicationsListItem ( { application }) {
             <Form>
               <Form.Group controlId="examples">
                 <h5 className="highlighted-text">// Leave a review about the applicant</h5>
-                <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'380px'}}></div>
+                <div className={'highlight-report' + ' ' + randomModal.six }  style={{width:'380px'}}></div>
                 <span style={{display: 'flex', marginTop:'10px'}}>
                   <Form.Control value={reviewComment} type="text" placeholder="Review" onChange={handleReviewsInput}/>
                   <button className='addBtnsApplicationExercise' variant="secondary" onClick={addReview}>Add</button>
@@ -298,12 +325,12 @@ function ApplicationsListItem ( { application }) {
           {/* REVIEWS  */}
           <Container className="applicationModalContainer">
             <h5 className="highlighted-text">// Reviews</h5>
-            <div className={'highlight-report' + ' ' + randomMarker() }  style={{width:'100px', marginBottom:'10px'}}></div>
+            <div className={'highlight-report' + ' ' + randomModal.seven }  style={{width:'100px', marginBottom:'10px'}}></div>
             {!!sortedReviews && sortedReviews.map(review=> (
               <Toast key={Math.floor(Math.random() * 10000)} className="appplicationModalToast" >
                 <Toast.Header className="appplicationModalToastHeader" closeButton={false}>
                   <strong className="mr-auto">Created by: {review.created_by}</strong>
-                  <small>Created at: {moment(review.created_at).format('HH:mm')}</small>
+                  <small>Created at: {moment(review.created_at).format('MMMM D YYYY, HH:mm')}</small>
                 </Toast.Header>
                 <Toast.Body className="appplicationModalToastBody">{review.content}</Toast.Body>
               </Toast>

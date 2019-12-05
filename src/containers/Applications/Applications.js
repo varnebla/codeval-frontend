@@ -307,14 +307,14 @@ function Applications () {
               )}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
               {!successAlert && (
                 <Button variant="success" onClick={handleCreateApplication}>
                   Create
                 </Button>
               )}
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
             </Modal.Footer>
           </Modal>
         </Container>
