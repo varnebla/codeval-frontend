@@ -16,7 +16,7 @@ function InterviewersItem ({interviewer}) {
         <Image className="interviewerCardImage" src={interviewer.profileImage && interviewer.profileImage} roundedCircle/>
       </Card.Header>
       <Card.Body>
-        <Container>
+        <Container style={{textAlign: 'center'}}>
           <Row>
             <Col xs={12}>{interviewer.name}</Col>
           </Row>
