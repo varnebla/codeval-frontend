@@ -37,11 +37,14 @@
 }
 
 .top-logo {
-}
-
-
-.top-buttons {
-  
+  background-image:url('../../assets/logo-final-01.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100px;
+  height: 24px;
+  position: relative;
+  top: 0px;
+  left: 0px;
 }
 
 .top-hints-btn {

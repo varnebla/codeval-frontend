@@ -186,7 +186,7 @@ function Applicant () {
         <Countdown date={countdown} onComplete={setModalCd} daysInHours={true}/>
       </div>
       <div className="applicant-top">
-        <div className="top-logo">Codeval</div>
+        <div className="top-logo"/>
         <div className="top-buttons">
           {
             !!hintsArr.length && <button className="top-hints-btn" onClick={setModalHintAlert}>HINTS</button>
