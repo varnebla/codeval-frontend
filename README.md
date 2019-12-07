@@ -37,10 +37,12 @@ npm start
 
 ## Built with
 
-* [React](https://reactjs.org/) - Front end library for building user interfaces
-* [React-Router](https://reacttraining.com/react-router/) - Declarative Routing for React.js
-* [Redux](https://redux.js.org) - Storage to share data inside the app
-
+* [React](https://reactjs.org/) - Front end library for building user interfaces.
+* [React-Router](https://reacttraining.com/react-router/) - Declarative Routing for React.js.
+* [Redux](https://redux.js.org) - Storage to share data inside the app.
+* [Mocha](https://mochajs.org/) - JavaScript test framework.
+* [Chai](https://www.chaijs.com/) - Chai is a BDD / TDD assertion library for Node.js.
+* [Ace Editor](https://ace.c9.io/) - High Performance Code Editor for the Web.
 
 ## Contributing
 
