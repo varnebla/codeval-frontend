@@ -35,7 +35,6 @@ npm start
 ```
 
 
-
 ## Built with
 
 * [React](https://reactjs.org/) - Front end library for building user interfaces
@@ -50,7 +49,7 @@ Improvements are welcome!
 Fork the repo and do your thing. Push to your fork and submit a pull request.
 
 
-## Author
+## Team
 
 * Bernat Muntaner - [GitHub](https://github.com/bmuntper) - [LinkedIn](https://www.linkedin.com/in/bernat-muntaner-perello/)
 * Germanas Miliuta - [GitHub](https://github.com/Gmiliuta) - [LinkedIn](https://www.linkedin.com/in/germanas-miliuta/)
