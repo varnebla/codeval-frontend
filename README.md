@@ -4,7 +4,7 @@
 
 
 
-Woofie is a “Tinder for dogs” cross platform mobile app (iOS and Android). It helps you find new buddies or a romantic date for your dog.
+Codeval is a first level tech interview platform, which provides complete flow from creation of your customized assessments to having detailed candidate assessment report with the scores. It has been designed around the needs of startups and boot-camps, where the automation of the first screening can drastically increase efficiency and help growth.
 
 ## Screenshots
 
