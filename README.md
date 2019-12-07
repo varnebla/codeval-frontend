@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="margin: 40px">
   <img src="images/logo-readme-2.png" />
 </p>
 
