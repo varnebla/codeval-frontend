@@ -16,12 +16,12 @@ Codeval is a first level tech interview platform, which provides complete flow f
 
 ## Getting started
 
-This is the front-end repository. The back-end can be found at : https://github.com/varnebla/thesis-backend
+This is the front-end repository. The back-end can be found at : https://github.com/varnebla/codeval-backend
 
 1. Clone the repo
 
 ```
-git clone https://github.com/varnebla/thesis-frontend
+git clone https://github.com/varnebla/codeval-frontend
 ```
 
 2. Install dependencies
